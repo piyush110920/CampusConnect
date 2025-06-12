@@ -1,18 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LandingPage from './components/landing page/landing.jsx';
+import LoginPage from './components/login page/login.jsx';
+import SignupPage from './components/signup page/signup.jsx';
+// ... other imports
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      
-      <h1>Campus Connect</h1>
-      <h3>Your one-stop solution for Student, Mess provider & Rental services</h3>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        {/* Add more routes for student, mess, room pages */}
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
