@@ -1,0 +1,68 @@
+.mess-info-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to right, #a62bc8, #bb9cc7);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+}
+
+.mess-info-text {
+  flex: 1;
+  min-width: 300px;
+  max-width: 600px;
+  padding: 10px;
+}
+
+.mess-heading {
+  font-size: 40px;
+  font-weight: bold;
+  color: #3e0066;
+  display: flex;
+  align-items: center;
+}
+
+.mess-description {
+  margin: 15px 0;
+  font-size: 16px;
+  color: #1d1d1d;
+}
+
+.mess-features {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #333;
+}
+
+.mess-links p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.link {
+  color: #0056d2;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.mess-info-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  min-width: 280px;
+}
+
+.mess-info-image img {
+  max-width: 50%;
+  height: auto;
+  margin-left: -200px;
+}

@@ -1,0 +1,67 @@
+.student-info-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to right, #e0c3fc, #57126a);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+}
+
+.student-info-text {
+  flex: 1;
+  min-width: 300px;
+  max-width: 600px;
+  padding: 10px;
+}
+
+.student-heading {
+  font-size: 28px;
+  font-weight: bold;
+  color: #3e0066;
+  display: flex;
+  align-items: center;
+}
+
+.student-description {
+  margin: 15px 0;
+  font-size: 16px;
+  color: #1d1d1d;
+}
+
+.student-features {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #333;
+}
+
+.student-links p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.link {
+  color: #0056d2;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.student-info-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  min-width: 280px;
+}
+
+.student-info-image img {
+  max-width: 70%;
+  height: auto;
+}

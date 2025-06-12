@@ -8,7 +8,6 @@ const Header = () => {
     <div className="navbar">
       <div className="navbar-brand">
         <img src={logo} alt="Logo" className="logo-img" />
-        <span className="brand-text">Campus Connect</span>
       </div>
       <div className="nav-links">
         <button className="nav-login-button">SignUP</button>

@@ -9,9 +9,6 @@ const Footer = () => {
       <div className="footer-top">
         <div className="footer-brand">
           <img src={logo} alt="Campus Connect Logo" className="footer-logo" />
-          <div className="footer-brand-text">
-            <h2><span className="purple">Campus</span> <span className="white">connect</span></h2>
-          </div>
         </div>
 
         <div className="footer-contact">

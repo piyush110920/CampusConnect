@@ -2,7 +2,9 @@
 import React from "react";
 import Header from "./header"; // relative import
 import Footer from "./footer";
-import girlImage from "../../assets/img1.png";
+import StudentInfo from "./studentInfo";
+import girlImage from "../../assets/img2.png";
+import MessInfo from "./messInfo";
 import "./landing.css"; // if you’ve created separate CSS
 
 const LandingPage = () => {
@@ -24,6 +26,8 @@ const LandingPage = () => {
           <img src={girlImage} alt="Illustration" />
         </div>
       </div>
+      <StudentInfo/>
+      <MessInfo/>
       <Footer/>
     </div>
   );
