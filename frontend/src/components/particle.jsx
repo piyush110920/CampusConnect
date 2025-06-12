@@ -13,6 +13,7 @@ function Particle() {
       id="tsparticles"
       init={particlesInit}
       options={{
+        fullScreen: { enable: false },
         particles: {
           number: {
             value: 160,

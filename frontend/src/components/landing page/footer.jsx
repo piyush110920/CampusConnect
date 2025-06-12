@@ -1,56 +1,69 @@
 import React from "react";
-import "./footer.css";
-import logo from "../../assets/CC logo.png";
+import "./Footer.css";
+import logo from "../../assets/CampusConnect logo.png";
 import { FaFacebookF, FaLinkedinIn, FaInstagram, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 const Footer = () => {
   return (
     <footer className="footer">
+      {/* Top Section */}
       <div className="footer-top">
-        <div className="footer-brand">
+        {/* Left: Logo and Socials */}
+        <div className="footer-left">
           <img src={logo} alt="Campus Connect Logo" className="footer-logo" />
+          <div className="footer-socials">
+            <FaFacebookF />
+            <FaLinkedinIn />
+            <FaInstagram />
+          </div>
         </div>
 
-        <div className="footer-contact">
+        {/* Center: Contact Info */}
+        <div className="footer-center">
           <p><FaEnvelope /> info@campusconnect.com</p>
-          <p><FaMapMarkerAlt /> find us on map</p>
+          <button className="map-button">
+            <FaMapMarkerAlt /> Find Us On Map
+          </button>
         </div>
 
-        <div className="footer-address">
-          <p>plot number xx, near xyz,<br />abc road, city,<br />state, country - xxxxxx</p>
-        </div>
-
-        <div className="footer-socials">
-          <FaFacebookF />
-          <FaLinkedinIn />
-          <FaInstagram />
+        {/* Right: Address */}
+        <div className="footer-right">
+          <p>
+            Plot number XX, near XYZ,<br />
+            ABC Road, City,<br />
+            State, Country - 000000
+          </p>
         </div>
       </div>
 
       <hr className="footer-line" />
 
+      {/* Bottom Links */}
       <div className="footer-links">
         <div>
-          <p>Student sign up</p>
-          <p>Mess sign up</p>
-          <p>Room sign up</p>
+          <h4>Sign Up</h4>
+          <p>Student Sign Up</p>
+          <p>Mess Sign Up</p>
+          <p>Room Sign Up</p>
         </div>
         <div>
-          <p>Student login</p>
-          <p>Mess login</p>
-          <p>Room login</p>
+          <h4>Login</h4>
+          <p>Student Login</p>
+          <p>Mess Login</p>
+          <p>Room Login</p>
         </div>
         <div>
-          <p>Contact us</p>
+          <h4>Explore</h4>
+          <p>Contact Us</p>
           <p>CampusINTELLIGENCE</p>
-          <p>Find us</p>
+          <p>Find Us</p>
         </div>
       </div>
 
       <hr className="footer-line" />
 
       <div className="footer-bottom">
-        <p>2025 - Campus Connect - All rights reserved</p>
+        <p>© 2025 — Campus Connect. All Rights Reserved.</p>
       </div>
     </footer>
   );
