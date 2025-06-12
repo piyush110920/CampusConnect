@@ -1,0 +1,72 @@
+/* landing.css */
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #8e44ad, #c084fc);
+  color: #1e1e1e;
+}
+
+/* Container for the landing section */
+.landing-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 80px;
+  gap: 30px;
+}
+
+/* Text content styling */
+.landing-text {
+  max-width: 55%;
+  color: #1c1c1c;
+}
+
+.landing-text h1 {
+  font-size: 2.8rem;
+  font-weight: bold;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.landing-text h1 span {
+  color: #fff;
+  font-family: 'Nimbus Sans', sans-serif; /* Use custom font if loaded */
+}
+
+.landing-text h2 {
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #0a2540;
+  margin-top: 15px;
+}
+
+.landing-text p {
+  font-size: 1rem;
+  margin-top: 20px;
+  line-height: 1.6;
+  color: #2e2e2e;
+}
+
+/* Image side */
+.landing-image img {
+  max-width: 420px;
+  height: auto;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 900px) {
+  .landing-container {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .landing-text {
+    max-width: 100%;
+  }
+
+  .landing-image img {
+    max-width: 100%;
+  }
+}
