@@ -5,6 +5,8 @@ import Footer from "./footer";
 import StudentInfo from "./studentInfo";
 import girlImage from "../../assets/img2.png";
 import MessInfo from "./messInfo";
+import ContactUs from "./contactUs";
+import RoomInfo from "./roomInfo";
 import "./landing.css"; // if you’ve created separate CSS
 
 const LandingPage = () => {
@@ -28,6 +30,8 @@ const LandingPage = () => {
       </div>
       <StudentInfo/>
       <MessInfo/>
+      <RoomInfo/>
+      <ContactUs/>
       <Footer/>
     </div>
   );

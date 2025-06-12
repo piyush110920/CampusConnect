@@ -1,6 +1,6 @@
 import React from "react";
 import "./footer.css";
-import logo from "../../assets/CC logo.png";
+import logo from "../../assets/CampusConnect logo.png";
 import { FaFacebookF, FaLinkedinIn, FaInstagram, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 const Footer = () => {
