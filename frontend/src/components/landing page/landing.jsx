@@ -1,6 +1,7 @@
 // landing.jsx
 import React from "react";
 import Header from "./header"; // relative import
+import Footer from "./footer";
 import girlImage from "../../assets/img1.png";
 import "./landing.css"; // if you’ve created separate CSS
 
@@ -23,6 +24,7 @@ const LandingPage = () => {
           <img src={girlImage} alt="Illustration" />
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

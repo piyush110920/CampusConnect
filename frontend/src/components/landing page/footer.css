@@ -1,0 +1,79 @@
+.footer {
+  background-color: #111;
+  color: white;
+  padding: 30px 40px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.footer-logo {
+  height: 60px;
+}
+
+.footer-brand-text h2 {
+  margin: 0;
+}
+
+.purple {
+  color: #a259ff;
+  font-weight: bold;
+}
+
+.white {
+  color: #fff;
+  font-weight: 500;
+}
+
+.footer-contact p,
+.footer-address p {
+  margin: 5px 0;
+  font-size: 0.95rem;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 15px;
+  font-size: 1.4rem;
+  margin-top: 10px;
+}
+
+.footer-line {
+  border: none;
+  border-top: 1px solid #666;
+  margin: 20px 0;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.footer-links div {
+  flex: 1;
+  min-width: 150px;
+  margin: 10px 0;
+}
+
+.footer-links p {
+  margin: 5px 0;
+}
+
+.footer-bottom {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  color: #ccc;
+}
