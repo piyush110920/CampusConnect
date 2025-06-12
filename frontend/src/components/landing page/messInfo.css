@@ -3,7 +3,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(to right, #a62bc8, #bb9cc7);
+  background: linear-gradient(to right, #a00fc8, #a489af);
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -20,9 +20,9 @@
 .mess-heading {
   font-size: 40px;
   font-weight: bold;
-  color: #3e0066;
+  color: #ffffff;
   display: flex;
-  align-items: center;
+  align-items:normal;
 }
 
 .mess-description {

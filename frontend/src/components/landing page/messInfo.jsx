@@ -12,9 +12,12 @@ const MessInfo = () => {
 
       {/* Right Text Content */}
       <div className="mess-info-text">
-        <h2 className="mess-heading">
-          🍽️ For Mess / Tiffin Service Providers
-        </h2>
+        <div classname="heading">
+          <h2 className="mess-heading">
+            🍽️ For Mess / Tiffin Service Providers
+          </h2>
+        </div>
+        <div>
         <p className="mess-description">
           Reach hundreds of students in your city! <br />
           With <strong>CampusConnect</strong>, mess providers can:
@@ -27,6 +30,7 @@ const MessInfo = () => {
         <div className="mess-links">
           <p>🔹 Want to join as a provider? <a href="#" className="link">[Sign Up as Mess Service]</a></p>
           <p>🔹 Already onboard? <a href="#" className="link">[Sign In]</a></p>
+        </div>
         </div>
       </div>
     </div>
