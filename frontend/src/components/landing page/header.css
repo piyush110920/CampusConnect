@@ -1,4 +1,4 @@
-.navbar {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 
-.navbar-brand {
+.herder-right {
   display: flex;
   align-items: center;
   color: white;
@@ -17,19 +17,19 @@
   font-weight: bold;
 }
 
-.logo-img {
+.header-logo {
   height: 70px;
   width: 150px;
   margin-right: 10px;
 }
 
-.nav-links {
+.header-right {
   display: flex;
   gap: 10px;
 }
 
 
-.nav-login-button {
+.header-right.header-btn {
   /* background-color: white; */
   color: #ffffff;
   border: none;
@@ -40,6 +40,6 @@
   transition: background-color 0.3s;
 }
 
-.nav-login-button:hover {
+.header-btn:hover {
   background-color: #e0aaff;
 }
