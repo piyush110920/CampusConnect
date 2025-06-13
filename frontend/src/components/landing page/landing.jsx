@@ -1,13 +1,15 @@
 import React from "react";
-import Particle from "../particle";
+import Typewriter from "typewriter-effect";
 
+import Particle from "../particle";
 import Header from "./header";
 import Footer from "./footer";
 import StudentInfo from "./studentInfo";
-import girlImage from "../../assets/img2.png";
 import MessInfo from "./messInfo";
 import ContactUs from "./contactUs";
 import RoomInfo from "./roomInfo";
+
+import girlImage from "../../assets/img2.png";
 import "./landing.css";
 
 const LandingPage = () => {
@@ -34,9 +36,27 @@ const LandingPage = () => {
 
       <div className="landing-container">
         <Particle />
+
+        {/* Text Section */}
         <div className="landing-text">
           <h1>🏠 Welcome to <span>CampusConnect!</span></h1>
-          <h2>Your One-Stop Solution for Students, Mess Providers & Rental Services!!</h2>
+
+          <h2 className="static-text">Your One-Stop Solution for</h2>
+          <div className="typewriter">
+            <Typewriter
+              options={{
+                strings: [
+                  "Students",
+                  "Mess Providers",
+                  "Rental Services",
+                ],
+                autoStart: true,
+                loop: true,
+                deleteSpeed: 50,
+              }}
+            />
+          </div>
+
           <p>
             CampusConnect is your ultimate digital hub built exclusively for
             students and service providers. Whether you’re a student new to town,
@@ -44,11 +64,14 @@ const LandingPage = () => {
             vacant spaces—CampusConnect brings you all together in one smart, real-time platform.
           </p>
         </div>
+
+        {/* Image Section */}
         <div className="landing-image">
           <img src={girlImage} alt="Illustration" />
         </div>
       </div>
 
+      {/* Sections */}
       <StudentInfo />
       <MessInfo />
       <RoomInfo />

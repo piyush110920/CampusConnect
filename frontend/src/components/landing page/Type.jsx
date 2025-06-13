@@ -1,3 +1,4 @@
+// src/components/landing/type.jsx
 import React from "react";
 import Typewriter from "typewriter-effect";
 
@@ -7,9 +8,9 @@ const Type = () => {
       <Typewriter
         options={{
           strings: [
-            "Software Developer",
-            "Freelancer",
-            "Open Source Contributor",
+            "Students",
+            "Mess Providers",
+            "Rental Services",
           ],
           autoStart: true,
           loop: true,
