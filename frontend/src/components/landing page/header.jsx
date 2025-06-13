@@ -5,15 +5,16 @@ import "./header.css";
 
 const Header = () => {
   return (
-    <div className="navbar">
-      <div className="navbar-brand">
-        <img src={logo} alt="Logo" className="logo-img" />
+    <header className="header">
+      <div className="header-left">
+        <img src={logo} alt="CampusConnect Logo" className="header-logo" />
+        <span className="brand-name">CampusConnect</span>
       </div>
-      <div className="nav-links">
-        <button className="nav-login-button">SignUP</button>
-        <button className="nav-login-button">SignIN</button>
+      <div className="header-right">
+        <button className="header-btn">Sign Up</button>
+        <button className="header-btn">Sign In</button>
       </div>
-    </div>
+    </header>
   );
 };
 

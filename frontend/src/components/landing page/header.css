@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: #000000;
-  padding: 10px 30px;
+  padding: 0px 80px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -18,8 +18,8 @@
 }
 
 .logo-img {
-  height: 60px;
-  width: 100px;
+  height: 150px;
+  width: 350px;
   margin-right: 10px;
 }
 
@@ -28,11 +28,12 @@
   gap: 10px;
 }
 
+
 .nav-login-button {
-  background-color: white;
-  color: #7b2cbf;
+  /* background-color: white; */
+  color: #ffffff;
   border: none;
-  padding: 8px 16px;
+  padding: 13px 25px;
   font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
