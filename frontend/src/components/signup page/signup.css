@@ -1,0 +1,7 @@
+.signup-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* background: linear-gradient(to right, #7a00cc, #c471ed); */
+  font-family: 'Poppins', sans-serif;
+}

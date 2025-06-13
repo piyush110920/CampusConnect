@@ -18,7 +18,7 @@ const LandingPage = () => {
       <div className="landing-container">
             <Particle />
         <div className="landing-text">
-          <h1>🏠 Welcome to <br /><span>CampusConnect!</span></h1>
+          <h1>🏠 Welcome to CampusConnect!</h1>
           <h2><em>Your One-Stop Solution for Students, Mess Providers & Rental Services!!</em></h2>
           <p>
             CampusConnect is your ultimate digital hub built exclusively for
