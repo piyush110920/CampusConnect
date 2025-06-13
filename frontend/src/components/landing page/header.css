@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: #000000;
-  padding: 0px 80px;
+  padding: 0px 140px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -18,14 +18,15 @@
 }
 
 .header-logo {
-  height: 70px;
-  width: 150px;
-  margin-right: 10px;
+  height: 120px;
+  width: 300px;
+  margin-right: 40px;
 }
 
 .header-right {
   display: flex;
   gap: 10px;
+  font-size: 18px;
 }
 
 
@@ -41,5 +42,5 @@
 }
 
 .header-btn:hover {
-  background-color: #e0aaff;
+  background-color: #ebc8ff;
 }

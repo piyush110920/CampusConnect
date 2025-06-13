@@ -2,36 +2,44 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 32px;
   background-color: #000000;
-  color: white;
+  padding: 0px 140px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .signup-navbar-logo {
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-  font-size: 20px;
+  height: 120px;
+  width: 300px;
+  margin-right: 40px;
 }
 
 .signup-navbar-logo img {
-  height: 70px;
-  margin-right: 10px;
+  height: 120px;
+  margin-right: 40px;
 }
 
 .signup-navbar-links {
   list-style: none;
   display: flex;
   gap: 20px;
+  
 }
 
 .signup-navbar-links li a {
   text-decoration: none;
   color: white;
-  font-weight: 500;
-  transition: color 0.3s;
+  font-weight: 600;
+  font-size: 18px; /* Increased font size */
+  background-color: #1a1a1a; /* Box background */
+  padding: 12px 20px;        /* Box padding */
+  border-radius: 8px;        /* Rounded corners */
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 8px; /* Rounded corners for the box */ 
+
 }
 
 .signup-navbar-links li a:hover {
-  color: #ffe25f;
+  background-color: #ffffff;
+  color: #000000;
 }
