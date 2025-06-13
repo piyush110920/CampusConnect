@@ -6,9 +6,10 @@ import { FaFacebookF, FaLinkedinIn, FaInstagram, FaEnvelope, FaMapMarkerAlt } fr
 const Footer = () => {
   return (
     <footer className="footer">
+      <div className="footer-overlay"></div> {/* Optional background overlay if needed */}
+
       {/* Top Section */}
       <div className="footer-top">
-        {/* Left: Logo and Socials */}
         <div className="footer-left">
           <img src={logo} alt="Campus Connect Logo" className="footer-logo" />
           <div className="footer-socials">
@@ -18,7 +19,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Center: Contact Info */}
         <div className="footer-center">
           <p><FaEnvelope /> info@campusconnect.com</p>
           <button className="map-button">
@@ -26,7 +26,6 @@ const Footer = () => {
           </button>
         </div>
 
-        {/* Right: Address */}
         <div className="footer-right">
           <p>
             Plot number XX, near XYZ,<br />
@@ -38,7 +37,6 @@ const Footer = () => {
 
       <hr className="footer-line" />
 
-      {/* Bottom Links */}
       <div className="footer-links">
         <div>
           <h4>Sign Up</h4>

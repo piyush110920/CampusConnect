@@ -2,45 +2,58 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #000000;
-  padding: 0px 140px;
+  background-color: rgba(10, 10, 10, 0.85); /* match footer */
+  backdrop-filter: blur(4px); /* adds soft glassy blur behind if needed */
+  padding: 0px 150px;
   width: 100%;
   box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+  z-index: 1000;
+  position: relative;
 }
 
-.herder-right {
+.header-left {
   display: flex;
   align-items: center;
-  color: white;
-  font-family: 'Nimbus Sans L', sans-serif;
-  font-size: 24px;
-  font-weight: bold;
 }
 
 .header-logo {
-  height: 120px;
-  width: 300px;
-  margin-right: 40px;
+  height: 140px;
+  width: auto;
+  margin-right: 30px;
 }
 
 .header-right {
   display: flex;
-  gap: 10px;
-  font-size: 18px;
+  gap: 25px;
+  align-items: center;
 }
 
+.header-link {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
 
-.header-right.header-btn {
-  /* background-color: white; */
+.header-link:hover {
+  color: #a259ff; /* Matching footer accent */
+}
+
+.header-btn {
+  background-color: #a259ff;
   color: #ffffff;
   border: none;
-  padding: 13px 25px;
-  font-weight: bold;
-  border-radius: 5px;
+  padding: 12px 28px;
+  border-radius: 40px;
+  font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .header-btn:hover {
-  background-color: #ebc8ff;
+  background-color: #8b41e9;
 }

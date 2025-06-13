@@ -1,25 +1,42 @@
-// landing.jsx
 import React from "react";
 import Particle from "../particle";
 
-import Header from "./header"; // relative import
+import Header from "./header";
 import Footer from "./footer";
 import StudentInfo from "./studentInfo";
 import girlImage from "../../assets/img2.png";
 import MessInfo from "./messInfo";
 import ContactUs from "./contactUs";
 import RoomInfo from "./roomInfo";
-import "./landing.css"; // if you’ve created separate CSS
+import "./landing.css";
 
 const LandingPage = () => {
   return (
     <div>
       <Header />
+
+      {/* Floating Bubbles */}
+      <div className="bubbles">
+        {Array.from({ length: 30 }).map((_, index) => (
+          <div
+            key={index}
+            className="bubble"
+            style={{
+              left: `${Math.random() * 100}%`,
+              width: `${Math.random() * 12 + 6}px`,
+              height: `${Math.random() * 12 + 6}px`,
+              animationDuration: `${Math.random() * 10 + 6}s`,
+              animationDelay: `${Math.random() * 5}s`,
+            }}
+          />
+        ))}
+      </div>
+
       <div className="landing-container">
-            <Particle />
+        <Particle />
         <div className="landing-text">
-          <h1>🏠 Welcome to CampusConnect!</h1>
-          <h2><em>Your One-Stop Solution for Students, Mess Providers & Rental Services!!</em></h2>
+          <h1>🏠 Welcome to <span>CampusConnect!</span></h1>
+          <h2>Your One-Stop Solution for Students, Mess Providers & Rental Services!!</h2>
           <p>
             CampusConnect is your ultimate digital hub built exclusively for
             students and service providers. Whether you’re a student new to town,
@@ -31,11 +48,12 @@ const LandingPage = () => {
           <img src={girlImage} alt="Illustration" />
         </div>
       </div>
-      <StudentInfo/>
-      <MessInfo/>
-      <RoomInfo/>
-      <ContactUs/>
-      <Footer/>
+
+      <StudentInfo />
+      <MessInfo />
+      <RoomInfo />
+      <ContactUs />
+      <Footer />
     </div>
   );
 };
