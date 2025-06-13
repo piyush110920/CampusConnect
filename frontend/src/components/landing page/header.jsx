@@ -6,17 +6,18 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
-    <div className="navbar">
-      <div className="navbar-brand">
-        <img src={logo} alt="Logo" className="logo-img" />
+    <header className="header">
+      <div className="header-left">
+        <img src={logo} alt="CampusConnect Logo" className="header-logo" />
+        
       </div>
-      <div className="nav-links">
+      <div className="header-right">
         <Link to="/signup">
-        <button className="nav-login-button">SignUP</button>
+        <button className="header-btn">SignUP</button>
         </Link>
-        <button className="nav-login-button">SignIN</button>
+        <button className="header-btn">SignIN</button>
       </div>
-    </div>
+    </header>
   );
 };
 
