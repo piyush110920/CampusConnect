@@ -6,6 +6,8 @@
   padding: 0px 140px;
   width: 100%;
   box-sizing: border-box;
+  z-index: 10;
+  
 }
 
 .signup-navbar-logo {

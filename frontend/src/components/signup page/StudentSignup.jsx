@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import './StudentSignup.css';
 
 const StudentSignup = () => {
   const [formData, setFormData] = useState({
-    name: '',
+    fullName: '',
     email: '',
     password: '',
     college: '',
@@ -11,15 +10,34 @@ const StudentSignup = () => {
   });
 
   const handleChange = (e) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Signup Data:', formData);
-    alert("Signup successful!");
+
+    // Basic Validation
+    if (
+      !formData.fullName ||
+      !formData.email ||
+      !formData.password ||
+      !formData.college ||
+      !formData.location
+    ) {
+      alert('All fields are required!');
+      return;
+    }
+
+    // You can replace this with API call
+    console.log('Student Signup Data:', formData);
+    alert('✅ Signup Successful!');
+
+    // Clear all fields after success
     setFormData({
-      name: '',
+      fullName: '',
       email: '',
       password: '',
       college: '',
@@ -28,32 +46,54 @@ const StudentSignup = () => {
   };
 
   return (
-    <div className="signup-container">
-      
-      {/* Title */}
-      <h2 className="signup-title">Your SignUP</h2>
-      <div className="account-type">Student Account</div>
+    <form className="contact-form" onSubmit={handleSubmit}>
+      <label>Full Name:</label>
+      <input
+        type="text"
+        name="fullName"
+        placeholder="Enter your name"
+        value={formData.fullName}
+        onChange={handleChange}
+      />
 
-      {/* Signup Form */}
-      <form className="signup-form" onSubmit={handleSubmit}>
-        <label>Name:</label>
-        <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+      <label>Email Address:</label>
+      <input
+        type="email"
+        name="email"
+        placeholder="Enter your email"
+        value={formData.email}
+        onChange={handleChange}
+      />
 
-        <label>E-mail:</label>
-        <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+      <label>Password:</label>
+      <input
+        type="password"
+        name="password"
+        placeholder="Enter your password"
+        value={formData.password}
+        onChange={handleChange}
+      />
 
-        <label>Password:</label>
-        <input type="password" name="password" value={formData.password} onChange={handleChange} required />
+      <label>College Name:</label>
+      <input
+        type="text"
+        name="college"
+        placeholder="Enter your college name"
+        value={formData.college}
+        onChange={handleChange}
+      />
 
-        <label>College:</label>
-        <input type="text" name="college" value={formData.college} onChange={handleChange} required />
+      <label>Location:</label>
+      <input
+        type="text"
+        name="location"
+        placeholder="Enter your location"
+        value={formData.location}
+        onChange={handleChange}
+      />
 
-        <label>Location:</label>
-        <input type="text" name="location" value={formData.location} onChange={handleChange} required />
-
-        <button type="submit">Create Account</button>
-      </form>
-    </div>
+      <button type="submit">Sign Up</button>
+    </form>
   );
 };
 
