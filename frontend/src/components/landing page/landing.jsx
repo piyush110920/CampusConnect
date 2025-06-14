@@ -4,6 +4,7 @@ import Typewriter from "typewriter-effect";
 import Particle from "../particle";
 import Header from "./header";
 import Footer from "./footer";
+import ServicedBy from './ServicedBy';
 import StudentInfo from "./studentInfo";
 import MessInfo from "./messInfo";
 import ContactUs from "./contactUs";
@@ -72,6 +73,7 @@ const LandingPage = () => {
       </div>
 
       {/* Sections */}
+      <ServicedBy />
       <StudentInfo />
       <MessInfo />
       <RoomInfo />

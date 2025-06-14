@@ -1,0 +1,66 @@
+.serviced-by-container {
+  background-color: #ffffff;
+  padding: 60px 0 40px 0; /* White background section */
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  box-shadow: #ffffff 0px 0px 20px 0px;
+}
+
+.serviced-by-scroll-wrapper {
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.serviced-by-track {
+  display: flex;
+  gap: 60px;
+  width: max-content;
+  animation: floatLogos 25s linear infinite;
+  padding: 0 20px;
+}
+
+.serviced-by-track img {
+  height: 90px;
+  object-fit: contain;
+  margin: auto;
+  transition: transform 0.3s ease;
+}
+
+.serviced-by-track img:hover {
+  transform: scale(1.1);
+}
+
+.serviced-by-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+  padding-bottom: 10px;
+  padding-top: 10px; /* Optional: a little breathing room if needed */
+  background: linear-gradient(90deg, #ffffff75, #000000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+}
+
+
+/* Animation */
+@keyframes floatLogos {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
