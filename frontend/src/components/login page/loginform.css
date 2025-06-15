@@ -1,0 +1,145 @@
+/* Full screen centered layout */
+.login-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #1c0033, #2e0055);
+}
+
+/* Login form box */
+.login-form-box {
+  max-width: 500px;
+  width: 100%;
+  background-color: #ffffffee;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 50px rgb(155, 155, 155);
+  z-index: 10;
+}
+
+/* Title */
+.login-title {
+  font-size: 32px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Form layout */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  
+}
+
+/* Labels */
+.login-form label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
+}
+
+/* Inputs */
+.login-form input {
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  color: #000;
+  outline: none;
+}
+
+.login-form input:focus {
+  border-color: #6a11cb;
+}
+
+/* Submit Button */
+.login-form button {
+  margin-top: 10px;
+  padding: 10px 16px;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.login-form button:hover {
+  background: linear-gradient(to right, #8c5be2, #4568dc);
+  box-shadow: 0 4px 14px rgba(106, 17, 203, 0.3);
+}
+
+.login-actions {
+  display: flex;
+
+  justify-content: flex-end; 
+  align-items:baseline;
+  /* margin-top: 5px;
+  margin-bottom: 5px; */
+  font-size: small;
+
+}
+
+/* Links under the form */
+.login-links {
+  margin-top: 10px;
+  font-size: small;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+/* Style specifically for forgot password link */
+/* .forgot-link {
+  font-size: 13px;
+  color: #2575fc;
+  cursor: pointer;
+  font-weight: 500;
+  margin: 0;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+} */
+
+.link-like {
+  color: #2575fc;
+  cursor: pointer;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.link-like:hover {
+  text-decoration: underline;
+}
+
+/* Responsive layout */
+@media (max-width: 600px) {
+  .login-form-box {
+    padding: 25px 20px;
+  }
+
+  .login-title {
+    font-size: 26px;
+  }
+
+  .login-form button {
+    font-size: 13px;
+  }
+
+  .login-links {
+    font-size: 12px;
+  }
+}

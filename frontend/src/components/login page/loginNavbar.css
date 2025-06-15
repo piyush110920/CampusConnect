@@ -1,4 +1,4 @@
-.signup-navbar {
+.login-navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7,26 +7,27 @@
   width: 100%;
   box-sizing: border-box;
   z-index: 999;
+  position: relative;
 }
 
-.signup-navbar-logo {
+.login-navbar-logo {
   height: 120px;
   width: 300px;
   margin-right: 40px;
 }
 
-.signup-navbar-logo img {
+.login-navbar-logo img {
   height: 120px;
   margin-right: 40px;
 }
 
-.signup-navbar-links {
+.login-navbar-links {
   list-style: none;
   display: flex;
   gap: 20px;
 }
 
-.signup-navbar-links li a {
+.login-navbar-links li a {
   text-decoration: none;
   color: white;
   font-weight: 600;
@@ -37,7 +38,25 @@
   transition: background-color 0.3s, color 0.3s;
 }
 
-.signup-navbar-links li a:hover {
+.login-navbar-links li a:hover {
   background-color: #ffffff;
   color: #000000;
+}
+
+/* Optional: Responsive adjustment */
+@media (max-width: 768px) {
+  .login-navbar {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .login-navbar-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .login-navbar-logo {
+    margin-bottom: 10px;
+  }
 }
