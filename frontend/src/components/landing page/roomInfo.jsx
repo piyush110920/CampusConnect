@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Typewriter from 'typewriter-effect';
 import './roomInfo.css';
 import roomImage from '../../assets/home.png';
@@ -12,7 +13,6 @@ const RoomInfo = () => {
         </h2>
         <p className="room-subtext">
           List your vacant rooms and PGs to connect with students! <b>CampusConnect</b> allows you to:<br />
-          
         </p>
 
         {/* ✅ Typewriter starts here */}
@@ -34,8 +34,8 @@ const RoomInfo = () => {
         </div>
 
         <p className="room-auth-links">
-          🔹 Register your property today! <span className="link">[Sign Up as Room Service]</span><br />
-          🔹 Returning user? <span className="link">[Sign In]</span>
+          🔹 Register your property today! <Link to="/signup?role=room" className="link">[Sign Up as Room Service]</Link><br />
+          🔹 Returning user? <Link to="/login?role=room" className="link">[Sign In]</Link>
         </p>
       </div>
 

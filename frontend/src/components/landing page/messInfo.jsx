@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Typewriter from 'typewriter-effect';
 import './MessInfo.css';
 import messImg from '../../assets/img3.png';
@@ -39,8 +40,8 @@ const MessInfo = () => {
         </div>
 
         <div className="mess-links">
-          <p>🔹 Want to join as a provider? <a href="#" className="link">[Sign Up as Mess Service]</a></p>
-          <p>🔹 Already onboard? <a href="#" className="link">[Sign In]</a></p>
+          <p>🔹 Want to join as a provider? <Link to="/signup?role=mess" className="link">[Sign Up as Mess Service]</Link></p>
+          <p>🔹 Already onboard? <Link to="/login?role=mess" className="link">[Sign In]</Link></p>
         </div>
       </div>
     </div>

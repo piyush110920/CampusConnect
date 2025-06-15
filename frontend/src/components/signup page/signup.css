@@ -8,6 +8,16 @@
   font-family: 'Poppins', sans-serif;
 }
 
+.link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
 /* Centering the white signup box */
 .signup-container {
   flex: 1;

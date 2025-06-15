@@ -1,3 +1,13 @@
+.link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
 .student-info-container {
   display: flex;
   flex-direction: row;

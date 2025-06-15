@@ -1,3 +1,13 @@
+.link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
 .signup-container {
   /* background-color: #f5f5f5; */
   padding: 60px 20px;

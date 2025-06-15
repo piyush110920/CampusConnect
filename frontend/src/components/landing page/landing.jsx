@@ -1,6 +1,8 @@
-import React from "react";
-import Typewriter from "typewriter-effect";
+// landing.jsx
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
+import Typewriter from "typewriter-effect";
 import Particle from "../particle";
 import Header from "./header";
 import Footer from "./footer";
@@ -14,11 +16,26 @@ import girlImage from "../../assets/img2.png";
 import "./landing.css";
 
 const LandingPage = () => {
+  const location = useLocation();
+
+  // 🔁 Scroll to hash section when URL changes
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+    }
+  }, [location]);
+
   return (
     <div>
       <Header />
 
-      {/* Floating Bubbles */}
+      {/* Optional Floating Bubbles */}
       <div className="bubbles">
         {Array.from({ length: 30 }).map((_, index) => (
           <div
@@ -37,36 +54,24 @@ const LandingPage = () => {
 
       <div className="landing-container">
         <Particle />
-
-        {/* Text Section */}
         <div className="landing-text">
           <h1>🏠 Welcome to <span>CampusConnect!</span></h1>
-
           <h2 className="static-text">Your One-Stop Solution for</h2>
           <div className="typewriter">
             <Typewriter
               options={{
-                strings: [
-                  "Students",
-                  "Mess Providers",
-                  "Rental Services",
-                ],
+                strings: ["Students", "Mess Providers", "Rental Services"],
                 autoStart: true,
                 loop: true,
                 deleteSpeed: 50,
               }}
             />
           </div>
-
           <p>
-            CampusConnect is your ultimate digital hub built exclusively for
-            students and service providers. Whether you’re a student new to town,
-            a mess provider looking to grow, or a room rental owner wanting to fill up
-            vacant spaces—CampusConnect brings you all together in one smart, real-time platform.
+            CampusConnect is your ultimate digital hub built exclusively for students and service providers.
           </p>
         </div>
 
-        {/* Image Section */}
         <div className="landing-image">
           <img src={girlImage} alt="Illustration" />
         </div>
@@ -74,10 +79,17 @@ const LandingPage = () => {
 
       {/* Sections */}
       <ServicedBy />
-      <StudentInfo />
+      <div id="about">
+        <StudentInfo />
+      </div>
+      
       <MessInfo />
       <RoomInfo />
-      <ContactUs />
+
+      <div id="ContactUs">
+        <ContactUs />
+      </div>
+
       <Footer />
     </div>
   );

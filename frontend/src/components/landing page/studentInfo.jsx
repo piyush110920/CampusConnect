@@ -2,6 +2,7 @@ import React from 'react';
 import './StudentInfo.css';
 import studentImg from '../../assets/img1.png';
 import Typewriter from 'typewriter-effect';
+import { Link } from 'react-router-dom';
 
 const StudentInfo = () => {
   const features = [
@@ -31,10 +32,11 @@ const StudentInfo = () => {
             }}
           />
         </div>
+            
 
         <div className="student-links">
-          <p>🔹 New here? <a href="#" className="link">[Sign Up as Student]</a></p>
-          <p>🔹 Already have an account? <a href="#" className="link">[Sign In]</a></p>
+          <p>🔹 New here? <Link to="/signup" className="link">[Sign Up as Student]</Link></p>
+          <p>🔹 Already have an account? <Link to="/login" className="link">[Sign In]</Link></p>
         </div>
       </div>
 

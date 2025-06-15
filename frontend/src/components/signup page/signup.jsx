@@ -1,5 +1,6 @@
-// Signup.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import Navbar from './Navbarsignup';
 import StudentSignup from './StudentSignup';
 import MessSignup from './MessSignup';
@@ -10,6 +11,18 @@ import './signup.css';
 const Signup = () => {
   const [signupType, setSignupType] = useState('student');
   const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  const location = useLocation();
+
+  // ✅ Read ?role=... from URL and update form
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const role = params.get('role');
+
+    if (role === 'student' || role === 'mess' || role === 'room') {
+      setSignupType(role);
+    }
+  }, [location.search]);
 
   const renderForm = () => {
     switch (signupType) {
@@ -64,7 +77,7 @@ const Signup = () => {
           {renderForm()}
         </div>
       </div>
- 
+
       <Footer />
     </div>
   );

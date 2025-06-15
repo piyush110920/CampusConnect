@@ -11,8 +11,8 @@ const Navbar = () => {
       </div>
       <ul className="signup-navbar-links">
         <li><Link to="/">Home</Link></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact Us</a></li>
+        <li><Link to="/landing#about">About</Link></li>  {/* Updated */}
+        <li><a href="/landing#ContactUs">Contact Us</a></li>
       </ul>
     </nav>
   );
