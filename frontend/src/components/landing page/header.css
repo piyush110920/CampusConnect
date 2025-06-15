@@ -2,8 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(10, 10, 10, 0.418); /* match footer */
-  backdrop-filter: blur(4px); /* adds soft glassy blur behind if needed */
+  background-color: rgba(10, 10, 10, 0.418);
+  backdrop-filter: blur(4px);
   padding: 0px 150px;
   width: 100%;
   box-sizing: border-box;
@@ -38,7 +38,7 @@
 }
 
 .header-link:hover {
-  color: #a259ff; /* Matching footer accent */
+  color: #a259ff;
 }
 
 .header-btn {
@@ -56,4 +56,62 @@
 
 .header-btn:hover {
   background-color: #8b41e9;
+}
+
+/* === Responsive Design === */
+
+/* Tablets */
+@media screen and (max-width: 1024px) {
+  .header {
+    padding: 0 60px;
+  }
+
+  .header-logo {
+    height: 100px;
+    margin-right: 20px;
+  }
+
+  .header-link {
+    font-size: 1rem;
+  }
+
+  .header-btn {
+    padding: 10px 22px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Mobiles */
+@media screen and (max-width: 768px) {
+  .header {
+    flex-direction: row;
+    padding: 10px 20px;
+  }
+
+  .header-left {
+    flex: 1;
+    justify-content: flex-start;
+  }
+
+  .header-logo {
+    height: 70px;
+    margin-right: 0;
+  }
+
+  .header-right {
+    flex: 1;
+    justify-content: flex-end;
+    display: flex;
+    gap: 10px;
+  }
+
+  .header-link {
+    display: none; /* Hide extra links if needed on mobile */
+  }
+
+  .header-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    border-radius: 30px;
+  }
 }

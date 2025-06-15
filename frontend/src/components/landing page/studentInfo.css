@@ -99,39 +99,49 @@
   height: auto;
 }
 
-/* Responsive */
-@media screen and (max-width: 900px) {
+
+@media (max-width: 768px) {
   .student-info-container {
     flex-direction: column;
-    text-align: center;
-    padding: 40px 20px;
+    align-items: center; /* Center everything horizontally */
+    padding: 20px;
+  }
+
+  .student-info-image {
+    order: -1; /* Show image on top */
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px; /* Tighten spacing */
   }
 
   .student-info-image img {
-    max-width: 100%;
+    max-width: 70%; /* Smaller image */
+    height: auto;
+    display: block;
+    margin: 0 auto; /* Center image */
+  }
+
+  .student-info-text {
+    padding: 0;
+    margin-top: 5px; /* Closer to image */
+    width: 100%;
   }
 
   .student-heading {
-    font-size: 3rem;
+    font-size: 2.2rem;
+    text-align: left;
+    margin-bottom: 10px;
   }
 
-  .student-description {
-    font-size: 1.2rem;
+  .student-description,
+  .student-features,
+  .student-links p {
+    text-align: left;
+    font-size: 1.05rem;
   }
 
-  .student-features {
-    font-size: 1.6rem;
-  }
-}
-
-@media (max-width: 767px) {
-  .Typewriter__wrapper {
-    font-size: 1.4em !important;
-    font-weight: 500 !important;
-    position: absolute !important;
-  }
-
+  .Typewriter__wrapper,
   .Typewriter__cursor {
-    display: none !important;
+    font-size: 1rem !important;
   }
 }

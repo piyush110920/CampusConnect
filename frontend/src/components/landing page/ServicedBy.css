@@ -64,3 +64,30 @@
     transform: translateX(-50%);
   }
 }
+
+
+@media screen and (max-width: 768px) {
+  .serviced-by-container {
+    padding: 40px 0 20px 0;
+  }
+
+  .serviced-by-track {
+    gap: 30px;
+    animation-duration: 35s; /* Slower scroll on smaller screens */
+  }
+
+  .serviced-by-track img {
+    height: 60px;
+  }
+
+  .serviced-by-title {
+    font-size: 16px;
+    padding-bottom: 6px;
+    padding-top: 6px;
+    background: linear-gradient(90deg, #000000, #ffffff75);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transform: translateX(-50%);
+    width: 100%;
+  }
+}

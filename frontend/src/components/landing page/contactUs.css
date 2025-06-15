@@ -1,76 +1,87 @@
-/* Clean, minimal, white background contact page */
-
+/* Contact Container */
 .contact-container {
   background-color: #f5f5f500;
-  padding: 60px 20px;
+  padding: 8vh 2vw;
   min-height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Poppins', sans-serif;
-}
-.contact-container {
   position: relative;
   z-index: 10;
 }
 
-
+/* Contact Box */
 .contact-box {
-  max-width: 600px;
+  max-width: 60vw;
   width: 100%;
   background-color: #ffffffe1;
-  padding: 30px 25px;
-  border-radius: 12px;
-  box-shadow: 0 8px 50px rgb(155, 155, 155);
+  padding: 4vh 3vw;
+  border-radius: 1.5vw;
+  box-shadow: 0 0.8vh 5vh rgb(155, 155, 155);
 }
 
+/* Title */
 .contact-title {
-  font-size: 50px;
+  font-size: 3.5vw;
   font-weight: 1000;
   text-align: left;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   color: #00000093;
 }
 
+/* Typewriter Text */
 .typewriter-text {
   text-align: left;
-  font-size: 14px;
-  margin-bottom: 25px;
+  font-size: 1vw;
+  margin-bottom: 2vh;
   font-weight: 500;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  display: block;
 }
 
-/* Gradient only for contact typewriter */
+/* Typewriter Animation */
 .contact-typewriter .Typewriter__wrapper {
-  font-size: 14px;
+  font-size: 1vw;
   font-weight: 600;
   background: linear-gradient(to right, #6a11cb, #2575fc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  white-space: normal !important;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  display: inline;
+  max-width: 100%;
+  text-align: left;
 }
 
 .contact-typewriter .Typewriter__cursor {
   color: #6a11cb;
+  font-size: inherit;
 }
 
+/* Form Layout */
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 2vh;
 }
 
 .contact-form label {
-  font-size: 14px;
+  font-size: 1vw;
   font-weight: 500;
   color: #333;
 }
 
 .contact-form input,
 .contact-form textarea {
-  padding: 10px 12px;
-  font-size: 14px;
+  padding: 1.2vh 1vw;
+  font-size: 1vw;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 0.8vw;
   background-color: #fff;
   color: #000;
   outline: none;
@@ -82,20 +93,57 @@
   border-color: #6a11cb;
 }
 
+/* Button Styling */
 .contact-form button {
-  margin-top: 15px;
-  padding: 10px 16px;
+  margin-top: 2vh;
+  padding: 1.5vh 2vw;
   background: linear-gradient(to right, #6a11cb, #2575fc);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 1vw;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 1vw;
   cursor: pointer;
   transition: background 0.3s, box-shadow 0.3s;
 }
 
 .contact-form button:hover {
   background: linear-gradient(to right, #8c5be2, #4568dc);
-  box-shadow: 0 4px 14px rgba(106, 17, 203, 0.3);
+  box-shadow: 0 0.5vh 3vh rgba(106, 17, 203, 0.3);
+}
+
+/* ----------------------------- */
+/* ✅ Responsive for Mobile View */
+/* ----------------------------- */
+@media (max-width: 768px) {
+  .contact-box {
+    max-width: 90vw;
+    padding: 6vh 5vw;
+    border-radius: 20px;
+  }
+
+  .contact-title {
+    font-size: 7vw;
+    text-align: left;
+  }
+
+  .typewriter-text {
+    font-size: 4vw;
+    text-align: left;
+  }
+
+  .contact-typewriter .Typewriter__wrapper {
+    font-size: 4vw !important;
+    text-align: left;
+    white-space: normal !important;
+    word-break: break-word;
+    display: inline;
+  }
+
+  .contact-form label,
+  .contact-form input,
+  .contact-form textarea,
+  .contact-form button {
+    font-size: 4vw;
+  }
 }

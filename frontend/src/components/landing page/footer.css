@@ -1,7 +1,7 @@
 .footer {
-  background-color: rgba(10, 10, 10, 0.85); /* darker base with slight transparency */
+  background-color: rgba(10, 10, 10, 0.85);
   color: #ffffff;
-  padding: 60px 150px;
+  padding: 4rem 8%;
   font-family: 'Segoe UI', sans-serif;
   position: relative;
   z-index: 999;
@@ -12,69 +12,61 @@
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
-  gap: 40px;
-  margin-bottom: 40px;
-}
-.footer-links div p {
-  margin: 6px 0;
-}
-.footer-links a {
-  color: white;
-  text-decoration: none;
-}
-.footer-links a:hover {
-  text-decoration: underline;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
 }
 
-
-.footer-left {
+.footer-left,
+.footer-center,
+.footer-right {
   flex: 1;
   min-width: 250px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
 }
 
 .footer-logo {
-  height: 140px;
-  margin-bottom: 30px;
+  height: 9rem;
+  margin-bottom: 2rem;
 }
 
 .footer-socials {
-  margin-left: 70px;
+  margin-left: 2.5rem;
   display: flex;
-  gap: 35px;
-  font-size: 2.5rem;
-  color: #ffffff;
+  gap: 2rem;
+  font-size: 2rem;
+}
+
+.footer-socials a {
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.footer-socials a:hover {
+  color: #a259ff;
 }
 
 .footer-center {
-  flex: 1;
-  min-width: 250px;
   text-align: center;
 }
 
 .footer-center p {
-  font-size: 1.3rem;
-  margin-bottom: 20px;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
+  text-align: center;
 }
 
 .map-button {
   background-color: #a259ff;
   color: #ffffff;
   border: none;
-  padding: 14px 32px;
-  border-radius: 40px;
+  padding: 0.9rem 2rem;
+  border-radius: 2rem;
   font-weight: 600;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   transition: background 0.3s ease;
 }
@@ -84,28 +76,26 @@
 }
 
 .footer-right {
-  flex: 1;
-  min-width: 250px;
   text-align: right;
 }
 
 .footer-right p {
-  font-size: 1.2rem;
+  font-size: 1rem;
   line-height: 1.8;
 }
 
 .footer-line {
   border: none;
   border-top: 1px solid #333;
-  margin: 40px 0;
+  margin: 3rem 0;
 }
 
 .footer-links {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 60px;
-  margin-left: 60px;
+  gap: 4rem;
+  margin-left: 4rem;
 }
 
 .footer-links div {
@@ -113,32 +103,71 @@
 }
 
 .footer-links h4 {
-  font-size: 1.3rem;
-  margin-bottom: 14px;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
   color: #ccc;
 }
-.social-icon {
+
+.footer-links p,
+.footer-links a {
+  font-size: 1rem;
+  margin: 0.5rem 0;
   color: white;
-  font-size: 20px;
-  margin: 0 10px;
-  transition: color 0.3s ease;
-}
-
-
-.footer-links p {
-  margin: 8px 0;
-  font-size: 1.1rem;
+  text-decoration: none;
   cursor: pointer;
   transition: color 0.3s ease;
 }
 
+.footer-links a:hover,
 .footer-links p:hover {
   color: #a259ff;
+  text-decoration: underline;
 }
 
 .footer-bottom {
   text-align: right;
-  margin-top: 30px;
-  font-size: 1rem;
+  margin-top: 2rem;
+  font-size: 0.9rem;
   color: #aaa;
+}
+
+/* ✅ Updated Mobile Responsive Design */
+@media (max-width: 768px) {
+  .footer {
+    padding: 3rem 5%;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .footer-socials {
+    margin-left: 0;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    margin-left: 0;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-links div {
+    text-align: center;
+  }
+
+  .footer-bottom {
+    text-align: center;
+  }
 }

@@ -9,7 +9,7 @@ body {
   position: relative;
 }
 
-/* Dark overlay */
+/* Dark overlay with reduced opacity */
 body::before {
   content: "";
   position: fixed;
@@ -17,7 +17,7 @@ body::before {
   left: 0;
   height: 100%;
   width: 100%;
-  background: rgba(10, 10, 20, 0.6); /* dark transparent overlay */
+  background: rgba(10, 10, 20, 0.4);
   z-index: 0;
 }
 
@@ -42,22 +42,11 @@ body::before {
   mix-blend-mode: screen;
 }
 
-/* Bubble color palette - purple themed */
-.bubble:nth-child(3n) {
-  background-color: rgba(174, 123, 247, 0.4);
-}
-.bubble:nth-child(4n) {
-  background-color: rgba(200, 140, 255, 0.3);
-}
-.bubble:nth-child(5n) {
-  background-color: rgba(153, 102, 255, 0.3);
-}
-.bubble:nth-child(6n) {
-  background-color: rgba(255, 180, 255, 0.3);
-}
-.bubble:nth-child(7n) {
-  background-color: rgba(140, 82, 255, 0.4);
-}
+.bubble:nth-child(3n) { background-color: rgba(174, 123, 247, 0.4); }
+.bubble:nth-child(4n) { background-color: rgba(200, 140, 255, 0.3); }
+.bubble:nth-child(5n) { background-color: rgba(153, 102, 255, 0.3); }
+.bubble:nth-child(6n) { background-color: rgba(255, 180, 255, 0.3); }
+.bubble:nth-child(7n) { background-color: rgba(140, 82, 255, 0.4); }
 
 @keyframes rise {
   0% {
@@ -71,6 +60,17 @@ body::before {
     transform: translateY(-1100px) scale(1);
     opacity: 0;
   }
+}
+
+/* Header fix if it's fixed */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.8); /* optional for visibility */
 }
 
 /* Landing Container */
@@ -88,9 +88,10 @@ body::before {
 .landing-text {
   max-width: 100%;
   color: #ffffff;
+  text-align: left;
 }
 
-/* Heading (Welcome) */
+/* Heading */
 .landing-text h1 {
   font-size: 4.5rem;
   font-weight: 800;
@@ -101,7 +102,7 @@ body::before {
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Static part of the subtitle */
+/* Static subtitle */
 .static-text {
   font-size: 2.2em;
   font-weight: 600;
@@ -110,7 +111,7 @@ body::before {
   font-family: 'Poppins', sans-serif;
 }
 
-/* Paragraph text */
+/* Paragraph */
 .landing-text p {
   font-size: 1.5rem;
   margin-top: 20px;
@@ -120,12 +121,17 @@ body::before {
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Typewriter styles */
+/* Typewriter Effect */
 .Typewriter__wrapper {
   font-size: 2.2em !important;
   color: #ffe25f !important;
   font-weight: 600 !important;
   font-family: 'Poppins', sans-serif;
+  text-align: left !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+  display: inline;
+  max-width: 100%;
 }
 
 .Typewriter__cursor {
@@ -134,36 +140,84 @@ body::before {
 }
 
 /* Image */
+.landing-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
 .landing-image img {
   max-width: 420px;
   height: auto;
+  transition: all 0.3s ease-in-out;
 }
 
-/* Responsive */
+/* Tablet Responsive */
 @media screen and (max-width: 900px) {
   .landing-container {
     flex-direction: column;
     text-align: center;
-    padding: 40px 20px;
+    padding: 60px 20px;
   }
 
   .landing-text {
     max-width: 100%;
+    text-align: left;
+  }
+
+  .landing-image {
+    margin-bottom: 20px;
   }
 
   .landing-image img {
-    max-width: 100%;
+    max-width: 80%;
   }
 }
 
+/* ✅ Mobile View Fix (Image BELOW Text & No Gap at Top) */
 @media (max-width: 767px) {
+  .landing-container {
+    flex-direction: column;
+    padding: 0px 20px 30px 20px; /* Top padding for header space */
+  }
+
+  .landing-image {
+    order: 2; /* 👈 Image comes after text */
+    margin-top: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .landing-image img {
+    max-width: 70%;
+    margin: 0 auto;
+  }
+
+  .landing-text {
+    text-align: left;
+    text-align: top;
+  }
+
+  .landing-text h1 {
+    font-size: 3rem;
+  }
+
+  .static-text {
+    font-size: 1.6rem;
+  }
+
   .Typewriter__wrapper {
-    font-size: 1.4em !important;
+    font-size: 1.5rem !important;
     font-weight: 500 !important;
-    position: absolute !important;
+    text-align: left !important;
   }
 
   .Typewriter__cursor {
-    display: none !important;
+    font-size: 1.5rem !important;
+  }
+
+  .landing-text p {
+    font-size: 1rem;
   }
 }

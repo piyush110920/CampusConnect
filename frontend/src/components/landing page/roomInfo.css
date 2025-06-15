@@ -143,3 +143,61 @@
   font-size: 1em !important;
   color: #ffe25f !important;
 }
+
+@media screen and (max-width: 900px) {
+  .room-info-container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 40px 20px;
+    text-align: left;
+  }
+
+  .room-info-image {
+    order: -1; /* Show image first */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+
+  .room-info-image img {
+    max-width: 60%;
+    height: auto;
+  }
+
+  .room-info-text {
+    padding: 10px;
+    text-align: left;
+  }
+
+  .room-heading {
+    font-size: 2.6rem;
+    text-align: left;
+  }
+
+  .room-subtext {
+    font-size: 1.1rem;
+    text-align: left;
+  }
+
+  .room-features {
+    font-size: 1.2rem;
+    text-align: left;
+  }
+
+  .room-auth-links {
+    text-align: left;
+  }
+}
+
+@media (max-width: 767px) {
+  .Typewriter__wrapper {
+    font-size: 1.2em !important;
+    font-weight: 500 !important;
+    position: static !important;
+  }
+
+  .Typewriter__cursor {
+    display: none !important;
+  }
+}

@@ -3,7 +3,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background: rgba(10, 10, 20, 0.0); /* Match student transparent style */
+  background: rgba(10, 10, 20, 0.0);
   padding: 30px 80px;
   border-radius: 12px;
   flex-wrap: wrap;
@@ -17,6 +17,7 @@
   min-width: 300px;
   max-width: 600px;
   padding: 80px;
+  text-align: left;
 }
 
 .mess-heading {
@@ -44,6 +45,7 @@
   color: #ffe25f;
   margin: 20px 0;
   min-height: 3rem;
+  text-align: left;
 }
 
 .Typewriter__wrapper {
@@ -63,6 +65,7 @@
   margin: 5px 0;
   font-family: 'Poppins', sans-serif;
   color: #fff;
+  text-align: left;
 }
 
 .link {
@@ -80,44 +83,66 @@
   flex: 1;
   display: flex;
   justify-content: center;
+  align-items: center;
   min-width: 350px;
 }
 
 .mess-info-image img {
   max-width: 70%;
   height: auto;
+  border-radius: 12px;
 }
 
-/* Responsive */
-@media screen and (max-width: 900px) {
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
   .mess-info-container {
     flex-direction: column;
-    text-align: center;
-    padding: 40px 20px;
+    align-items: flex-start;
+    padding: 30px 20px;
   }
 
-  .mess-info-image img {
-    max-width: 100%;
+  .mess-info-text {
+    padding: 20px 10px;
+    text-align: left;
   }
 
   .mess-heading {
-    font-size: 3rem;
+    font-size: 2.4rem;
+    text-align: left;
   }
 
   .mess-description {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    text-align: left;
   }
 
   .mess-features.typewriter {
-    font-size: 1.6rem;
+    font-size: 1.1rem;
+    min-height: 2.5rem;
+    text-align: left;
   }
-}
 
-@media (max-width: 767px) {
+  .mess-links p {
+    text-align: left;
+  }
+
+  .mess-info-image {
+    width: 100%;
+    justify-content: center; /* Center image horizontally */
+    display: flex;
+    margin-top: 30px;
+  }
+
+  .mess-info-image img {
+    max-width: 60%;
+    height: auto;
+    margin: 0 auto; /* Ensures the image is centered */
+  }
+
   .Typewriter__wrapper {
-    font-size: 1.4em !important;
+    font-size: 1.2rem !important;
     font-weight: 500 !important;
-    position: absolute !important;
+    position: static !important;
   }
 
   .Typewriter__cursor {
