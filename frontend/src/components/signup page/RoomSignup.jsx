@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 
-const RoomSignup = () => {
+const MessSignup = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
-    address: '',
+    messName: '',
+    plotNumber: '',
+    street: '',
+    landmark: '',
+    city: '',
+    pincode: '',
     password: '',
     confirmPassword: ''
   });
@@ -19,10 +24,32 @@ const RoomSignup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { fullName, phone, address, password, confirmPassword } = formData;
+    const {
+      fullName,
+      phone,
+      messName,
+      plotNumber,
+      street,
+      landmark,
+      city,
+      pincode,
+      password,
+      confirmPassword
+    } = formData;
 
     // Validation
-    if (!fullName || !phone || !address || !password || !confirmPassword) {
+    if (
+      !fullName ||
+      !phone ||
+      !messName ||
+      !plotNumber ||
+      !street ||
+      !landmark ||
+      !city ||
+      !pincode ||
+      !password ||
+      !confirmPassword
+    ) {
       alert('All fields are required!');
       return;
     }
@@ -32,20 +59,38 @@ const RoomSignup = () => {
       return;
     }
 
+    if (!/^\d{6}$/.test(pincode)) {
+      alert('Pincode must be 6 digits.');
+      return;
+    }
+
     if (password !== confirmPassword) {
       alert('Passwords do not match!');
       return;
     }
 
-    // Success - can be sent to backend here
-    console.log('Room Provider Signup Data:', formData);
-    alert('✅ Room Provider Signed Up Successfully!');
+    const address = `${plotNumber}, ${street}, ${landmark}, ${city} - ${pincode}`;
 
-    // Clear form
+    console.log('🍱 Mess Provider Signup Data:', {
+      fullName,
+      phone,
+      messName,
+      address,
+      password
+    });
+
+    alert('✅ Mess Provider Signed Up Successfully!');
+
+    // Reset form
     setFormData({
       fullName: '',
       phone: '',
-      address: '',
+      messName: '',
+      plotNumber: '',
+      street: '',
+      landmark: '',
+      city: '',
+      pincode: '',
       password: '',
       confirmPassword: ''
     });
@@ -71,12 +116,57 @@ const RoomSignup = () => {
         onChange={handleChange}
       />
 
-      <label>Address:</label>
+      <label>Appartment Name:</label>
       <input
         type="text"
-        name="address"
-        placeholder="Enter your address"
-        value={formData.address}
+        name="messName"
+        placeholder="Enter your mess name"
+        value={formData.messName}
+        onChange={handleChange}
+      />
+
+      <label>Plot Number:</label>
+      <input
+        type="text"
+        name="plotNumber"
+        placeholder="Enter plot number"
+        value={formData.plotNumber}
+        onChange={handleChange}
+      />
+
+      <label>Street Name:</label>
+      <input
+        type="text"
+        name="street"
+        placeholder="Enter street name"
+        value={formData.street}
+        onChange={handleChange}
+      />
+
+      <label>Landmark:</label>
+      <input
+        type="text"
+        name="landmark"
+        placeholder="Enter landmark"
+        value={formData.landmark}
+        onChange={handleChange}
+      />
+
+      <label>City:</label>
+      <input
+        type="text"
+        name="city"
+        placeholder="Enter city"
+        value={formData.city}
+        onChange={handleChange}
+      />
+
+      <label>Pincode:</label>
+      <input
+        type="text"
+        name="pincode"
+        placeholder="Enter 6-digit pincode"
+        value={formData.pincode}
         onChange={handleChange}
       />
 
@@ -84,7 +174,7 @@ const RoomSignup = () => {
       <input
         type="password"
         name="password"
-        placeholder="Enter your password"
+        placeholder="Enter password"
         value={formData.password}
         onChange={handleChange}
       />
@@ -93,14 +183,20 @@ const RoomSignup = () => {
       <input
         type="password"
         name="confirmPassword"
-        placeholder="Re-enter your password"
+        placeholder="Re-enter password"
         value={formData.confirmPassword}
         onChange={handleChange}
       />
 
       <button type="submit">Sign Up</button>
+      <p style={{ textAlign: 'center', marginTop: '10px', fontSize: '14px' }}>
+        Already have an account?{' '}
+        <a href="/login" style={{ color: '#007bff', textDecoration: 'none' }}>
+          Login
+        </a>
+      </p>
     </form>
   );
 };
 
-export default RoomSignup;
+export default MessSignup;

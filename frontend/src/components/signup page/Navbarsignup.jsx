@@ -11,8 +11,9 @@ const Navbar = () => {
       </div>
       <ul className="signup-navbar-links">
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/landing#about">About</Link></li>  {/* Updated */}
+        <li><Link to="/landing#about">About</Link></li>
         <li><a href="/landing#ContactUs">Contact Us</a></li>
+        <li><Link to="/login" className="login-link">Login</Link></li> {/* New Login Link */}
       </ul>
     </nav>
   );

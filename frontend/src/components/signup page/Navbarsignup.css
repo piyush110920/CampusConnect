@@ -7,7 +7,6 @@
   width: 100%;
   box-sizing: border-box;
   z-index: 10;
-  
 }
 
 .signup-navbar-logo {
@@ -25,20 +24,17 @@
   list-style: none;
   display: flex;
   gap: 20px;
-  
 }
 
 .signup-navbar-links li a {
   text-decoration: none;
   color: white;
   font-weight: 600;
-  font-size: 18px; /* Increased font size */
-  background-color: #1a1a1a; /* Box background */
-  padding: 12px 20px;        /* Box padding */
-  border-radius: 8px;        /* Rounded corners */
+  font-size: 18px;
+  background-color: #1a1a1a;
+  padding: 12px 20px;
+  border-radius: 8px;
   transition: background-color 0.3s, color 0.3s;
-  border-radius: 8px; /* Rounded corners for the box */ 
-
 }
 
 .signup-navbar-links li a:hover {
