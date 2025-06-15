@@ -13,9 +13,11 @@ const Header = () => {
       </div>
       <div className="header-right">
         <Link to="/signup">
-        <button className="header-btn">SignUP</button>
+          <button className="header-btn">SignUP</button>
         </Link>
-        <button className="header-btn">SignIN</button>
+        <Link to="/login">
+          <button className="header-btn">SignIN</button>
+        </Link>
       </div>
     </header>
   );
