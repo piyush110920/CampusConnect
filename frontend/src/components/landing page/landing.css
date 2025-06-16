@@ -1,12 +1,16 @@
 /* Body Background */
 body {
   margin: 0;
+  padding: 0;
+  width: 100vw;            /* ✅ Ensure it takes full width */
+  max-width: 100%;  
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: url("../../assets/home-bg.jpg") no-repeat center center fixed;
   background-size: cover;
   color: #1e1e1e;
   overflow-x: hidden;
   position: relative;
+  box-sizing: border-box;
 }
 
 /* Overlay */
@@ -15,10 +19,17 @@ body::before {
   position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   background: rgba(10, 10, 20, 0.4);
-  z-index: 0;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 /* Bubble Animation */
@@ -87,6 +98,11 @@ header {
   max-width: 100%;
   color: #ffffff;
   text-align: left;
+
+  /* ✅ Prevent overflow */
+  padding: 0 10px;
+  word-wrap: break-word;
+  box-sizing: border-box;
 }
 
 .landing-text h1 {
@@ -189,37 +205,21 @@ header {
   }
 
   .landing-text h1 {
-    font-size: 3rem;
+    font-size: 2.2rem;
+    line-height: 1.2;
   }
 
   .static-text {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
   }
 
-  .Typewriter__wrapper {
-    font-size: 1.5rem !important;
+  .Typewriter__wrapper,
+  .Typewriter__cursor {
+    font-size: 1.2rem !important;
     font-weight: 500 !important;
   }
 
-  .Typewriter__cursor {
-    font-size: 1.5rem !important;
-  }
-
   .landing-text p {
-    font-size: 1rem;
-  }
-}
-
-/* ✅ Remove background image in mobile view */
-@media (max-width: 768px) {
-  body {
-    background: none !important;
-    background-color: #0a0a14 !important;
-    background-position: center !important;
-    background-size: cover !important;
-  }
-
-  body::before {
-    background: rgba(10, 10, 20, 0.8);
+    font-size: 0.95rem;
   }
 }
