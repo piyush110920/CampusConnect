@@ -1,4 +1,4 @@
-/* General Body Styling */
+/* Body Background */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -9,7 +9,7 @@ body {
   position: relative;
 }
 
-/* Dark overlay with reduced opacity */
+/* Overlay */
 body::before {
   content: "";
   position: fixed;
@@ -21,7 +21,7 @@ body::before {
   z-index: 0;
 }
 
-/* Bubbles background */
+/* Bubble Animation */
 .bubbles {
   position: fixed;
   top: 0;
@@ -32,7 +32,6 @@ body::before {
   z-index: 1;
   pointer-events: none;
 }
-
 .bubble {
   position: absolute;
   bottom: -60px;
@@ -41,7 +40,6 @@ body::before {
   opacity: 0.3;
   mix-blend-mode: screen;
 }
-
 .bubble:nth-child(3n) { background-color: rgba(174, 123, 247, 0.4); }
 .bubble:nth-child(4n) { background-color: rgba(200, 140, 255, 0.3); }
 .bubble:nth-child(5n) { background-color: rgba(153, 102, 255, 0.3); }
@@ -62,7 +60,7 @@ body::before {
   }
 }
 
-/* Header fix if it's fixed */
+/* Header fix */
 header {
   position: fixed;
   top: 0;
@@ -70,10 +68,10 @@ header {
   width: 100%;
   height: 80px;
   z-index: 9999;
-  background: rgba(0, 0, 0, 0.8); /* optional for visibility */
+  background: rgba(0, 0, 0, 0.8);
 }
 
-/* Landing Container */
+/* Container Layout */
 .landing-container {
   display: flex;
   justify-content: space-between;
@@ -84,14 +82,13 @@ header {
   z-index: 2;
 }
 
-/* Text Area */
+/* Text Styling */
 .landing-text {
   max-width: 100%;
   color: #ffffff;
   text-align: left;
 }
 
-/* Heading */
 .landing-text h1 {
   font-size: 4.5rem;
   font-weight: 800;
@@ -102,7 +99,6 @@ header {
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Static subtitle */
 .static-text {
   font-size: 2.2em;
   font-weight: 600;
@@ -111,7 +107,6 @@ header {
   font-family: 'Poppins', sans-serif;
 }
 
-/* Paragraph */
 .landing-text p {
   font-size: 1.5rem;
   margin-top: 20px;
@@ -121,7 +116,7 @@ header {
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Typewriter Effect */
+/* Typewriter */
 .Typewriter__wrapper {
   font-size: 2.2em !important;
   color: #ffe25f !important;
@@ -133,7 +128,6 @@ header {
   display: inline;
   max-width: 100%;
 }
-
 .Typewriter__cursor {
   font-size: 2.4em !important;
   color: #ffe25f !important;
@@ -152,7 +146,7 @@ header {
   transition: all 0.3s ease-in-out;
 }
 
-/* Tablet Responsive */
+/* Responsive - Tablet */
 @media screen and (max-width: 900px) {
   .landing-container {
     flex-direction: column;
@@ -174,15 +168,15 @@ header {
   }
 }
 
-/* ✅ Mobile View Fix (Image BELOW Text & No Gap at Top) */
-@media (max-width: 767px) {
+/* Responsive - Mobile */
+@media (max-width: 1000px) {
   .landing-container {
     flex-direction: column;
-    padding: 0px 20px 30px 20px; /* Top padding for header space */
+    padding: 0px 20px 30px 20px;
   }
 
   .landing-image {
-    order: 2; /* 👈 Image comes after text */
+    order: 2;
     margin-top: 0px;
     display: flex;
     justify-content: center;
@@ -192,11 +186,6 @@ header {
   .landing-image img {
     max-width: 70%;
     margin: 0 auto;
-  }
-
-  .landing-text {
-    text-align: left;
-    text-align: top;
   }
 
   .landing-text h1 {
@@ -210,7 +199,6 @@ header {
   .Typewriter__wrapper {
     font-size: 1.5rem !important;
     font-weight: 500 !important;
-    text-align: left !important;
   }
 
   .Typewriter__cursor {
@@ -219,5 +207,19 @@ header {
 
   .landing-text p {
     font-size: 1rem;
+  }
+}
+
+/* ✅ Remove background image in mobile view */
+@media (max-width: 768px) {
+  body {
+    background: none !important;
+    background-color: #0a0a14 !important;
+    background-position: center !important;
+    background-size: cover !important;
+  }
+
+  body::before {
+    background: rgba(10, 10, 20, 0.8);
   }
 }

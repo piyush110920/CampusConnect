@@ -1,4 +1,4 @@
-// landing.jsx
+// src/components/landing.jsx
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -18,7 +18,6 @@ import "./landing.css";
 const LandingPage = () => {
   const location = useLocation();
 
-  // 🔁 Scroll to hash section when URL changes
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.replace("#", "");
@@ -35,7 +34,7 @@ const LandingPage = () => {
     <div>
       <Header />
 
-      {/* Optional Floating Bubbles */}
+      {/* Floating Bubble Animation */}
       <div className="bubbles">
         {Array.from({ length: 30 }).map((_, index) => (
           <div
@@ -77,15 +76,13 @@ const LandingPage = () => {
         </div>
       </div>
 
-      {/* Sections */}
+      {/* Info Sections */}
       <ServicedBy />
       <div id="about">
         <StudentInfo />
       </div>
-      
       <MessInfo />
       <RoomInfo />
-
       <div id="ContactUs">
         <ContactUs />
       </div>
