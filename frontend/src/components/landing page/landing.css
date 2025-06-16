@@ -76,7 +76,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 60px 80px;
+  padding: 110px 80px;
   gap: 30px;
   position: relative;
   z-index: 2;
@@ -134,20 +134,77 @@ header {
 }
 
 /* Image */
+/* Advanced Image Styling with Popup */
 .landing-image {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
+  position: relative;
 }
+
 .landing-image img {
   max-width: 420px;
   height: auto;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.4s ease;
+  border-radius: 40%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  z-index: 2;
+}
+
+.landing-image img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 28px rgba(164, 95, 255, 0.83);
+  filter: brightness(1.1);
+}
+
+/* Popup Info Card */
+.image-popup {
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(20, 20, 20, 0.95);
+  color: #fff;
+  padding: 15px 20px;
+  border-radius: 16px;
+  opacity: 0;
+  transition: all 0.4s ease;
+  width: 300px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  z-index: 1;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  pointer-events: none;
+}
+
+.landing-image:hover .image-popup {
+  opacity: 1;
+  bottom: -130px;
+}
+
+/* Arrow for popup */
+.image-popup::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: rgba(20, 20, 20, 0.95);
 }
 
 /* Tablet Responsive */
 @media screen and (max-width: 900px) {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    
+  }
   .landing-container {
     flex-direction: column;
     text-align: center;

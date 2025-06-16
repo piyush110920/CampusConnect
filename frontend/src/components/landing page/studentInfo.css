@@ -27,7 +27,6 @@
   min-width: 300px;
   max-width: 600px;
   padding: 80px;
-
 }
 
 .student-heading {
@@ -87,6 +86,7 @@
   text-decoration: underline;
 }
 
+/* ==== IMAGE POPUP STYLES START ==== */
 .student-info-image {
   flex: 1;
   display: flex;
@@ -94,36 +94,97 @@
   min-width: 350px;
 }
 
-.student-info-image img {
-  max-width: 90%;
-  height: auto;
+.image-wrapper {
+  position: relative;
+  display: inline-block;
 }
 
+.image-wrapper img {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 35%;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  
+  cursor: pointer;
+}
+
+.image-wrapper img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 28px rgba(184, 114, 255, 0.792);
+}
+
+.image-popup {
+  position: absolute;
+  bottom: -95px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(25, 25, 35, 0.95);
+  color: #fff;
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  width: 280px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: all 0.4s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.image-wrapper:hover .image-popup {
+  opacity: 1;
+  bottom: -125px;
+}
+
+.image-popup::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: rgba(25, 25, 35, 0.95);
+}
+/* ==== IMAGE POPUP STYLES END ==== */
 
 @media (max-width: 768px) {
   .student-info-container {
     flex-direction: column;
-    align-items: center; /* Center everything horizontally */
+    align-items: center;
     padding: 20px;
   }
 
   .student-info-image {
-    order: -1; /* Show image on top */
+    order: -1;
     justify-content: center;
     width: 100%;
-    margin-bottom: 10px; /* Tighten spacing */
+    margin-bottom: 10px;
   }
 
-  .student-info-image img {
-    max-width: 70%; /* Smaller image */
-    height: auto;
+  .image-wrapper img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto;
     display: block;
-    margin: 0 auto; /* Center image */
+  }
+
+  .image-popup {
+    font-size: 0.75rem;
+    width: 220px;
+    bottom: -100px;
+  }
+
+  .image-wrapper:hover .image-popup {
+    bottom: -120px;
   }
 
   .student-info-text {
     padding: 0;
-    margin-top: 5px; /* Closer to image */
+    margin-top: 5px;
     width: 100%;
   }
 

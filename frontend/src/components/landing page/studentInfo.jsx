@@ -1,6 +1,6 @@
 import React from 'react';
 import './StudentInfo.css';
-import studentImg from '../../assets/img1.png';
+import studentImg from '../../assets/img2.png';
 import Typewriter from 'typewriter-effect';
 import { Link } from 'react-router-dom';
 
@@ -42,7 +42,12 @@ const StudentInfo = () => {
 
       {/* Right Image */}
       <div className="student-info-image">
-        <img src={studentImg} alt="Student Illustration" />
+        <div className="image-wrapper">
+          <img src={studentImg} alt="Student Info" />
+          <div className="image-popup">
+            🎓 Access mess & rental services with real-time ratings, booking, and comparison!
+          </div>
+        </div>
       </div>
     </div>
   );

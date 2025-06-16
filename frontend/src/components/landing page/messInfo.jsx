@@ -14,8 +14,12 @@ const MessInfo = () => {
   return (
     <div className="mess-info-container">
       {/* Left Image */}
-      <div className="mess-info-image">
-        <img src={messImg} alt="Mess Provider Illustration" />
+      <div class="mess-info-image">
+        
+        <img src={messImg} alt="Mess Illustration" />
+        <div class="image-info-popup">
+          Our AI suggests mess plans based on your diet, taste & budget.
+        </div>
       </div>
 
       {/* Right Text Content */}

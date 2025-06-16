@@ -79,21 +79,75 @@
   text-decoration: underline;
 }
 
+/* Image Section with Effects */
 .mess-info-image {
   flex: 1;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   min-width: 350px;
+  position: relative;
 }
 
 .mess-info-image img {
-  max-width: 70%;
+  width: 550px;
+  max-width: 100%;
   height: auto;
-  border-radius: 12px;
+  border-radius: 16px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
 }
 
-/* Responsive Adjustments */
+.mess-info-image img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #ffe25f;
+}
+
+/* Tooltip */
+.image-tooltip {
+  position: absolute;
+  top: -40px;
+  background-color: #222;
+  color: #ffe25f;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+  font-family: 'Poppins', sans-serif;
+  pointer-events: none;
+}
+
+.mess-info-image:hover .image-tooltip {
+  opacity: 1;
+}
+
+/* Animated Info Card Popup */
+.image-info-popup {
+  position: absolute;
+  bottom: -120px;
+  background-color: #1c1c1c;
+  color: #ffffff;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255, 226, 95, 0.2);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+  font-family: 'Poppins', sans-serif;
+  max-width: 90%;
+  text-align: center;
+  z-index: 3;
+}
+
+.mess-info-image:hover .image-info-popup {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive */
 @media screen and (max-width: 768px) {
   .mess-info-container {
     flex-direction: column;
@@ -102,6 +156,7 @@
   }
 
   .mess-info-text {
+    order: 2;
     padding: 20px 10px;
     text-align: left;
   }
@@ -127,16 +182,24 @@
   }
 
   .mess-info-image {
+    order: 1;
     width: 100%;
-    justify-content: center; /* Center image horizontally */
+    justify-content: center;
     display: flex;
-    margin-top: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 
   .mess-info-image img {
-    max-width: 60%;
+    width: 280px;
+    max-width: 90%;
     height: auto;
-    margin: 0 auto; /* Ensures the image is centered */
+  }
+
+  .image-info-popup {
+    bottom: -100px;
+    font-size: 0.9rem;
+    padding: 12px 15px;
   }
 
   .Typewriter__wrapper {

@@ -11,8 +11,8 @@ import StudentInfo from "./studentInfo";
 import MessInfo from "./messInfo";
 import ContactUs from "./contactUs";
 import RoomInfo from "./roomInfo";
+import img1 from '../../assets/img1.png';
 
-import girlImage from "../../assets/img2.png";
 import "./landing.css";
 
 const LandingPage = () => {
@@ -72,7 +72,10 @@ const LandingPage = () => {
         </div>
 
         <div className="landing-image">
-          <img src={girlImage} alt="Illustration" />
+          <img src={img1} alt="Student Services" />
+          <div className="image-popup">
+            🚀 Empowering students with smart mess & rental solutions, at your fingertips!
+          </div>
         </div>
       </div>
 

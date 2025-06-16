@@ -39,9 +39,14 @@ const RoomInfo = () => {
         </p>
       </div>
 
-      <div className="room-info-image">
-        <img src={roomImage} alt="Room Service Illustration" />
-      </div>
+        <div className="room-info-image">
+          
+          <img src={roomImage} alt="Room info" />
+          <p className="image-popup-card">
+            Our AI suggests room options based on your budget, preferences, and distance from college. Try it now!
+          </p>
+        </div>
+
     </div>
   );
 };
