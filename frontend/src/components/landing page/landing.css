@@ -1,16 +1,12 @@
 /* Body Background */
 body {
   margin: 0;
-  padding: 0;
-  width: 100vw;            /* ✅ Ensure it takes full width */
-  max-width: 100%;  
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: url("../../assets/home-bg.jpg") no-repeat center center fixed;
   background-size: cover;
   color: #1e1e1e;
   overflow-x: hidden;
   position: relative;
-  box-sizing: border-box;
 }
 
 /* Overlay */
@@ -19,17 +15,10 @@ body::before {
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   background: rgba(10, 10, 20, 0.4);
-  z-index: 1;
-  box-sizing: border-box;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  z-index: 0;
 }
 
 /* Bubble Animation */
@@ -71,7 +60,7 @@ body::before {
   }
 }
 
-/* Header fix */
+/* Header */
 header {
   position: fixed;
   top: 0;
@@ -82,7 +71,7 @@ header {
   background: rgba(0, 0, 0, 0.8);
 }
 
-/* Container Layout */
+/* Landing Container */
 .landing-container {
   display: flex;
   justify-content: space-between;
@@ -98,11 +87,6 @@ header {
   max-width: 100%;
   color: #ffffff;
   text-align: left;
-
-  /* ✅ Prevent overflow */
-  padding: 0 10px;
-  word-wrap: break-word;
-  box-sizing: border-box;
 }
 
 .landing-text h1 {
@@ -162,7 +146,7 @@ header {
   transition: all 0.3s ease-in-out;
 }
 
-/* Responsive - Tablet */
+/* Tablet Responsive */
 @media screen and (max-width: 900px) {
   .landing-container {
     flex-direction: column;
@@ -184,11 +168,66 @@ header {
   }
 }
 
-/* Responsive - Mobile */
-@media (max-width: 1000px) {
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    
+  }
+  body {
+    background: url("../../assets/home-bg.jpg") no-repeat center center fixed !important;
+    background-size: cover !important;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    background: rgba(10, 10, 20, 0.8);
+  }
+
   .landing-container {
     flex-direction: column;
-    padding: 0px 20px 30px 20px;
+    padding: 20px 16px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    min-height: 100vh; /* 👈 This makes sure it takes full height of the phone */
+    justify-content: center; /* centers vertically */
+  }
+  .landing-text {
+    text-align: center;
+    padding: 0 5px;
+    width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .landing-text h1 {
+    font-size: 2rem;
+    line-height: 1.3;
+    word-break: break-word;
+  }
+
+  .static-text {
+    font-size: 1.3rem;
+  }
+
+  .Typewriter__wrapper {
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+  }
+
+  .Typewriter__cursor {
+    font-size: 1.2rem !important;
+  }
+
+  .landing-text p {
+    font-size: 1rem;
   }
 
   .landing-image {
@@ -200,26 +239,7 @@ header {
   }
 
   .landing-image img {
-    max-width: 70%;
-    margin: 0 auto;
-  }
-
-  .landing-text h1 {
-    font-size: 2.2rem;
-    line-height: 1.2;
-  }
-
-  .static-text {
-    font-size: 1.2rem;
-  }
-
-  .Typewriter__wrapper,
-  .Typewriter__cursor {
-    font-size: 1.2rem !important;
-    font-weight: 500 !important;
-  }
-
-  .landing-text p {
-    font-size: 0.95rem;
+    max-width: 90%;
+    height: auto;
   }
 }
