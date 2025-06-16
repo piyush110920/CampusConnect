@@ -6,6 +6,10 @@ import './Navbarsignup.css';
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const toggleMenu = () => {
+    setMenuOpen(prev => !prev);
+  };
+
   return (
     <nav className="signup-navbar">
       <div className="signup-navbar-logo">
@@ -13,17 +17,20 @@ const Navbar = () => {
       </div>
 
       {/* Hamburger Toggle */}
-      <div className="signup-navbar-toggle" onClick={() => setMenuOpen(!menuOpen)}>
+      <div
+        className={`signup-navbar-toggle ${menuOpen ? 'active' : ''}`}
+        onClick={toggleMenu}
+      >
         <span></span>
         <span></span>
         <span></span>
       </div>
 
       <ul className={`signup-navbar-links ${menuOpen ? 'active' : ''}`}>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/landing#about">About</Link></li>
-        <li><a href="/landing#ContactUs">Contact Us</a></li>
-        <li><Link to="/login" className="login-link">Login</Link></li>
+        <li><Link to="/" onClick={() => setMenuOpen(false)}>Home</Link></li>
+        <li><Link to="/landing#about" onClick={() => setMenuOpen(false)}>About</Link></li>
+        <li><a href="/landing#ContactUs" onClick={() => setMenuOpen(false)}>Contact Us</a></li>
+        <li><Link to="/login" className="login-link" onClick={() => setMenuOpen(false)}>Login</Link></li>
       </ul>
     </nav>
   );
