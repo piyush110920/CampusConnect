@@ -4,6 +4,7 @@ import SignupPage from './components/signup page/signup.jsx';
 import ContactUs from './components/landing page/contactUs.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx'; // Import
 import LoginPage from "./components/login page/loginpage.jsx";
+import ForgotPassword from "./components/login page/forgotPassword.jsx";
 
 <Route path="/landing" element={<LandingPage />} />
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/login" element={<LoginPage/>}/>
+        <Route path="/forgot-password" element={<ForgotPassword/>}/>
       </Routes>
     </BrowserRouter>
 
