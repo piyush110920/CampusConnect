@@ -100,9 +100,9 @@
 }
 
 .image-wrapper img {
-  width: 100%;
+  width: 80%;
   max-width: 800px;
-  border-radius: 35%;
+  border-radius: 30%;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
   
   cursor: pointer;
