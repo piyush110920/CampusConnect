@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './forgotPassword.css';
 import Navbar from '../signup page/Navbarsignup';
 import Footer from '../landing page/footer';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 
 const ForgotPassword = () => {
@@ -13,6 +14,17 @@ const ForgotPassword = () => {
   const [otp, setOtp] = useState(['', '', '', '']);
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const passwordValidations = {
+    lowercase: /[a-z]/.test(newPassword),
+    uppercase: /[A-Z]/.test(newPassword),
+    number: /\d/.test(newPassword),
+    specialChar: /[\W_]/.test(newPassword),
+    minLength: newPassword.length >= 8
+  };
+
 
   const handleSendOTP = () => {
     if (!mobile) {
@@ -132,22 +144,52 @@ const ForgotPassword = () => {
                 </div>
 
                 <label>New Password:</label>
-              <input
-                type="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="Enter new password"
-              />
+                <div className="password-input-wrapper">
+                  <input
+                    type={showNewPassword ? 'text' : 'password'}
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    placeholder="Enter new password"
+                  />
+                  <span className="eye-icon" onClick={() => setShowNewPassword(!showNewPassword)}>
+                    {showNewPassword ? <FaEyeSlash /> : <FaEye />}
+                  </span>
+                </div>
 
-              <label>Confirm Password:</label>
-              <input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm new password"
-              />
+                <ul className="password-validation-list">
+                  <li className={passwordValidations.lowercase ? 'valid' : 'invalid'}>
+                    {passwordValidations.lowercase ? '✓' : '✗'} At least one lowercase letter
+                  </li>
+                  <li className={passwordValidations.uppercase ? 'valid' : 'invalid'}>
+                    {passwordValidations.uppercase ? '✓' : '✗'} At least one uppercase letter
+                  </li>
+                  <li className={passwordValidations.number ? 'valid' : 'invalid'}>
+                    {passwordValidations.number ? '✓' : '✗'} At least one number
+                  </li>
+                  <li className={passwordValidations.specialChar ? 'valid' : 'invalid'}>
+                    {passwordValidations.specialChar ? '✓' : '✗'} At least one special character
+                  </li>
+                  <li className={passwordValidations.minLength ? 'valid' : 'invalid'}>
+                    {passwordValidations.minLength ? '✓' : '✗'} Minimum 8 characters
+                  </li>
+                </ul>
 
-              <button type="submit">Submit</button>
+
+                <label>Confirm Password:</label>
+                <div className="password-input-wrapper">
+                  <input
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder="Confirm new password"
+                  />
+                  <span className="eye-icon" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                  </span>
+                </div>
+
+
+                <button type="submit">Submit</button>
             </>
           )}
         </form>
