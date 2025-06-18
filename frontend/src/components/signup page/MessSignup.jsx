@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './MessSignup.css';
 
 const MessSignup = () => {
@@ -18,6 +19,37 @@ const MessSignup = () => {
     confirmPassword: ''
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
+  const [otp, setOtp] = useState(['', '', '', '']);
+  const otpRefs = useRef([]);
+
+  const handleOtpChange = (e, index) => {
+  const value = e.target.value;
+  if (!/^\d?$/.test(value)) return; // Allow only one digit
+  const updatedOtp = [...otp];
+  updatedOtp[index] = value;
+  setOtp(updatedOtp);
+
+  // Move to next box if input is filled
+  if (value && index < otp.length - 1) {
+    const nextInput = document.getElementById(`otp-${index + 1}`);
+    if (nextInput) nextInput.focus();
+  }
+};
+
+
+  const validatePassword = (password) => ({
+    length: password.length >= 8,
+    lowercase: /[a-z]/.test(password),
+    uppercase: /[A-Z]/.test(password),
+    number: /\d/.test(password),
+    specialChar: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
+  });
+
+  const passwordChecks = validatePassword(formData.password);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -25,76 +57,51 @@ const MessSignup = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const generateOtp = (e) => {
     e.preventDefault();
-
-    const {
-      fullName,
-      companyName,
-      email,
-      phone,
-      plotNumber,
-      landmark,
-      area,
-      city,
-      state,
-      country,
-      pincode,
-      password,
-      confirmPassword
-    } = formData;
-
-    // Check for empty fields
-    for (let key in formData) {
+    const requiredFields = Object.keys(formData);
+    for (let key of requiredFields) {
       if (!formData[key]) {
         alert('All fields are required!');
         return;
       }
     }
 
-    // Validate email
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-      alert('Enter a valid email address.');
-      return;
-    }
-
-    // Validate phone number
-    const phonePattern = /^[0-9]{10}$/;
-    if (!phonePattern.test(phone)) {
-      alert('Enter a valid 10-digit phone number.');
-      return;
-    }
-
-    // Validate pincode
-    const pinPattern = /^[0-9]{6}$/;
-    if (!pinPattern.test(pincode)) {
-      alert('Enter a valid 6-digit pincode.');
-      return;
-    }
-
-    // Check password match
-    if (password !== confirmPassword) {
+    if (formData.password !== formData.confirmPassword) {
       alert('Passwords do not match!');
       return;
     }
 
-    // Combine address
-    const fullAddress = `${plotNumber}, ${landmark}, ${area}, ${city}, ${state}, ${country} - ${pincode}`;
+    const allValid = Object.values(passwordChecks).every(Boolean);
+    if (!allValid) {
+      alert('Password does not meet criteria.');
+      return;
+    }
 
-    const submissionData = {
-      fullName,
-      companyName,
-      email,
-      phone,
-      address: fullAddress,
-      password
-    };
+    setOtpSent(true);
+    alert('✅ OTP Sent Successfully!');
+  };
 
-    console.log('Mess Provider Signup Data:', submissionData);
+
+   const handleOtpKeyDown = (e, index) => {
+    if (e.key === 'Backspace') {
+      if (otp[index] === '' && index > 0) {
+        const prevInput = document.getElementById(`otp-${index - 1}`);
+        if (prevInput) prevInput.focus();
+      }
+    }
+  };
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (otp.join('').length !== 4) {
+      alert('Please enter the 4-digit OTP');
+      return;
+    }
+
+    console.log('Mess Provider Signup Data:', formData);
     alert('✅ Mess Provider Signed Up Successfully!');
-
-    // Reset form
     setFormData({
       fullName: '',
       companyName: '',
@@ -110,51 +117,108 @@ const MessSignup = () => {
       password: '',
       confirmPassword: ''
     });
+    setOtp(['', '', '', '']);
+    setOtpSent(false);
   };
 
   return (
-    <form className="signup-form" onSubmit={handleSubmit}>
+    <form className="signup-form" onSubmit={otpSent ? handleSubmit : generateOtp}>
       <label>Full Name:</label>
-      <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} placeholder="Enter your name" />
+      <input disabled={otpSent}  placeholder="Enter your full name  "  type="text" name="fullName" value={formData.fullName} onChange={handleChange} />
 
       <label>Company/Service Name:</label>
-      <input type="text" name="companyName" value={formData.companyName} onChange={handleChange} placeholder="Mess or Service name" />
+      <input disabled={otpSent}  placeholder="Enter your service name  " type="text" name="companyName" value={formData.companyName} onChange={handleChange} />
 
       <label>Email:</label>
-      <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter your email" />
+      <input disabled={otpSent}  placeholder="Enter your email address  " type="email" name="email" value={formData.email} onChange={handleChange} />
 
       <label>Phone Number:</label>
-      <input type="text" name="phone" value={formData.phone} onChange={handleChange} placeholder="Enter 10-digit phone number" />
+      <input disabled={otpSent}  placeholder="Enter your phone number " type="text" name="phone" value={formData.phone} onChange={handleChange} />
 
       <label>Plot Number:</label>
-      <input type="text" name="plotNumber" value={formData.plotNumber} onChange={handleChange} placeholder="e.g., 268/A" />
+      <input disabled={otpSent}  placeholder="Enter your plot number  " type="text" name="plotNumber" value={formData.plotNumber} onChange={handleChange} />
 
       <label>Landmark:</label>
-      <input type="text" name="landmark" value={formData.landmark} onChange={handleChange} placeholder="Near park, school, etc." />
+      <input disabled={otpSent} placeholder="Enter your landmark name "  type="text" name="landmark" value={formData.landmark} onChange={handleChange} />
 
       <label>Area:</label>
-      <input type="text" name="area" value={formData.area} onChange={handleChange} placeholder="Area name" />
+      <input disabled={otpSent}  placeholder="Enter your area name " type="text" name="area" value={formData.area} onChange={handleChange} />
 
       <label>City:</label>
-      <input type="text" name="city" value={formData.city} onChange={handleChange} placeholder="City" />
+      <input disabled={otpSent} placeholder="Enter your city " type="text" name="city" value={formData.city} onChange={handleChange} />
 
       <label>State:</label>
-      <input type="text" name="state" value={formData.state} onChange={handleChange} placeholder="State" />
+      <input disabled={otpSent}  placeholder="Enter your state  " type="text" name="state" value={formData.state} onChange={handleChange} />
 
       <label>Country:</label>
-      <input type="text" name="country" value={formData.country} onChange={handleChange} placeholder="Country" />
+      <input disabled={otpSent}  placeholder="Enter your country name  " type="text" name="country" value={formData.country} onChange={handleChange} />
 
       <label>Pincode:</label>
-      <input type="text" name="pincode" value={formData.pincode} onChange={handleChange} placeholder="6-digit pincode" />
+      <input disabled={otpSent}  placeholder="Enter your pincode number  " type="text" name="pincode" value={formData.pincode} onChange={handleChange} />
 
       <label>Password:</label>
-      <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Enter password" />
+      <div className="password-field">
+        <input
+          disabled={otpSent}
+           placeholder="Enter your password  " 
+          type={showPassword ? 'text' : 'password'}
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+        />
+        <span className="eye-icon" onClick={() => setShowPassword(!showPassword)}>
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </span>
+      </div>
+
+      <ul className="password-checklist">
+        <li className={passwordChecks.lowercase ? 'valid' : ''}>✔ Lowercase letter</li>
+        <li className={passwordChecks.uppercase ? 'valid' : ''}>✔ Uppercase letter</li>
+        <li className={passwordChecks.number ? 'valid' : ''}>✔ Number</li>
+        <li className={passwordChecks.specialChar ? 'valid' : ''}>✔ Special character</li>
+        <li className={passwordChecks.length ? 'valid' : ''}>✔ At least 8 characters</li>
+      </ul>
 
       <label>Confirm Password:</label>
-      <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Re-enter password" />
+      <div className="password-field">
+        <input
+          disabled={otpSent}
+           placeholder="Re-enter your password " 
+          type={showConfirmPassword ? 'text' : 'password'}
+          name="confirmPassword"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+        />
+        <span className="eye-icon" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+          {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+        </span>
+      </div>
 
-      <button type="submit">Sign Up</button>
-       <p style={{ textAlign: 'center', marginTop: '10px', fontSize: '14px' }}>
+     {otpSent ? (
+        <>
+          <label>Enter OTP:</label>
+          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', margin: '10px 0' }}>
+            {otp.map((digit, idx) => (
+              <input
+                key={idx}
+                id={`otp-${idx}`}
+                type="text"
+                maxLength="1"
+                value={digit}
+                onChange={(e) => handleOtpChange(e, idx)}
+                onKeyDown={(e) => handleOtpKeyDown(e, idx)}
+                className="otp-box"
+                ref={otpRefs[idx]}
+              />
+            ))}
+          </div>
+
+          <button type="submit">Sign Up</button>
+        </>
+      ) : (
+        <button type="button" onClick={generateOtp}>Generate OTP</button>
+      )}
+      <p style={{ textAlign: 'center', marginTop: '10px', fontSize: '14px' }}>
         Already have an account?{' '}
         <a href="/login" style={{ color: '#007bff', textDecoration: 'none' }}>
           Login

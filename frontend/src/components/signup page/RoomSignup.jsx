@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import './RoomSignup.css'
 
-const MessSignup = () => {
+const RoomSignup = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
@@ -14,53 +16,48 @@ const MessSignup = () => {
     confirmPassword: ''
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
+  const [otp, setOtp] = useState(['', '', '', '']);
+
+  const isFieldDisabled = otpSent;
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const validatePassword = (password) => ({
+    length: password.length >= 8,
+    lowercase: /[a-z]/.test(password),
+    uppercase: /[A-Z]/.test(password),
+    number: /\d/.test(password),
+    specialChar: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
+  });
 
-    const {
-      fullName,
-      phone,
-      messName,
-      plotNumber,
-      street,
-      landmark,
-      city,
-      pincode,
-      password,
-      confirmPassword
-    } = formData;
+  const handleOtpChange = (e, index) => {
+    const value = e.target.value;
+    if (!/^\d?$/.test(value)) return;
+    const updatedOtp = [...otp];
+    updatedOtp[index] = value;
+    setOtp(updatedOtp);
 
-    // Validation
-    if (
-      !fullName ||
-      !phone ||
-      !messName ||
-      !plotNumber ||
-      !street ||
-      !landmark ||
-      !city ||
-      !pincode ||
-      !password ||
-      !confirmPassword
-    ) {
+    if (value && index < otp.length - 1) {
+      document.getElementById(`otp-${index + 1}`)?.focus();
+    }
+  };
+
+  const handleOtpKeyDown = (e, index) => {
+    if (e.key === 'Backspace' && otp[index] === '' && index > 0) {
+      document.getElementById(`otp-${index - 1}`)?.focus();
+    }
+  };
+
+  const generateOtp = () => {
+    const { fullName, phone, messName, plotNumber, street, landmark, city, pincode, password, confirmPassword } = formData;
+
+    if (!fullName || !phone || !messName || !plotNumber || !street || !landmark || !city || !pincode || !password || !confirmPassword) {
       alert('All fields are required!');
-      return;
-    }
-
-    if (!/^\d{10}$/.test(phone)) {
-      alert('Phone number must be 10 digits.');
-      return;
-    }
-
-    if (!/^\d{6}$/.test(pincode)) {
-      alert('Pincode must be 6 digits.');
       return;
     }
 
@@ -69,19 +66,40 @@ const MessSignup = () => {
       return;
     }
 
-    const address = `${plotNumber}, ${street}, ${landmark}, ${city} - ${pincode}`;
+    const checks = validatePassword(password);
+    const allValid = Object.values(checks).every(Boolean);
+    if (!allValid) {
+      alert('Password does not meet criteria.');
+      return;
+    }
 
-    console.log('🍱 Mess Provider Signup Data:', {
+    setOtpSent(true);
+    alert('✅ OTP sent successfully!');
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (otp.some((val) => val === '')) {
+      alert('Please enter the complete OTP!');
+      return;
+    }
+
+    const fullOtp = otp.join('');
+    const { fullName, phone, messName, plotNumber, street, landmark, city, pincode, password } = formData;
+    const fullAddress = `${plotNumber}, ${street}, ${landmark}, ${city} - ${pincode}`;
+
+    console.log('🎉 Mess Provider Signup Data:', {
       fullName,
       phone,
       messName,
-      address,
-      password
+      address: fullAddress,
+      password,
+      otp: fullOtp
     });
 
-    alert('✅ Mess Provider Signed Up Successfully!');
+    alert('🎉 Mess Provider Signed Up Successfully!');
 
-    // Reset form
     setFormData({
       fullName: '',
       phone: '',
@@ -94,109 +112,103 @@ const MessSignup = () => {
       password: '',
       confirmPassword: ''
     });
+    setOtp(['', '', '', '']);
+    setOtpSent(false);
   };
+
+  const passwordChecks = validatePassword(formData.password);
 
   return (
     <form className="contact-form" onSubmit={handleSubmit}>
       <label>Full Name:</label>
-      <input
-        type="text"
-        name="fullName"
-        placeholder="Enter your name"
-        value={formData.fullName}
-        onChange={handleChange}
-      />
+      <input name="fullName"  placeholder="Enter your full name  " value={formData.fullName} onChange={handleChange} readOnly={isFieldDisabled} />
 
       <label>Phone Number:</label>
-      <input
-        type="text"
-        name="phone"
-        placeholder="Enter your phone number"
-        value={formData.phone}
-        onChange={handleChange}
-      />
+      <input name="phone"  placeholder="Enter your phone number"  value={formData.phone} onChange={handleChange} readOnly={isFieldDisabled} />
 
-      <label>Appartment Name:</label>
-      <input
-        type="text"
-        name="messName"
-        placeholder="Enter your mess name"
-        value={formData.messName}
-        onChange={handleChange}
-      />
+      <label>Apartment Name:</label>
+      <input name="messName"  placeholder="Enter your apartment name " value={formData.messName} onChange={handleChange} readOnly={isFieldDisabled} />
 
       <label>Plot Number:</label>
-      <input
-        type="text"
-        name="plotNumber"
-        placeholder="Enter plot number"
-        value={formData.plotNumber}
-        onChange={handleChange}
-      />
+      <input name="plotNumber"  placeholder="Enter your plot nnumber" value={formData.plotNumber} onChange={handleChange} readOnly={isFieldDisabled} />
 
       <label>Street Name:</label>
-      <input
-        type="text"
-        name="street"
-        placeholder="Enter street name"
-        value={formData.street}
-        onChange={handleChange}
-      />
+      <input name="street" placeholder="Enter your street name"  value={formData.street} onChange={handleChange} readOnly={isFieldDisabled} />
 
       <label>Landmark:</label>
-      <input
-        type="text"
-        name="landmark"
-        placeholder="Enter landmark"
-        value={formData.landmark}
-        onChange={handleChange}
-      />
+      <input name="landmark"  placeholder="Enter your landmark" value={formData.landmark} onChange={handleChange} readOnly={isFieldDisabled} />
 
       <label>City:</label>
-      <input
-        type="text"
-        name="city"
-        placeholder="Enter city"
-        value={formData.city}
-        onChange={handleChange}
-      />
+      <input name="city"  placeholder="Enter yor city"  value={formData.city} onChange={handleChange} readOnly={isFieldDisabled} />
 
       <label>Pincode:</label>
-      <input
-        type="text"
-        name="pincode"
-        placeholder="Enter 6-digit pincode"
-        value={formData.pincode}
-        onChange={handleChange}
-      />
+      <input name="pincode" placeholder="Enter your pincode"  value={formData.pincode} onChange={handleChange} readOnly={isFieldDisabled} />
 
       <label>Password:</label>
-      <input
-        type="password"
-        name="password"
-        placeholder="Enter password"
-        value={formData.password}
-        onChange={handleChange}
-      />
+      <div className="password-field">
+        <input
+          type={showPassword ? 'text' : 'password'}
+          name="password"
+          placeholder="Enter your password" 
+          value={formData.password}
+          onChange={handleChange}
+          readOnly={isFieldDisabled}
+        />
+        <span onClick={() => setShowPassword(!showPassword)}>{showPassword ? <FaEyeSlash /> : <FaEye />}</span>
+      </div>
+
+      <ul className="password-checklist">
+        <li className={passwordChecks.lowercase ? 'valid' : ''}>✔ Lowercase letter</li>
+        <li className={passwordChecks.uppercase ? 'valid' : ''}>✔ Uppercase letter</li>
+        <li className={passwordChecks.number ? 'valid' : ''}>✔ Number</li>
+        <li className={passwordChecks.specialChar ? 'valid' : ''}>✔ Special character</li>
+        <li className={passwordChecks.length ? 'valid' : ''}>✔ At least 8 characters</li>
+      </ul>
 
       <label>Confirm Password:</label>
-      <input
-        type="password"
-        name="confirmPassword"
-        placeholder="Re-enter password"
-        value={formData.confirmPassword}
-        onChange={handleChange}
-      />
+      <div className="password-field">
+        <input
+          type={showConfirmPassword ? 'text' : 'password'}
+          name="confirmPassword"
+          placeholder="Re-enter your password" 
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          readOnly={isFieldDisabled}
+        />
+        <span onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+          {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+        </span>
+      </div>
 
-      <button type="submit">Sign Up</button>
+      {otpSent && (
+        <>
+          <label>Enter OTP:</label>
+          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+            {otp.map((val, i) => (
+              <input
+                key={i}
+                id={`otp-${i}`}
+                maxLength="1"
+                className="otp-box"
+                value={val}
+                onChange={(e) => handleOtpChange(e, i)}
+                onKeyDown={(e) => handleOtpKeyDown(e, i)}
+              />
+            ))}
+          </div>
+          <button type="submit">Sign Up</button>
+        </>
+      )}
+
+      {!otpSent && (
+        <button type="button" onClick={generateOtp}>Generate OTP</button>
+      )}
+
       <p style={{ textAlign: 'center', marginTop: '10px', fontSize: '14px' }}>
-        Already have an account?{' '}
-        <a href="/login" style={{ color: '#007bff', textDecoration: 'none' }}>
-          Login
-        </a>
+        Already have an account? <a href="/login">Login</a>
       </p>
     </form>
   );
 };
 
-export default MessSignup;
+export default RoomSignup;

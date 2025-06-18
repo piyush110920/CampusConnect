@@ -1,0 +1,117 @@
+.contact-form {
+  max-width: 500px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 12px;
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); */ 
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.contact-form label {
+  display: block;
+  margin-top: 14px;
+  font-weight: 600;
+  color: #444;
+}
+
+.contact-form input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: border 0.3s ease;
+}
+
+.contact-form input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.password-field {
+  position: relative;
+}
+
+.password-field input {
+  padding-right: 40px;
+}
+
+.password-field span {
+  position: absolute;
+  right: 10px;
+  top: 56%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #807d7d;
+}
+
+.password-checklist {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.password-checklist li {
+  margin-bottom: 5px;
+}
+
+.password-checklist li.valid {
+  color: #28a745;
+}
+
+.otp-box {
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s;
+}
+
+.otp-box:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.contact-form button {
+  margin-top: 20px;
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.contact-form button:hover {
+  background-color: #0056b3;
+}
+
+.contact-form a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.contact-form a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .otp-box {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .contact-form {
+    padding: 20px;
+    margin: 20px;
+  }
+}

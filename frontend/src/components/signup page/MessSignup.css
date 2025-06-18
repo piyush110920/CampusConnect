@@ -53,7 +53,6 @@
 .signup-form input:focus {
   border-color: #6a11cb;
 }
-
 .signup-form button {
   margin-top: 10px;
   padding: 10px 16px;
@@ -70,4 +69,74 @@
 .signup-form button:hover {
   background: linear-gradient(to right, #8c5be2, #4568dc);
   box-shadow: 0 4px 14px rgba(106, 17, 203, 0.3);
+}
+
+
+/* Password field container with eye icon */
+.password-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-field input {
+  width: 100%;
+  padding-right: 40px; /* space for eye icon */
+}
+
+.eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 56%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #555;
+  font-size: 18px;
+}
+
+/* Password checklist */
+.password-checklist {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+  color: #999;
+  list-style: none;
+}
+
+.password-checklist li {
+  margin-bottom: 4px;
+}
+
+.password-checklist li.valid {
+  color: green;
+  font-weight: 600;
+}
+
+/* OTP inputs */
+.otp-boxes {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.otp-input {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  font-size: 20px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.otp-input:focus {
+  border-color: #6a11cb;
+}
+
+.otp-label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 10px;
+  color: #444;
 }
