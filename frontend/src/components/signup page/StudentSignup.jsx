@@ -21,9 +21,14 @@ const StudentSignup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
+  const [otpVerified, setOtpVerified] = useState(false);
   const [otp, setOtp] = useState(['', '', '', '']);
 
   const isFieldDisabled = otpSent;
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleOtpChange = (e, index) => {
     const value = e.target.value;
@@ -47,13 +52,6 @@ const StudentSignup = () => {
     }
   };
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
   const validatePassword = (password) => ({
     length: password.length >= 8,
     lowercase: /[a-z]/.test(password),
@@ -65,9 +63,13 @@ const StudentSignup = () => {
   const passwordChecks = validatePassword(formData.password);
 
   const generateOtp = async () => {
-    const { fullName, email, password, confirmPassword, college, plotNumber, landmark, area, city, state, country, pinCode } = formData;
+    const {
+      fullName, email, password, confirmPassword, college,
+      plotNumber, landmark, area, city, state, country, pinCode
+    } = formData;
 
-    if (!fullName || !email || !password || !confirmPassword || !college || !plotNumber || !landmark || !area || !city || !state || !country || !pinCode) {
+    if (!fullName || !email || !password || !confirmPassword || !college ||
+      !plotNumber || !landmark || !area || !city || !state || !country || !pinCode) {
       alert('All fields are required!');
       return;
     }
@@ -90,8 +92,9 @@ const StudentSignup = () => {
       });
 
       const data = await res.json();
+
       if (res.ok) {
-        alert('✅ OTP sent successfully!');
+        alert('✅ OTP sent successfully to your email!');
         setOtpSent(true);
       } else {
         alert(data.message || 'Failed to send OTP.');
@@ -105,12 +108,17 @@ const StudentSignup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (otp.some(val => val === '')) {
-      alert('Please enter the full OTP!');
+    const finalOtp = otp.join('');
+
+    if (!otpSent) {
+      alert('Please generate OTP first.');
       return;
     }
 
-    const finalOtp = otp.join('');
+    if (otp.some(val => val === '')) {
+      alert('Please enter the complete 4-digit OTP!');
+      return;
+    }
 
     try {
       const res = await fetch('http://localhost:5000/api/student/signup', {
@@ -124,27 +132,18 @@ const StudentSignup = () => {
       if (res.ok) {
         alert('🎉 Signup Successful!');
         setFormData({
-          fullName: '',
-          email: '',
-          password: '',
-          confirmPassword: '',
-          college: '',
-          plotNumber: '',
-          landmark: '',
-          area: '',
-          city: '',
-          state: '',
-          country: '',
-          pinCode: ''
+          fullName: '', email: '', password: '', confirmPassword: '', college: '',
+          plotNumber: '', landmark: '', area: '', city: '', state: '', country: '', pinCode: ''
         });
         setOtp(['', '', '', '']);
         setOtpSent(false);
+        setOtpVerified(true);
       } else {
-        alert(data.message || 'Signup failed.');
+        alert(data.message || 'Signup failed. Please check your OTP and try again.');
       }
     } catch (err) {
-      console.error('Error during signup:', err);
-      alert('Error signing up. Please try again.');
+      console.error('Signup error:', err);
+      alert('Error during signup. Please try again.');
     }
   };
 
@@ -213,7 +212,7 @@ const StudentSignup = () => {
         </span>
       </div>
 
-      {otpSent ? (
+      {otpSent && !otpVerified ? (
         <>
           <label>Enter OTP:</label>
           <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', margin: '10px 0' }}>
@@ -230,7 +229,6 @@ const StudentSignup = () => {
               />
             ))}
           </div>
-
           <button type="submit">Sign Up</button>
         </>
       ) : (
