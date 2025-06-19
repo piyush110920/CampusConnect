@@ -27,12 +27,11 @@ const StudentSignup = () => {
 
   const handleOtpChange = (e, index) => {
     const value = e.target.value;
-    if (!/^\d?$/.test(value)) return; // Allow only one digit
+    if (!/^\d?$/.test(value)) return;
     const updatedOtp = [...otp];
     updatedOtp[index] = value;
     setOtp(updatedOtp);
 
-    // Move to next box if input is filled
     if (value && index < otp.length - 1) {
       const nextInput = document.getElementById(`otp-${index + 1}`);
       if (nextInput) nextInput.focus();
@@ -55,28 +54,20 @@ const StudentSignup = () => {
     });
   };
 
-  const validatePassword = (password) => {
-    return {
-      length: password.length >= 8,
-      lowercase: /[a-z]/.test(password),
-      uppercase: /[A-Z]/.test(password),
-      number: /\d/.test(password),
-      specialChar: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
-    };
-  };
+  const validatePassword = (password) => ({
+    length: password.length >= 8,
+    lowercase: /[a-z]/.test(password),
+    uppercase: /[A-Z]/.test(password),
+    number: /\d/.test(password),
+    specialChar: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
+  });
 
   const passwordChecks = validatePassword(formData.password);
 
-  const generateOtp = () => {
-    const {
-      fullName, email, password, confirmPassword,
-      college, plotNumber, landmark, area,
-      city, state, country, pinCode
-    } = formData;
+  const generateOtp = async () => {
+    const { fullName, email, password, confirmPassword, college, plotNumber, landmark, area, city, state, country, pinCode } = formData;
 
-    if (!fullName || !email || !password || !confirmPassword ||
-        !college || !plotNumber || !landmark || !area ||
-        !city || !state || !country || !pinCode) {
+    if (!fullName || !email || !password || !confirmPassword || !college || !plotNumber || !landmark || !area || !city || !state || !country || !pinCode) {
       alert('All fields are required!');
       return;
     }
@@ -86,17 +77,32 @@ const StudentSignup = () => {
       return;
     }
 
-    const allValid = Object.values(passwordChecks).every(Boolean);
-    if (!allValid) {
+    if (!Object.values(passwordChecks).every(Boolean)) {
       alert('Password must meet all criteria.');
       return;
     }
 
-    alert('✅ OTP sent successfully!');
-    setOtpSent(true);
+    try {
+      const res = await fetch('http://localhost:5000/api/student/generate-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        alert('✅ OTP sent successfully!');
+        setOtpSent(true);
+      } else {
+        alert(data.message || 'Failed to send OTP.');
+      }
+    } catch (err) {
+      console.error('Error generating OTP:', err);
+      alert('Error generating OTP. Please try again later.');
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (otp.some(val => val === '')) {
@@ -104,33 +110,46 @@ const StudentSignup = () => {
       return;
     }
 
-    const enteredOtp = otp.join('');
-    console.log('OTP Entered:', enteredOtp);
-    console.log('Student Signup Data:', formData);
-    alert('🎉 Signup Successful!');
+    const finalOtp = otp.join('');
 
-    // Reset all
-    setFormData({
-      fullName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      college: '',
-      plotNumber: '',
-      landmark: '',
-      area: '',
-      city: '',
-      state: '',
-      country: '',
-      pinCode: ''
-    });
-    setOtp(['', '', '', '']);
-    setOtpSent(false);
+    try {
+      const res = await fetch('http://localhost:5000/api/student/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, otp: finalOtp })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert('🎉 Signup Successful!');
+        setFormData({
+          fullName: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          college: '',
+          plotNumber: '',
+          landmark: '',
+          area: '',
+          city: '',
+          state: '',
+          country: '',
+          pinCode: ''
+        });
+        setOtp(['', '', '', '']);
+        setOtpSent(false);
+      } else {
+        alert(data.message || 'Signup failed.');
+      }
+    } catch (err) {
+      console.error('Error during signup:', err);
+      alert('Error signing up. Please try again.');
+    }
   };
 
   return (
     <form className="contact-form" onSubmit={handleSubmit}>
-      {/* Form Fields */}
       {[
         ['Full Name', 'fullName'],
         ['Email Address', 'email'],
@@ -156,7 +175,6 @@ const StudentSignup = () => {
         </React.Fragment>
       ))}
 
-      {/* Password */}
       <label>Password:</label>
       <div className="password-field">
         <input
@@ -180,7 +198,6 @@ const StudentSignup = () => {
         <li className={passwordChecks.length ? 'valid' : ''}>✔ Minimum 8 characters</li>
       </ul>
 
-      {/* Confirm Password */}
       <label>Confirm Password:</label>
       <div className="password-field">
         <input
@@ -196,7 +213,6 @@ const StudentSignup = () => {
         </span>
       </div>
 
-      {/* OTP Section */}
       {otpSent ? (
         <>
           <label>Enter OTP:</label>
