@@ -1,18 +1,32 @@
+// backend/server.js
 const express = require('express');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const cors = require('cors');
-const authRoutes = require('./routes/authRoutes');
+const studentRoutes = require('./routes/studentRoutes');
+
+dotenv.config();
 
 const app = express();
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/campusconnect', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// Routes
+app.use('/api/student', studentRoutes);
 
-app.use('/api', authRoutes);
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log('✅ MongoDB connected');
+    app.listen(process.env.PORT || 5000, () => {
+      console.log(`🚀 Server running on port ${process.env.PORT || 5000}`);
+    });
+  })
 
-const PORT = 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+.then(() => {
+  console.log('✅ MongoDB connected');
+  app.listen(process.env.PORT || 5000, () => {
+    console.log(`🚀 Server running on port ${process.env.PORT || 5000}`);
+  });
+})
+.catch(err => console.error('❌ DB connection error:', err));

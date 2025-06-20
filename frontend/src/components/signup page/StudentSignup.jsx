@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './studentSignup.css';
 
@@ -23,8 +24,17 @@ const StudentSignup = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
   const [otp, setOtp] = useState(['', '', '', '']);
+  const [loadingOtp, setLoadingOtp] = useState(false);
 
+  const navigate = useNavigate();
   const isFieldDisabled = otpSent;
+
+  useEffect(() => {
+    // Reset OTP state if email changes
+    setOtp(['', '', '', '']);
+    setOtpSent(false);
+    setOtpVerified(false);
+  }, [formData.email]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -68,6 +78,12 @@ const StudentSignup = () => {
       plotNumber, landmark, area, city, state, country, pinCode
     } = formData;
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
     if (!fullName || !email || !password || !confirmPassword || !college ||
       !plotNumber || !landmark || !area || !city || !state || !country || !pinCode) {
       alert('All fields are required!');
@@ -85,13 +101,15 @@ const StudentSignup = () => {
     }
 
     try {
+      setLoadingOtp(true);
       const res = await fetch('http://localhost:5000/api/student/generate-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({ email: email.trim() })
       });
 
       const data = await res.json();
+      setLoadingOtp(false);
 
       if (res.ok) {
         alert('✅ OTP sent successfully to your email!');
@@ -100,6 +118,7 @@ const StudentSignup = () => {
         alert(data.message || 'Failed to send OTP.');
       }
     } catch (err) {
+      setLoadingOtp(false);
       console.error('Error generating OTP:', err);
       alert('Error generating OTP. Please try again later.');
     }
@@ -107,7 +126,6 @@ const StudentSignup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const finalOtp = otp.join('');
 
     if (!otpSent) {
@@ -124,7 +142,7 @@ const StudentSignup = () => {
       const res = await fetch('http://localhost:5000/api/student/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, otp: finalOtp })
+        body: JSON.stringify({ ...formData, email: formData.email.trim(), otp: finalOtp })
       });
 
       const data = await res.json();
@@ -137,7 +155,8 @@ const StudentSignup = () => {
         });
         setOtp(['', '', '', '']);
         setOtpSent(false);
-        setOtpVerified(true);
+        setOtpVerified(false);
+        navigate('/login');
       } else {
         alert(data.message || 'Signup failed. Please check your OTP and try again.');
       }
@@ -212,7 +231,7 @@ const StudentSignup = () => {
         </span>
       </div>
 
-      {otpSent && !otpVerified ? (
+      {otpSent && !otpVerified && (
         <>
           <label>Enter OTP:</label>
           <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', margin: '10px 0' }}>
@@ -229,17 +248,22 @@ const StudentSignup = () => {
               />
             ))}
           </div>
+          <p style={{ textAlign: 'center', color: 'green' }}>OTP sent to {formData.email}</p>
           <button type="submit">Sign Up</button>
         </>
-      ) : (
-        <button type="button" onClick={generateOtp}>Generate OTP</button>
+      )}
+
+      {!otpSent && (
+        <button type="button" onClick={generateOtp} disabled={loadingOtp}>
+          {loadingOtp ? 'Sending OTP...' : 'Generate OTP'}
+        </button>
       )}
 
       <p style={{ textAlign: 'center', marginTop: '10px', fontSize: '14px' }}>
         Already have an account?{' '}
-        <a href="/login" style={{ color: '#007bff', textDecoration: 'none' }}>
+        <span onClick={() => navigate('/login')} style={{ color: '#007bff', cursor: 'pointer' }}>
           Login
-        </a>
+        </span>
       </p>
     </form>
   );

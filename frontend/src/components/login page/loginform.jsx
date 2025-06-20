@@ -3,55 +3,74 @@ import { useNavigate } from 'react-router-dom';
 import './loginform.css';
 
 const LoginForm = () => {
-  const [mobile, setMobile] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!mobile || !password) {
+    if (!email || !password) {
       alert("Please fill in all fields.");
       return;
     }
 
-    // Validate mobile number
-    const mobileRegex = /^[0-9]{10}$/;
-    if (!mobileRegex.test(mobile)) {
-      alert("Mobile number must be exactly 10 digits and contain only numbers.");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email address.");
       return;
     }
 
-    console.log("Logging in with:", mobile, password);
-    setMobile('');
-    setPassword('');
-  };
+    try {
+      const res = await fetch('http://localhost:5000/api/student/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim(), password })
+      });
 
-  const handleMobileInput = (e) => {
-    const value = e.target.value.replace(/\D/g, ''); // Remove non-digits
-    setMobile(value);
+      const data = await res.json();
+
+      if (res.ok) {
+        alert('🎉 Login Successful!');
+        localStorage.setItem('token', data.token); // Save JWT token if returned
+        navigate('/student-dashboard'); // or your appropriate dashboard route
+      } else {
+        alert(data.message || 'Invalid credentials.');
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      alert('Error during login. Please try again.');
+    }
   };
 
   return (
     <div className="login-form-box">
       <h2 className="login-title">Login</h2>
       <form onSubmit={handleSubmit} className="login-form">
-        <label>Mobile Number:</label>
+        <label>Email Address:</label>
         <input
           type="text"
-          value={mobile}
-          onChange={handleMobileInput}
-          maxLength="10"
-          placeholder="Enter your mobile number"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter your email"
         />
 
         <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter your password"
-        />
+        <div className="password-field">
+          <input
+            type={showPassword ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
+          />
+          <span
+            onClick={() => setShowPassword(!showPassword)}
+            className="eye-icon"
+          >
+            {showPassword ? '🙈' : '👁️'}
+          </span>
+        </div>
 
         <div className="login-actions">
           <p onClick={() => navigate('/forgot-password')} className="link-like">Forgot Password?</p>
@@ -62,7 +81,7 @@ const LoginForm = () => {
         <div className="login-links">
           <p>
             Don't have an account?{' '}
-            <span className="link-like" onClick={() => navigate('/signup')}>Register here</span>
+            <span className="link-like" onClick={() => navigate('/student-signup')}>Register here</span>
           </p>
         </div>
       </form>
