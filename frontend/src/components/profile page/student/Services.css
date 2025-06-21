@@ -57,3 +57,20 @@ button.remove {
   background-color: red;
   color: white;
 }
+.message-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.message-box textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  resize: none;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  color: #020202;
+  background-color: #999;
+}

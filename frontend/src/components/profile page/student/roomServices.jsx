@@ -12,9 +12,9 @@ const RoomServices = () => {
         <p><strong>LOCATION:</strong> Plot 23, ABC Street, Pune</p>
         <p><strong>DATE OF JOINING:</strong> 01 Jan 2024</p>
         <p><strong>DATE OF DUE:</strong> 01 Jan 2025</p>
-        <div classname="Message box">
-        <p><strong>DROP MESSAGE:</strong></p>
-        <textarea rows="4" placeholder="Write your message here..."></textarea>
+        <div className="message-box">
+          <strong>DROP MESSAGE:</strong>
+          <textarea rows="4" placeholder="Write your message here..." />
         </div>
         <div className="service-buttons">
           <button className="send">SEND</button>

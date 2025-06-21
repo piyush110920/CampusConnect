@@ -12,8 +12,10 @@ const MessServices = () => {
         <p><strong>LOCATION:</strong> Lane 5, Near XYZ Chowk, Nagpur</p>
         <p><strong>DATE OF JOINING:</strong> 01 Feb 2024</p>
         <p><strong>DATE OF DUE:</strong> 01 Feb 2025</p>
-        <p><strong>DROP MESSAGE:</strong></p>
-        <textarea rows="4" placeholder="Write your message here..."></textarea>
+        <div className="message-box">
+          <strong>DROP MESSAGE:</strong>
+          <textarea rows="4" placeholder="Write your message here..." />
+        </div>
         <div className="service-buttons">
           <button className="send">SEND</button>
           <button className="change">CHANGE</button>

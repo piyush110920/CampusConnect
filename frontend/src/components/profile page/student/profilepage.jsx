@@ -5,7 +5,9 @@ import Sidebar from './Sidebar';
 import Dashboard from './Dashboard';
 import RoomServices from './roomServices';
 import MessServices from './messServices';
+import Suggestions from './suggestions';
 
+import chatbotIcon from '../../../assets/chat.png'
 import './profilepage.css'
 
 const ProfilePage = () => {
@@ -20,10 +22,14 @@ const ProfilePage = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/room-services" element={<RoomServices />} />
             <Route path="/mess-services" element={<MessServices />} />
+            <Route path="/suggestions" element={<Suggestions/>} />
             {/* Add more routes as needed */}
           </Routes>
         </div>
       </div>
+      {/* Chatbot Icon */}
+      
+      <img src={chatbotIcon} alt="chatbot" className="chatbot-icon" />
     </div>
   );
 };
