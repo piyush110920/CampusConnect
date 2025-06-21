@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import './RoomSignup.css'
+import './RoomSignup.css';
 
 const RoomSignup = () => {
   const [formData, setFormData] = useState({
     fullName: '',
+    email: '',
     phone: '',
     messName: '',
     plotNumber: '',
@@ -16,12 +18,21 @@ const RoomSignup = () => {
     confirmPassword: ''
   });
 
+  const [otp, setOtp] = useState(['', '', '', '']);
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpVerified, setOtpVerified] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [otpSent, setOtpSent] = useState(false);
-  const [otp, setOtp] = useState(['', '', '', '']);
+  const [loadingOtp, setLoadingOtp] = useState(false);
 
+  const navigate = useNavigate();
   const isFieldDisabled = otpSent;
+
+  useEffect(() => {
+    setOtp(['', '', '', '']);
+    setOtpSent(false);
+    setOtpVerified(false);
+  }, [formData.email]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,16 +46,15 @@ const RoomSignup = () => {
     specialChar: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
   });
 
-  const handleOtpChange = (e, index) => {
-    const value = e.target.value;
-    if (!/^\d?$/.test(value)) return;
-    const updatedOtp = [...otp];
-    updatedOtp[index] = value;
-    setOtp(updatedOtp);
+  const passwordChecks = validatePassword(formData.password);
 
-    if (value && index < otp.length - 1) {
-      document.getElementById(`otp-${index + 1}`)?.focus();
-    }
+  const handleOtpChange = (e, index) => {
+    const val = e.target.value;
+    if (!/^\d?$/.test(val)) return;
+    const newOtp = [...otp];
+    newOtp[index] = val;
+    setOtp(newOtp);
+    if (val && index < 3) document.getElementById(`otp-${index + 1}`)?.focus();
   };
 
   const handleOtpKeyDown = (e, index) => {
@@ -53,10 +63,14 @@ const RoomSignup = () => {
     }
   };
 
-  const generateOtp = () => {
-    const { fullName, phone, messName, plotNumber, street, landmark, city, pincode, password, confirmPassword } = formData;
+  const generateOtp = async () => {
+    const {
+      fullName, email, phone, messName, plotNumber, street,
+      landmark, city, pincode, password, confirmPassword
+    } = formData;
 
-    if (!fullName || !phone || !messName || !plotNumber || !street || !landmark || !city || !pincode || !password || !confirmPassword) {
+    if (!fullName || !email || !phone || !messName || !plotNumber || !street ||
+        !landmark || !city || !pincode || !password || !confirmPassword) {
       alert('All fields are required!');
       return;
     }
@@ -66,95 +80,110 @@ const RoomSignup = () => {
       return;
     }
 
-    const checks = validatePassword(password);
-    const allValid = Object.values(checks).every(Boolean);
-    if (!allValid) {
-      alert('Password does not meet criteria.');
+    if (!Object.values(passwordChecks).every(Boolean)) {
+      alert('Password does not meet all criteria!');
       return;
     }
 
-    setOtpSent(true);
-    alert('✅ OTP sent successfully!');
+    try {
+      setLoadingOtp(true);
+      const res = await fetch('http://localhost:5000/api/room/generate-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim() })
+      });
+
+      const data = await res.json();
+      setLoadingOtp(false);
+
+      if (res.ok) {
+        alert('✅ OTP sent to your email!');
+        setOtpSent(true);
+      } else {
+        alert(data.message || 'Failed to send OTP');
+      }
+    } catch (err) {
+      setLoadingOtp(false);
+      console.error('OTP generation error:', err);
+      alert('Error generating OTP. Try again.');
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (otp.some((val) => val === '')) {
-      alert('Please enter the complete OTP!');
-      return;
-    }
-
     const fullOtp = otp.join('');
-    const { fullName, phone, messName, plotNumber, street, landmark, city, pincode, password } = formData;
-    const fullAddress = `${plotNumber}, ${street}, ${landmark}, ${city} - ${pincode}`;
+    if (!otpSent) return alert('Please generate the OTP first!');
+    if (otp.some(val => val === '')) return alert('Please enter the complete 4-digit OTP');
 
-    console.log('🎉 Mess Provider Signup Data:', {
-      fullName,
-      phone,
-      messName,
-      address: fullAddress,
-      password,
-      otp: fullOtp
-    });
+    try {
+      const res = await fetch('http://localhost:5000/api/room/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, email: formData.email.trim(), otp: fullOtp })
+      });
 
-    alert('🎉 Mess Provider Signed Up Successfully!');
-
-    setFormData({
-      fullName: '',
-      phone: '',
-      messName: '',
-      plotNumber: '',
-      street: '',
-      landmark: '',
-      city: '',
-      pincode: '',
-      password: '',
-      confirmPassword: ''
-    });
-    setOtp(['', '', '', '']);
-    setOtpSent(false);
+      const data = await res.json();
+      if (res.ok) {
+        alert('🎉 Room Provider Signed Up Successfully!');
+        setFormData({
+          fullName: '',
+          email: '',
+          phone: '',
+          messName: '',
+          plotNumber: '',
+          street: '',
+          landmark: '',
+          city: '',
+          pincode: '',
+          password: '',
+          confirmPassword: ''
+        });
+        setOtp(['', '', '', '']);
+        setOtpSent(false);
+        setOtpVerified(false);
+        navigate('/login');
+      } else {
+        alert(data.message || 'Signup failed. Please check your OTP.');
+      }
+    } catch (err) {
+      console.error('Signup error:', err);
+      alert('Error during signup. Try again.');
+    }
   };
-
-  const passwordChecks = validatePassword(formData.password);
 
   return (
     <form className="contact-form" onSubmit={handleSubmit}>
-      <label>Full Name:</label>
-      <input name="fullName"  placeholder="Enter your full name  " value={formData.fullName} onChange={handleChange} readOnly={isFieldDisabled} />
-
-      <label>Phone Number:</label>
-      <input name="phone"  placeholder="Enter your phone number"  value={formData.phone} onChange={handleChange} readOnly={isFieldDisabled} />
-
-      <label>Apartment Name:</label>
-      <input name="messName"  placeholder="Enter your apartment name " value={formData.messName} onChange={handleChange} readOnly={isFieldDisabled} />
-
-      <label>Plot Number:</label>
-      <input name="plotNumber"  placeholder="Enter your plot nnumber" value={formData.plotNumber} onChange={handleChange} readOnly={isFieldDisabled} />
-
-      <label>Street Name:</label>
-      <input name="street" placeholder="Enter your street name"  value={formData.street} onChange={handleChange} readOnly={isFieldDisabled} />
-
-      <label>Landmark:</label>
-      <input name="landmark"  placeholder="Enter your landmark" value={formData.landmark} onChange={handleChange} readOnly={isFieldDisabled} />
-
-      <label>City:</label>
-      <input name="city"  placeholder="Enter yor city"  value={formData.city} onChange={handleChange} readOnly={isFieldDisabled} />
-
-      <label>Pincode:</label>
-      <input name="pincode" placeholder="Enter your pincode"  value={formData.pincode} onChange={handleChange} readOnly={isFieldDisabled} />
+      {[['Full Name', 'fullName'], ['Email Address', 'email'], ['Phone Number', 'phone'],
+        ['Apartment Name', 'messName'], ['Plot Number', 'plotNumber'], ['Street Name', 'street'],
+        ['Landmark', 'landmark'], ['City', 'city'], ['Pincode', 'pincode']]
+        .map(([label, name]) => (
+          <React.Fragment key={name}>
+            <label>{label}:</label>
+            <input
+              name={name}
+              type={name === 'email' ? 'email' : 'text'}
+              value={formData[name]}
+              onChange={handleChange}
+              placeholder={`Enter your ${label.toLowerCase()}`}
+              readOnly={isFieldDisabled}
+            />
+          </React.Fragment>
+        ))}
 
       <label>Password:</label>
       <div className="password-field">
         <input
           type={showPassword ? 'text' : 'password'}
           name="password"
-          placeholder="Enter your password" 
           value={formData.password}
           onChange={handleChange}
+          placeholder="Enter your password"
           readOnly={isFieldDisabled}
         />
-        <span onClick={() => setShowPassword(!showPassword)}>{showPassword ? <FaEyeSlash /> : <FaEye />}</span>
+        <span onClick={() => setShowPassword(!showPassword)}>
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </span>
       </div>
 
       <ul className="password-checklist">
@@ -170,9 +199,9 @@ const RoomSignup = () => {
         <input
           type={showConfirmPassword ? 'text' : 'password'}
           name="confirmPassword"
-          placeholder="Re-enter your password" 
           value={formData.confirmPassword}
           onChange={handleChange}
+          placeholder="Re-enter your password"
           readOnly={isFieldDisabled}
         />
         <span onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
@@ -180,28 +209,29 @@ const RoomSignup = () => {
         </span>
       </div>
 
-      {otpSent && (
+      {otpSent && !otpVerified ? (
         <>
           <label>Enter OTP:</label>
-          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', margin: '10px 0' }}>
             {otp.map((val, i) => (
               <input
                 key={i}
                 id={`otp-${i}`}
                 maxLength="1"
-                className="otp-box"
                 value={val}
                 onChange={(e) => handleOtpChange(e, i)}
                 onKeyDown={(e) => handleOtpKeyDown(e, i)}
+                className="otp-box"
               />
             ))}
           </div>
+          <p style={{ textAlign: 'center', color: 'green' }}>OTP sent to {formData.email}</p>
           <button type="submit">Sign Up</button>
         </>
-      )}
-
-      {!otpSent && (
-        <button type="button" onClick={generateOtp}>Generate OTP</button>
+      ) : (
+        <button type="button" onClick={generateOtp} disabled={loadingOtp}>
+          {loadingOtp ? 'Sending OTP...' : 'Generate OTP'}
+        </button>
       )}
 
       <p style={{ textAlign: 'center', marginTop: '10px', fontSize: '14px' }}>

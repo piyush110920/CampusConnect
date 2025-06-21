@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const studentRoutes = require('./routes/studentRoutes');
+const roomRoutes = require('./routes/roomRoutes');
+const messRoutes = require('./routes/messRoutes');
 
 dotenv.config();
 
@@ -13,6 +15,8 @@ app.use(express.json());
 
 // Routes
 app.use('/api/student', studentRoutes);
+app.use('/api/room', roomRoutes);
+app.use('/api/mess', messRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
