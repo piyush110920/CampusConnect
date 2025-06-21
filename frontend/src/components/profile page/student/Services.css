@@ -1,0 +1,59 @@
+.service-container {
+  background-color: #e6e6e6;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px;
+  width: 100%;
+}
+
+.service-title {
+  color: #5e3fba;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.service-info p {
+  font-size: 14px;
+  color: black;
+  margin: 4px 0;
+}
+
+textarea {
+  width: 90%;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 5px;
+  resize: none;
+  border: 1px solid #ccc;
+}
+
+.service-buttons {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+.service-buttons button {
+  padding: 5px 12px;
+  font-size: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button.send {
+  background-color: #2f2fff;
+  color: white;
+}
+
+button.change {
+  background-color: #999;
+  color: white;
+}
+
+button.remove {
+  background-color: red;
+  color: white;
+}

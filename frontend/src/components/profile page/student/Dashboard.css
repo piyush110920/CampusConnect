@@ -1,0 +1,23 @@
+.dashboard-container {
+  display: flex;
+  padding-top: 15px;
+  padding-left: 15px;
+  justify-content: space-around;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.section {
+  background: #eee;
+  border-radius: 5px;
+  padding: 15px;
+  width: 350px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+.section h4 {
+  margin-bottom: 10px;
+  color: #333;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
