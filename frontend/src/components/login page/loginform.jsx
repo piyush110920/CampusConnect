@@ -5,7 +5,7 @@ import './loginform.css';
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('student'); // default
+  const [role, setRole] = useState('student');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -34,11 +34,18 @@ const LoginForm = () => {
 
       if (res.ok) {
         alert('🎉 Login Successful!');
-        localStorage.setItem('token', data.token); // Save JWT
-        // Redirect based on role
-        if (role === 'student') navigate('/student-dashboard');
-        else if (role === 'room') navigate('/room-dashboard');
-        else if (role === 'mess') navigate('/mess-dashboard');
+
+        // ✅ Store JWT and user info in localStorage
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('role', data.user.role);
+        localStorage.setItem('userId', data.user.id);
+        localStorage.setItem('userEmail', data.user.email);
+
+        // ✅ Redirect to dashboard based on role
+        if (data.user.role === 'student') navigate('/student-dashboard');
+        else if (data.user.role === 'room') navigate('/room-dashboard');
+        else if (data.user.role === 'mess') navigate('/mess-dashboard');
+        else navigate('/'); // fallback
       } else {
         alert(data.message || 'Invalid credentials.');
       }

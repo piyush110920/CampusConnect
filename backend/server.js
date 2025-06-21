@@ -6,7 +6,7 @@ const cors = require('cors');
 const studentRoutes = require('./routes/studentRoutes');
 const roomRoutes = require('./routes/roomRoutes');
 const messRoutes = require('./routes/messRoutes');
-
+require('dotenv').config();
 dotenv.config();
 
 const app = express();

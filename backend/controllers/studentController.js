@@ -2,10 +2,11 @@
 const Student = require("../models/Student");
 const sendOtp = require("../utils/sendOtp");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const generateToken = require("../utils/generateToken");
 
 const otpStore = {}; // In-memory OTP store
 
+// Generate OTP for Email Verification
 exports.generateOtp = async (req, res) => {
   const { email } = req.body;
   const otp = Math.floor(1000 + Math.random() * 9000).toString();
@@ -20,6 +21,7 @@ exports.generateOtp = async (req, res) => {
   }
 };
 
+// Signup Handler
 exports.signupStudent = async (req, res) => {
   const {
     fullName, email, password, college,
@@ -52,6 +54,7 @@ exports.signupStudent = async (req, res) => {
   }
 };
 
+// Login Handler with JWT Token
 exports.loginStudent = async (req, res) => {
   const { email, password } = req.body;
 
@@ -62,14 +65,21 @@ exports.loginStudent = async (req, res) => {
     const isMatch = await bcrypt.compare(password, student.password);
     if (!isMatch) return res.status(400).json({ message: "Incorrect password." });
 
-    const token = jwt.sign({ id: student._id, role: student.role }, process.env.JWT_SECRET, {
-      expiresIn: "1d"
-    });
+    // Generate JWT Token
+    const token = generateToken({ id: student._id, role: student.role });
 
-    res.status(200).json({ token, message: "Login successful", role: student.role });
+    res.status(200).json({
+      message: "Login successful",
+      token,
+      user: {
+        id: student._id,
+        fullName: student.fullName,
+        email: student.email,
+        role: student.role
+      }
+    });
   } catch (err) {
     console.error("Login Error:", err);
-    res.status(500).json({ message: "Login failed." });
+    res.status(500).json({ message: "Login failed. Try again." });
   }
 };
-
