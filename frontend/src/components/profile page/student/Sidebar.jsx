@@ -11,7 +11,7 @@ const Sidebar = () => {
         <li onClick={() => navigate('/room-services')}>Room Services</li>
         <li onClick={() => navigate('/mess-services')}>Mess Service</li>
         <li onClick={() => navigate('/feedbacks')}>campusINTELLIGENCE</li>
-        <li onClick={() => navigate('/feedbacks')}>Feedbacks & Ratings</li>
+        <li onClick={() => navigate('/suggestions')}>Suggestions</li>
         <li onClick={() => navigate('/contact')}>Contact Us</li>
       </ul>
     </div>
