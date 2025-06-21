@@ -9,6 +9,33 @@
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(to right, #1c0033, #2e0055);
 }
+/* Label for role */
+.login-form label[for="role"] {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+/* Role dropdown only */
+.login-form select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+  color: #333;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  appearance: none; /* remove default arrow styling */
+}
+
+/* On focus */
+.login-form select:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+  background-color: #fff;
+}
 
 /* Login form box */
 .login-form-box {
