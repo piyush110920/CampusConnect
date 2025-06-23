@@ -15,7 +15,7 @@ const LoginNavbar = () => {
   };
 
   return (
-    <nav className="login-navbar">
+    <nav className="navbar-login">
       {/* Logo */}
       <div className="login-navbar-logo">
         <img src={logo} alt="Campus Connect Logo" />

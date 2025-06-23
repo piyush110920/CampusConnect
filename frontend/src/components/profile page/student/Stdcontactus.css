@@ -1,0 +1,93 @@
+.std-contact-container {
+  padding: 20px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 8px;
+  margin: 40px;
+}
+
+.std-contact-form {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  flex: 1;
+  color: #834fc1;
+  font-weight: bold;
+  text-align: left;
+}
+
+.form-group input,
+.form-group textarea {
+  flex: 3;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #d3d3d3;
+  font-weight: bold;
+  color: black;
+}
+
+.form-group textarea {
+  resize: none;
+  height: 120px;
+}
+
+.submit-wrapper {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.submit-wrapper button {
+  background: linear-gradient( #834fc1);
+  color: black;
+  padding: 8px 30px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.submit-wrapper button:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .std-contact-container {
+    margin: 20px 10px;
+    padding: 15px;
+  }
+
+  .std-contact-form {
+    max-width: 100%;
+  }
+
+  .form-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-group label {
+    margin-bottom: 5px;
+    text-align: left;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+  }
+
+  .submit-wrapper button {
+    width: 100%;
+    padding: 10px;
+  }
+}

@@ -12,7 +12,7 @@ const Sidebar = () => {
         <li onClick={() => navigate('/mess-services')}>Mess Service</li>
         <li onClick={() => navigate('/feedbacks')}>campusINTELLIGENCE</li>
         <li onClick={() => navigate('/suggestions')}>Suggestions</li>
-        <li onClick={() => navigate('/contactus')}>Contact Us</li>
+        <li onClick={() => navigate('/studentcontactus')}>Contact Us</li>
       </ul>
     </div>
   );

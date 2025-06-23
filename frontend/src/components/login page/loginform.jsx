@@ -91,7 +91,7 @@ const LoginForm = () => {
         </div>
 
         <div className="login-actions">
-          <p onClick={() => navigate('/forgot-password')} className="link-like">
+          <p onClick={() => navigate('/student-forgot-password')} className="link-like">
             Forgot Password?
           </p>
         </div>
@@ -112,3 +112,5 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
+

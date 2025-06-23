@@ -1,0 +1,66 @@
+.mess-profile-container {
+  width: 100%;
+}
+
+.profile-body {
+  display: flex;
+}
+
+.mess-sidebar {
+  background: #000;
+  color: white;
+  padding: 20px;
+  width: 220px;
+  margin-top: 48px; /* Pushes sidebar 3 lines below navbar */
+}
+
+.mess-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.mess-sidebar li {
+  margin: 15px 0;
+  font-weight: bold;
+}
+
+/* Hamburger Icon */
+.mobile-hamburger {
+  display: none;
+  font-size: 28px;
+  color: black;
+  margin: 10px 20px;
+  cursor: pointer;
+}
+
+/* Content Area */
+.mess-content-area {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mess-sidebar {
+    display: none;
+    position: absolute;
+    top: 100px; /* Adjust as needed */
+    left: 0;
+    width: 200px;
+    height: auto;
+    background-color: #000;
+    z-index: 1000;
+  }
+
+  .mess-sidebar.open {
+    display: block;
+  }
+
+  .mobile-hamburger {
+    display: block;
+  }
+
+  .profile-body {
+    flex-direction: column;
+  }
+}

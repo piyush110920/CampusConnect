@@ -1,19 +1,120 @@
-.login-full-page {
+/* Page background and layout */
+.login-page {
   background: linear-gradient(to right, #1c0033, #2e0055);
   min-height: 100vh;
-  width:100vw;
   display: flex;
+  width:100vw;
   flex-direction: column;
   font-family: 'Poppins', sans-serif;
 }
+.link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
 
+.link:hover {
+  text-decoration: underline;
+}
 
+/* Centering the white login box */
 .login-container {
   flex: 1;
-  /* background: linear-gradient(to right, #1c0033, #2e0055); */
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 40px 20px;
+  position: relative;
   box-shadow: 0 6px 20px rgba(241, 241, 241, 0.15);
+}
+
+/* Base login form box */
+.login-form-box {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  width: 500px;
+  max-width: 90%;
+  box-shadow: 0 8px 50px rgb(155, 155, 155);
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  z-index: 10;
+  /* overflow: hidden;         ✅ Prevent overflow like in your screenshot */
+  box-sizing: border-box; 
+}
+
+/* Optional highlight classes (if needed) */
+.login-form-box.student {
+  border-top: 6px solid #dedede;
+}
+
+.login-form-box.mess {
+  border-top: 6px solid #f7f7f7;
+}
+
+.login-form-box.room {
+  border-top: 6px solid #f2f2f2;
+}
+
+/* Login title */
+.login-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Dropdown styling */
+.center-dropdown {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 30px;
+  z-index: 11;
+}
+
+.select-login-button {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(106, 17, 203, 0.4);
+  transition: all 0.3s ease;
+}
+
+.select-login-button:hover {
+  background: linear-gradient(to right, #8e2de2, #4a00e0);
+  transform: scale(1.05);
+}
+
+/* Dropdown options */
+.dropdown-options {
+  position: absolute;
+  /* top: 110%;
+  left: 50%; */
+  transform: translateX(-50%);
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  width: 200px;
+  text-align: center;
+}
+
+.dropdown-options div {
+  padding: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #333;
+  transition: background 0.3s ease;
+}
+
+.dropdown-options div:hover {
+  background-color: #f0f0f0;
 }

@@ -1,17 +1,19 @@
 .service-container {
-  background-color: #e6e6e6;
-  padding: 20px;
+  background-color: #ffffff;
+  padding: 30px;
   border-radius: 8px;
-  margin: 20px;
+  margin: 40px;
   width: 100%;
+  /* margin-top: 5; */
 }
 
 .service-title {
   color: #5e3fba;
-  font-size: 16px;
+  font-size: 25px;
   font-weight: bold;
   text-transform: uppercase;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
+  margin-top: 5;
 }
 
 .service-info p {
@@ -49,12 +51,12 @@ button.send {
 }
 
 button.change {
-  background-color: #999;
+  background-color:  #2f2fff;
   color: white;
 }
 
 button.remove {
-  background-color: red;
+  background-color: #2f2fff;
   color: white;
 }
 .message-box {
@@ -72,5 +74,5 @@ button.remove {
   border: 1px solid #ccc;
   font-size: 14px;
   color: #020202;
-  background-color: #999;
+  background-color: #f7ebeb;
 }

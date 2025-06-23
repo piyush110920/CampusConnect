@@ -25,7 +25,7 @@ const Suggestions = () => {
                     <p><strong>NOTE:</strong> NON-INDEPENDENT AND GATE TIME IS 05:00–11:00</p>
                   </div>
                   <div className="card-logo">
-                    <img src={room1} alt="room" className="card-img" />
+                    <img src={room1} alt="room" className="card-img" height="60px" width="200px" />
                     <button className="interested-btn">Interested</button>
                   </div>
                 </div>
@@ -49,7 +49,7 @@ const Suggestions = () => {
                     <p><strong>NOTE:</strong> 13 DAYS IN A WEEK, SUNDAY EVENING OFF</p>
                   </div>
                   <div className="card-logo">
-                    <img src={mess1} alt="mess" className="card-img" />
+                    <img src={mess1} alt="mess" className="card-img" height="70px" width="100 px" />
                     <button className="interested-btn">Interested</button>
                   </div>
                 </div>

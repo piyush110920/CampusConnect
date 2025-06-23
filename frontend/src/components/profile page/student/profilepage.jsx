@@ -6,6 +6,7 @@ import Dashboard from './Dashboard';
 import RoomServices from './roomServices';
 import MessServices from './messServices';
 import Suggestions from './suggestions';
+import StdContactus from './Stdcontactus';
 
 import chatbotIcon from '../../../assets/chat.png'
 import './profilepage.css'
@@ -23,6 +24,7 @@ const ProfilePage = () => {
             <Route path="/room-services" element={<RoomServices />} />
             <Route path="/mess-services" element={<MessServices />} />
             <Route path="/suggestions" element={<Suggestions/>} />
+            <Route path="/studentcontactus" element={<StdContactus/>} />
             {/* Add more routes as needed */}
           </Routes>
         </div>
@@ -35,7 +37,4 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
-
-
-
 
