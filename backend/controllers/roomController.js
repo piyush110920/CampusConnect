@@ -3,9 +3,8 @@ const sendOtp = require("../utils/sendOtp");
 const bcrypt = require("bcryptjs");
 const generateToken = require("../utils/generateToken");
 
-
-
-const otpStore = {};
+const signupOtpStore = {}; // For signup
+const resetOtpStore = {};  // For password reset
 
 exports.generateOtp = async (req, res) => {
   const { email } = req.body;
@@ -13,7 +12,7 @@ exports.generateOtp = async (req, res) => {
 
   try {
     await sendOtp(email, otp);
-    otpStore[email] = otp;
+    signupOtpStore[email] = otp;
     res.status(200).json({ message: "OTP sent successfully." });
   } catch (err) {
     res.status(500).json({ message: "Failed to send OTP." });
@@ -27,7 +26,7 @@ exports.signupRoomProvider = async (req, res) => {
     password, otp, confirmPassword
   } = req.body;
 
-  if (otpStore[email] !== otp) {
+  if (signupOtpStore[email] !== otp) {
     return res.status(400).json({ message: "Invalid OTP" });
   }
 
@@ -47,7 +46,7 @@ exports.signupRoomProvider = async (req, res) => {
     });
 
     await newRoom.save();
-    delete otpStore[email];
+    delete signupOtpStore[email];
     res.status(201).json({ message: "Room Provider registered successfully!" });
   } catch (err) {
     res.status(500).json({ message: "Signup failed. Try again." });
@@ -58,22 +57,13 @@ exports.loginRoomProvider = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    console.log("📥 Login attempt:", email);
-
     const room = await RoomProvider.findOne({ email });
-    if (!room) {
-      console.log("❌ No room provider found with email:", email);
-      return res.status(404).json({ message: "Email not registered." });
-    }
+    if (!room) return res.status(404).json({ message: "Email not registered." });
 
     const isMatch = await bcrypt.compare(password, room.password);
-    if (!isMatch) {
-      console.log("❌ Incorrect password");
-      return res.status(401).json({ message: "Incorrect password." });
-    }
+    if (!isMatch) return res.status(401).json({ message: "Incorrect password." });
 
     const token = generateToken({ id: room._id, role: room.role });
-    console.log("✅ Login successful");
 
     return res.status(200).json({
       message: "Login successful",
@@ -82,7 +72,47 @@ exports.loginRoomProvider = async (req, res) => {
     });
 
   } catch (err) {
-    console.error("🔥 Login error at server:", err);
+    console.error("Login error:", err);
     return res.status(500).json({ message: "Login failed due to server error." });
+  }
+};
+
+exports.sendRoomResetOtp = async (req, res) => {
+  const { email } = req.body;
+  const otp = Math.floor(1000 + Math.random() * 9000).toString();
+
+  try {
+    const user = await RoomProvider.findOne({ email });
+    if (!user) return res.status(404).json({ message: "Email not registered." });
+
+    await sendOtp(email, otp);
+    resetOtpStore[email] = otp;
+
+    res.status(200).json({ message: "OTP sent to email." });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to send OTP." });
+  }
+};
+
+exports.resetRoomPassword = async (req, res) => {
+  const { email, otp, newPassword } = req.body;
+
+  if (!resetOtpStore[email] || resetOtpStore[email] !== otp) {
+    return res.status(400).json({ message: "Invalid or expired OTP." });
+  }
+
+  try {
+    const room = await RoomProvider.findOne({ email });
+    if (!room) return res.status(404).json({ message: "Email not registered." });
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    room.password = hashedPassword;
+    await room.save();
+
+    delete resetOtpStore[email];
+
+    res.status(200).json({ message: "Password updated successfully!" });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to reset password." });
   }
 };
