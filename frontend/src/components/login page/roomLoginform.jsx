@@ -1,39 +1,50 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './LoginFormStyle.css';
 
 const RoomLoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic validation
     if (!email || !password) {
       alert('⚠️ Please fill in all fields.');
       return;
     }
 
-    // Email format check (basic)
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       alert('❌ Invalid email format.');
       return;
     }
 
-    // Password length check
     if (password.length < 6) {
       alert('❌ Password must be at least 6 characters long.');
       return;
     }
 
-    // If all good
-    alert(`✅ Successfully logged in as Student\nEmail: ${email}`);
-    navigate('/dashboard'); // redirect to dashboard or preferred route
+    try {
+      const res = await axios.post('http://localhost:5000/api/room/login', {
+        email,
+        password
+      });
+
+      const { token, message, role } = res.data;
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('role', role);
+
+      alert(`✅ ${message}`);
+      navigate('/dashboard');
+    } catch (err) {
+      console.error('Login error:', err.response?.data || err.message);
+      alert(err.response?.data?.message || '❌ Login failed. Please try again.');
+    }
   };
 
   return (
@@ -75,7 +86,7 @@ const RoomLoginForm = () => {
       <div className="login-links">
         <p>
           Don't have an account?{' '}
-          <span className="link-like" onClick={() => navigate('/signup?role=student')}>
+          <span className="link-like" onClick={() => navigate('/signup?role=room')}>
             Register here
           </span>
         </p>

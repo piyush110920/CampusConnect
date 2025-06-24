@@ -3,6 +3,8 @@ const sendOtp = require("../utils/sendOtp");
 const bcrypt = require("bcryptjs");
 const generateToken = require("../utils/generateToken");
 
+
+
 const otpStore = {};
 
 exports.generateOtp = async (req, res) => {
@@ -56,15 +58,31 @@ exports.loginRoomProvider = async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    console.log("📥 Login attempt:", email);
+
     const room = await RoomProvider.findOne({ email });
-    if (!room) return res.status(404).json({ message: "Email not registered." });
+    if (!room) {
+      console.log("❌ No room provider found with email:", email);
+      return res.status(404).json({ message: "Email not registered." });
+    }
 
     const isMatch = await bcrypt.compare(password, room.password);
-    if (!isMatch) return res.status(400).json({ message: "Incorrect password." });
+    if (!isMatch) {
+      console.log("❌ Incorrect password");
+      return res.status(401).json({ message: "Incorrect password." });
+    }
 
-    const token = generateToken(room._id, room.role);
-    res.status(200).json({ token, message: "Login successful", role: room.role });
+    const token = generateToken({ id: room._id, role: room.role });
+    console.log("✅ Login successful");
+
+    return res.status(200).json({
+      message: "Login successful",
+      token,
+      role: room.role
+    });
+
   } catch (err) {
-    res.status(500).json({ message: "Login failed." });
+    console.error("🔥 Login error at server:", err);
+    return res.status(500).json({ message: "Login failed due to server error." });
   }
 };

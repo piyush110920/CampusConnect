@@ -1,44 +1,49 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './LoginFormStyle.css';
 
 const StudentLoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic validation
     if (!email || !password) {
       alert('⚠️ Please fill in all fields.');
       return;
     }
 
-    // Email format check (basic)
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       alert('❌ Invalid email format.');
       return;
     }
 
-    // Password length check
     if (password.length < 6) {
       alert('❌ Password must be at least 6 characters long.');
       return;
     }
 
-    // If all good
-    alert(`✅ Successfully logged in as Student\nEmail: ${email}`);
-    navigate('/dashboard'); // redirect to dashboard or preferred route
+    try {
+      const res = await axios.post('http://localhost:5000/api/student/login', {
+        email,
+        password
+      });
+
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('role', 'student');
+      navigate('/dashboard');
+    } catch (err) {
+      alert(err.response?.data?.message || 'Login failed.');
+    }
   };
 
   return (
     <form className="login-form" onSubmit={handleSubmit}>
-
       <label>Email Address:</label>
       <input
         type="text"

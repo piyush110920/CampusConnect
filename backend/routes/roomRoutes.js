@@ -7,3 +7,10 @@ router.post('/signup', roomController.signupRoomProvider);
 router.post('/login', roomController.loginRoomProvider);
 
 module.exports = router;
+
+
+
+
+
+
+
