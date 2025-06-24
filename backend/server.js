@@ -13,6 +13,8 @@ const studentRoutes = require('./routes/studentRoutes');
 const roomRoutes = require('./routes/roomRoutes');
 const messRoutes = require('./routes/messRoutes');
 
+
+const contactRoutes = require('./routes/contactRoutes');
 // Create express app
 const app = express();
 
@@ -25,6 +27,8 @@ app.use('/api/student', studentRoutes);
 app.use('/api/room', roomRoutes);
 app.use('/api/mess', messRoutes);
 
+
+app.use('/api/contact', contactRoutes);
 // Connect to MongoDB and start server
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {

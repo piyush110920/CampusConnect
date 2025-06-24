@@ -13,11 +13,28 @@ const ContactUs = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form Submitted:', formData);
-    alert('📨 Your message has been sent!');
-    setFormData({ name: '', email: '', message: '' });
+
+    try {
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('📨 ' + data.message);
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        alert('❌ Failed to send: ' + data.message);
+      }
+    } catch (err) {
+      console.error('Error sending message:', err);
+      alert('❌ Something went wrong.');
+    }
   };
 
   return (
