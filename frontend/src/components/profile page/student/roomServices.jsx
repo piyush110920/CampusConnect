@@ -4,22 +4,28 @@ import './Services.css';
 const RoomServices = () => {
   return (
     <div className="service-container">
-      <h3 className="service-title">CURRENT ROOM SERVICE</h3>
-      <div className="service-info">
-        <p><strong>SERVICE NAME:</strong> Room Paradise</p>
-        <p><strong>SERVICE PROVIDER NAME:</strong> John Doe</p>
-        <p><strong>CONTACT NUMBER:</strong> +91-9876543210</p>
-        <p><strong>LOCATION:</strong> Plot 23, ABC Street, Pune</p>
-        <p><strong>DATE OF JOINING:</strong> 01 Jan 2024</p>
-        <p><strong>DATE OF DUE:</strong> 01 Jan 2025</p>
-        <div className="message-box">
-          <strong>DROP MESSAGE:</strong>
-          <textarea rows="4" placeholder="Write your message here..." />
+      <h3 className="service-title">Current Room Service</h3>
+
+      <div className="card-wrapper">
+        {/* Info Card */}
+        <div className="info-card">
+          <p><strong>Service Name:</strong> Room Paradise</p>
+          <p><strong>Service Provider:</strong> John Doe</p>
+          <p><strong>Contact Number:</strong> +91-9876543210</p>
+          <p><strong>Location:</strong> Plot 23, ABC Street, Pune</p>
+          <p><strong>Date of Joining:</strong> 01 Jan 2024</p>
+          <p><strong>Date of Due:</strong> 01 Jan 2025</p>
         </div>
-        <div className="service-buttons">
-          <button className="send">SEND</button>
-          <button className="change">CHANGE</button>
-          <button className="remove">REMOVE</button>
+
+        {/* Message Card */}
+        <div className="message-card">
+          <h4>Drop Message</h4>
+          <textarea rows="6" placeholder="Write your message here..." />
+          <div className="service-buttons">
+            <button className="send">Send</button>
+            <button className="change">Change</button>
+            <button className="remove">Remove</button>
+          </div>
         </div>
       </div>
     </div>

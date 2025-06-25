@@ -1,78 +1,185 @@
+/* ===== Global Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to bottom right, #f5f6fa, #e6e6ff);
+  color: #222;
+  min-height: 100vh;
+}
+
+/* ===== Main Container ===== */
 .service-container {
-  background-color: #ffffff;
-  padding: 30px;
-  border-radius: 8px;
-  margin: 40px;
+  padding: 100px 20px 40px 100px;
   width: 100%;
-  /* margin-top: 5; */
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
+/* ===== Section Title ===== */
 .service-title {
-  color: #5e3fba;
-  font-size: 25px;
+  font-size: 28px;
   font-weight: bold;
+  color: #4b0082;
+  margin-bottom: 35px;
   text-transform: uppercase;
-  margin-bottom: 5px;
-  margin-top: 5;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
 }
 
-.service-info p {
-  font-size: 14px;
-  color: black;
-  margin: 4px 0;
-}
-
-textarea {
-  width: 90%;
-  padding: 10px;
-  margin-top: 8px;
-  border-radius: 5px;
-  resize: none;
-  border: 1px solid #ccc;
-}
-
-.service-buttons {
-  margin-top: 12px;
+/* ===== Cards Wrapper ===== */
+.card-wrapper {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-between;
+}
+
+/* ===== Info & Message Cards ===== */
+.info-card,
+.message-card {
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  flex: 1 1 45%;
+  min-width: 320px;
+  transition: transform 0.2s ease;
+}
+
+.info-card:hover,
+.message-card:hover {
+  transform: translateY(-3px);
+}
+
+/* ===== Colored Borders for Card Types ===== */
+.info-card {
+  border-left: 4px solid #007bff; /* Yellow for Room */
+}
+
+.message-card {
+  border-left: 4px solid #28a745; /* Green for Mess */
+}
+
+.info-card.admin {
+  border-left: 4px solid #007bff; /* Blue for Admin */
+}
+
+/* Optional padding adjustment for border space */
+.info-card.room,
+.info-card.mess,
+.info-card.admin {
+  padding-left: 26px;
+}
+
+/* ===== Info Card Text ===== */
+.info-card p {
+  font-size: 17px;
+  margin-bottom: 14px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.info-card strong {
+  color: #4b0082;
+}
+
+/* ===== Message Card ===== */
+.message-card h4 {
+  font-size: 20px;
+  color: #4b0082;
+  margin-bottom: 14px;
+}
+
+.message-card textarea {
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  background-color: #fdfdfd;
+  resize: vertical;
+  min-height: 140px;
+  color: #333;
+  margin-bottom: 18px;
+}
+
+/* ===== Action Buttons ===== */
+.service-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .service-buttons button {
-  padding: 5px 12px;
-  font-size: 12px;
+  padding: 10px 22px;
+  font-size: 15px;
+  font-weight: 600;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  color: #fff;
 }
 
 button.send {
   background-color: #2f2fff;
-  color: white;
 }
 
 button.change {
-  background-color:  #2f2fff;
-  color: white;
+  background-color: #ff9900;
 }
 
 button.remove {
-  background-color: #2f2fff;
-  color: white;
-}
-.message-box {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 8px;
+  background-color: #e63946;
 }
 
-.message-box textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  resize: none;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  color: #020202;
-  background-color: #f7ebeb;
+.service-buttons button:hover {
+  opacity: 0.9;
+}
+
+.section.info-card {
+  border-left: 4px solid #007bff;
+}
+
+.section.message-card {
+  border-left: 4px solid #28a745;
+}
+
+.section.room {
+  border-left: 4px solid #ffc107;
+}
+
+
+/* ===== Responsive Layout ===== */
+@media (max-width: 1024px) {
+  .service-container {
+    padding: 60px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .info-card,
+  .message-card {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .service-buttons {
+    justify-content: center;
+  }
+
+  .service-title {
+    font-size: 22px;
+    text-align: center;
+  }
 }

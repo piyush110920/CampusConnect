@@ -4,22 +4,28 @@ import './Services.css';
 const MessServices = () => {
   return (
     <div className="service-container">
-      <h3 className="service-title">CURRENT MESS SERVICE</h3>
-      <div className="service-info">
-        <p><strong>SERVICE NAME:</strong> Tasty Bites</p>
-        <p><strong>SERVICE PROVIDER NAME:</strong> Priya Mess</p>
-        <p><strong>CONTACT NUMBER:</strong> +91-9123456780</p>
-        <p><strong>LOCATION:</strong> Lane 5, Near XYZ Chowk, Nagpur</p>
-        <p><strong>DATE OF JOINING:</strong> 01 Feb 2024</p>
-        <p><strong>DATE OF DUE:</strong> 01 Feb 2025</p>
-        <div className="message-box">
-          <strong>DROP MESSAGE:</strong>
-          <textarea rows="4" placeholder="Write your message here..." />
+      <h3 className="service-title">Current Mess Service</h3>
+
+      <div className="card-wrapper">
+        {/* Info Card */}
+        <div className="info-card">
+          <p><strong>Service Name:</strong> Tasty Bites</p>
+          <p><strong>Service Provider:</strong> Priya Mess</p>
+          <p><strong>Contact Number:</strong> +91-9123456780</p>
+          <p><strong>Location:</strong> Lane 5, Near XYZ Chowk, Nagpur</p>
+          <p><strong>Date of Joining:</strong> 01 Feb 2024</p>
+          <p><strong>Date of Due:</strong> 01 Feb 2025</p>
         </div>
-        <div className="service-buttons">
-          <button className="send">SEND</button>
-          <button className="change">CHANGE</button>
-          <button className="remove">REMOVE</button>
+
+        {/* Message Card */}
+        <div className="message-card">
+          <h4>Drop Message</h4>
+          <textarea rows="6" placeholder="Write your message here..." />
+          <div className="service-buttons">
+            <button className="send">Send</button>
+            <button className="change">Change</button>
+            <button className="remove">Remove</button>
+          </div>
         </div>
       </div>
     </div>
