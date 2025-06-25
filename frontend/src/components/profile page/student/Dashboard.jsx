@@ -1,11 +1,12 @@
 import React from 'react';
 import './Dashboard.css';
+import { FaUserShield, FaUtensils, FaBed } from 'react-icons/fa';
 
 const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <div className="section admin">
-        <h4>Admin Surname</h4>
+        <h4><FaUserShield /> Admin Surname</h4>
         <p>Plot Number: xxxx</p>
         <p>Landmark: xxxxxxx</p>
         <p>Street: xxxxxxxxx</p>
@@ -14,7 +15,7 @@ const Dashboard = () => {
       </div>
 
       <div className="section mess">
-        <h4>MESS SERVICE</h4>
+        <h4><FaUtensils /> MESS SERVICE</h4>
         <p>Service provider name:</p>
         <p>Mess name:</p>
         <p>Contact:</p>
@@ -24,7 +25,7 @@ const Dashboard = () => {
       </div>
 
       <div className="section room">
-        <h4>ROOM SERVICE</h4>
+        <h4><FaBed /> ROOM SERVICE</h4>
         <p>Service provider name:</p>
         <p>Room name:</p>
         <p>Contact:</p>
