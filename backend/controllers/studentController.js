@@ -83,3 +83,44 @@ exports.loginStudent = async (req, res) => {
     res.status(500).json({ message: "Login failed. Try again." });
   }
 };
+
+exports.sendForgotPasswordOtp = async (req, res) => {
+  const { email } = req.body;
+  const otp = Math.floor(1000 + Math.random() * 9000).toString();
+
+  try {
+    const student = await Student.findOne({ email });
+    if (!student) return res.status(404).json({ message: 'Student not found' });
+
+    await sendOtp(email, otp);
+    otpStore[email] = otp;
+    res.status(200).json({ message: 'OTP sent successfully.' });
+  } catch (err) {
+    console.error("Send OTP Error:", err);
+    res.status(500).json({ message: 'Failed to send OTP' });
+  }
+};
+
+// POST: /student/forgot-password/reset
+exports.resetStudentPassword = async (req, res) => {
+  const { email, otp, newPassword } = req.body;
+
+  try {
+    if (otpStore[email] !== otp) {
+      return res.status(400).json({ message: 'Invalid OTP' });
+    }
+
+    const student = await Student.findOne({ email });
+    if (!student) return res.status(404).json({ message: 'Student not found' });
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    student.password = hashedPassword;
+    await student.save();
+
+    delete otpStore[email];
+    res.status(200).json({ message: 'Password updated successfully' });
+  } catch (err) {
+    console.error("Reset Password Error:", err);
+    res.status(500).json({ message: 'Failed to reset password' });
+  }
+};

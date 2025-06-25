@@ -5,17 +5,17 @@ import Navbar from '../signup page/Navbarsignup';
 import Footer from '../landing page/footer';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-
 const ForgotPassword = () => {
   const navigate = useNavigate();
 
-  const [mobile, setMobile] = useState('');
+  const [email, setEmail] = useState('');
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState(['', '', '', '']);
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [sendingOtp, setSendingOtp] = useState(false);
 
   const passwordValidations = {
     lowercase: /[a-z]/.test(newPassword),
@@ -25,14 +25,34 @@ const ForgotPassword = () => {
     minLength: newPassword.length >= 8
   };
 
-
-  const handleSendOTP = () => {
-    if (!mobile) {
-      alert('Please enter your phone number');
+  const handleSendOTP = async () => {
+    if (!email) {
+      alert('Please enter your email');
       return;
     }
-    alert('OTP sent to your mobile number');
-    setOtpSent(true);
+
+    setSendingOtp(true);
+
+    try {
+      const response = await fetch('http://localhost:5000/api/student/forgot-password/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert('OTP sent to your email');
+        setOtpSent(true);
+      } else {
+        alert(data.message || 'Failed to send OTP');
+      }
+    } catch (error) {
+      console.error('Error sending OTP:', error);
+      alert('Server error while sending OTP.');
+    } finally {
+      setSendingOtp(false);
+    }
   };
 
   const handleOtpInput = (e, index) => {
@@ -54,12 +74,9 @@ const ForgotPassword = () => {
     }
   };
 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const otpValue = otp.join('');
-
-    // Password regex: min 8 characters, at least 1 uppercase, 1 lowercase, 1 number, 1 special character
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
     if (otpValue.length !== 4 || !newPassword || !confirmPassword) {
@@ -79,50 +96,58 @@ const ForgotPassword = () => {
       return;
     }
 
-    // Simulate password reset
-    console.log('Password reset for:', mobile);
-    alert('Password successfully updated');
+    try {
+      const response = await fetch('http://localhost:5000/api/student/forgot-password/reset', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, otp: otpValue, newPassword })
+      });
 
-    // Clear form
-    setMobile('');
-    setOtp('');
-    setNewPassword('');
-    setConfirmPassword('');
-    setOtpSent(false);
+      const data = await response.json();
 
-    // Navigate to login after delay
-    setTimeout(() => {
-      navigate('/login');
-    }, 500);
+      if (response.ok) {
+        alert('Password successfully updated');
+        setEmail('');
+        setOtp(['', '', '', '']);
+        setNewPassword('');
+        setConfirmPassword('');
+        setOtpSent(false);
+        setTimeout(() => navigate('/login'), 500);
+      } else {
+        alert(data.message || 'Failed to reset password');
+      }
+    } catch (err) {
+      alert('Server error. Please try again later.');
+      console.error(err);
+    }
   };
-
 
   return (
     <>
-    <Navbar/>
-    <div className="forgot-password-container">
-      <div className="forgot-password-box">
-        <h2 className="forgot-title">Forgot Password</h2>
-        <form className="forgot-form" onSubmit={handleSubmit}>
-            <label>Phone Number:</label>
+      <Navbar />
+      <div className="forgot-password-container">
+        <div className="forgot-password-box">
+          <h2 className="forgot-title">Forgot Password</h2>
+          <form className="forgot-form" onSubmit={handleSubmit}>
+            <label>Email:</label>
             <input
-              type="text"
-              value={mobile}
-              onChange={(e) => {
-                const val = e.target.value;
-                if (!otpSent && /^\d{0,10}$/.test(val)) {
-                  setMobile(val);
-                }
-              }}
-              placeholder="Enter your phone number"
-              maxLength={10}
+              type="email"
+              value={email}
+              onChange={(e) => !otpSent && setEmail(e.target.value)}
+              placeholder="Enter your email"
               disabled={otpSent}
             />
             {!otpSent && (
-            <button type="button" className="otp-button" onClick={handleSendOTP}>
-              Send OTP
-            </button>
-          )}
+              <button
+                type="button"
+                className="otp-button"
+                onClick={handleSendOTP}
+                disabled={sendingOtp}
+              >
+                {sendingOtp ? 'Sending OTP...' : 'Send OTP'}
+              </button>
+            )}
+
             {otpSent && (
               <>
                 <label>Enter OTP:</label>
@@ -140,7 +165,6 @@ const ForgotPassword = () => {
                       onFocus={(e) => e.target.select()}
                     />
                   ))}
-
                 </div>
 
                 <label>New Password:</label>
@@ -151,7 +175,10 @@ const ForgotPassword = () => {
                     onChange={(e) => setNewPassword(e.target.value)}
                     placeholder="Enter new password"
                   />
-                  <span className="eye-icon" onClick={() => setShowNewPassword(!showNewPassword)}>
+                  <span
+                    className="eye-icon"
+                    onClick={() => setShowNewPassword(!showNewPassword)}
+                  >
                     {showNewPassword ? <FaEyeSlash /> : <FaEye />}
                   </span>
                 </div>
@@ -174,7 +201,6 @@ const ForgotPassword = () => {
                   </li>
                 </ul>
 
-
                 <label>Confirm Password:</label>
                 <div className="password-input-wrapper">
                   <input
@@ -183,19 +209,21 @@ const ForgotPassword = () => {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Confirm new password"
                   />
-                  <span className="eye-icon" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                  <span
+                    className="eye-icon"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  >
                     {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                   </span>
                 </div>
 
-
                 <button type="submit">Submit</button>
-            </>
-          )}
-        </form>
+              </>
+            )}
+          </form>
+        </div>
       </div>
-    </div>
-    <Footer/>
+      <Footer />
     </>
   );
 };
