@@ -1,93 +1,140 @@
-.std-contact-container {
-  padding: 20px;
-  width: 100%;
-  background-color: #fff;
-  border-radius: 8px;
-  margin: 40px;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to bottom right, #f7f7fc, #eaeaff);
+  min-height: 100vh;
+  padding: 80px 20px 40px 175px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
+/* Flex container for two cards */
+.std-contact-wrapper {
+  display: flex;
+  gap: 30px;
+  max-width: 1200px;
+  width: 100%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* Shared Card Styles */
+.contact-card {
+  background-color: #ffffff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  width: 600px;
+  min-width: 360px;
+  box-sizing: border-box;
+}
+
+/* Contact Info Card */
+.info-card h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #4b0082;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.info-card ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.info-card li {
+  font-size: 16px;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.info-card li strong {
+  color: #5e3fba;
+}
+
+/* Heading */
+.std-contact-heading {
+  font-size: 26px;
+  color: #4b0082;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+/* Form Styling */
 .std-contact-form {
   width: 100%;
-  max-width: 600px;
   margin: 0 auto;
 }
 
 .form-group {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .form-group label {
-  flex: 1;
-  color: #834fc1;
-  font-weight: bold;
-  text-align: left;
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: #5e3fba;
+  margin-bottom: 8px;
 }
 
 .form-group input,
 .form-group textarea {
-  flex: 3;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #d3d3d3;
-  font-weight: bold;
-  color: black;
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f4f4f4;
+  font-weight: 500;
+  color: #333;
 }
 
 .form-group textarea {
-  resize: none;
-  height: 120px;
+  resize: vertical;
+  min-height: 140px;
 }
 
+/* Submit Button */
 .submit-wrapper {
   text-align: center;
   margin-top: 20px;
 }
 
 .submit-wrapper button {
-  background: linear-gradient( #834fc1);
-  color: black;
-  padding: 8px 30px;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+  font-size: 16px;
+  padding: 12px 40px;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: transform 0.2s ease-in-out;
 }
 
 .submit-wrapper button:hover {
   transform: scale(1.05);
 }
 
+/* Responsive Layout */
 @media (max-width: 768px) {
-  .std-contact-container {
-    margin: 20px 10px;
-    padding: 15px;
-  }
-
-  .std-contact-form {
-    max-width: 100%;
-  }
-
-  .form-group {
+  .std-contact-wrapper {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
 
-  .form-group label {
-    margin-bottom: 5px;
-    text-align: left;
-  }
-
-  .form-group input,
-  .form-group textarea {
+  .contact-card {
     width: 100%;
+    padding: 30px 20px;
   }
 
-  .submit-wrapper button {
-    width: 100%;
-    padding: 10px;
+  .std-contact-heading {
+    font-size: 22px;
   }
 }
