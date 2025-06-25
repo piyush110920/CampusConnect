@@ -14,7 +14,7 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token'); // or any token key you used
+    localStorage.removeItem('token');
     navigate('/login');
   };
 
@@ -39,7 +39,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-right" ref={dropdownRef}>
         <span className="welcome-text">
-          &larr; Welcome <span className="highlight-role">Admin</span>
+          &larr; Welcome <span className="highlight-role">Student</span>
         </span>
         <img
           src={profileImg}
