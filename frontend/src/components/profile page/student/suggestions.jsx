@@ -2,7 +2,6 @@ import React from 'react';
 import './Suggestions.css';
 import room1 from '../../../assets/logos/l1.png';
 import mess1 from '../../../assets/logos/l2.png';
-import chatbotIcon from '../../../assets/chat.png';
 
 const Suggestions = () => {
   const dummyCards = Array(6).fill(0); // Example list of 6 cards
