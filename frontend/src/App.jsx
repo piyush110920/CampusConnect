@@ -28,9 +28,9 @@ function App() {
         <Route path="/student-forgot-password" element={<ForgotPassword/>}/>
         <Route path="/mess-forgot-password" element={<MessForgotPassword/>}/>
         <Route path="/room-forgot-password" element={<RoomForgotPassword/>}/>
-         <Route path="/dashboard" element={<Dashboard />} />
-        {/* <Route path="/*" element={<ProfilePage/>}/>
-        <Route path="/mess-profile-page" element={<MessProfilePage/>}/> */}
+        <Route path="/mess-profile-page" element={<MessProfilePage/>}/>
+        <Route path="/*" element={<ProfilePage/>}/>
+        {/* <Route path="/mess-profile-page" element={<MessProfilePage/>}/>  */}
       </Routes>
     </BrowserRouter>
 

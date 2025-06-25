@@ -1,0 +1,51 @@
+.navbar-login {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0a0a14;
+  padding: 20px 40px;
+  height: 80px;
+  box-sizing: border-box;
+  width: 100%;
+  z-index: 1000;
+  position: sticky;
+  top: 0;
+}
+
+.login-navbar-logo img {
+  height: 60px;
+  width: auto;
+}
+
+.welcome-text {
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.profile-image img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ✅ Mobile Responsiveness */
+@media (max-width: 768px) {
+  .navbar-login {
+    padding: 12px 20px;
+  }
+
+  .welcome-text {
+    display: none; /* hide on mobile */
+  }
+
+  .login-navbar-logo img {
+    height: 50px;
+  }
+
+  .profile-image img {
+    height: 36px;
+    width: 36px;
+  }
+}
