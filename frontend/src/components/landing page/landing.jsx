@@ -12,11 +12,26 @@ import MessInfo from "./messInfo";
 import ContactUs from "./contactUs";
 import RoomInfo from "./roomInfo";
 import img1 from '../../assets/img1.png';
+import bgImage from '../../assets/home-bg.jpg'; // ✅ imported background image
 
 import "./landing.css";
 
 const LandingPage = () => {
   const location = useLocation();
+
+  useEffect(() => {
+    // ✅ Set background image dynamically
+    document.body.style.backgroundImage = `url(${bgImage})`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundAttachment = 'fixed';
+    document.body.style.backgroundPosition = 'center center';
+
+    return () => {
+      // Cleanup on unmount
+      document.body.style.backgroundImage = '';
+    };
+  }, []);
 
   useEffect(() => {
     if (location.hash) {

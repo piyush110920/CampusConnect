@@ -2,7 +2,7 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: url("../../assets/home-bg.jpg") no-repeat center center fixed;
+  /* background: url("../../assets/home-bg.jpg") no-repeat center center fixed; */
   background-size: cover;
   color: #1e1e1e;
   overflow-x: hidden;
@@ -203,8 +203,8 @@ header {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    
   }
+
   .landing-container {
     flex-direction: column;
     text-align: center;
@@ -232,10 +232,10 @@ header {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    
   }
+
   body {
-    background: url("../../assets/home-bg.jpg") no-repeat center center fixed !important;
+    /* background: url("../../assets/home-bg.jpg") no-repeat center center fixed !important; */
     background-size: cover !important;
     overflow-x: hidden;
   }
@@ -250,9 +250,10 @@ header {
     width: 100%;
     box-sizing: border-box;
     overflow-x: hidden;
-    min-height: 100vh; /* 👈 This makes sure it takes full height of the phone */
-    justify-content: center; /* centers vertically */
+    min-height: 100vh;
+    justify-content: center;
   }
+
   .landing-text {
     text-align: center;
     padding: 0 5px;
