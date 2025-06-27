@@ -1,32 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 import './Suggestions.css';
-import room1 from '../../../assets/logos/l1.png';
-import mess1 from '../../../assets/logos/l2.png';
+import { fetchSuggestions, addStudentSuggestion } from "../../../services/api";
 
 const Suggestions = () => {
-  const dummyCards = Array(6).fill(0); // You can replace this with real data
+  const [messes, setMesses] = useState([]);
+  const [rooms, setRooms] = useState([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    fetchSuggestions(token).then(data => {
+      setMesses(data.messes);
+      setRooms(data.rooms);
+    }).catch(err => console.error("Error loading suggestions:", err));
+  }, []);
+
+  const handleInterested = (type, id) => {
+    const token = localStorage.getItem("token");
+    addStudentSuggestion(token, type, id)
+      .then(() => alert("Added to your profile!"))
+      .catch((err) => console.error("Error adding suggestion:", err));
+  };
 
   return (
     <div className="suggestions-page">
       <div className="suggestions-container">
 
-        {/* Left: Room Services */}
+        {/* Room Services */}
         <div className="service-column">
-          <h3 className="section-title">Nearest Room Service</h3>
+          <h3 className="section-title">Available Room Services</h3>
           <div className="card-scroll">
-            {dummyCards.map((_, index) => (
-              <div className="service-card" key={`room-${index}`}>
+            {rooms.map(room => (
+              <div className="service-card" key={room._id}>
                 <div className="card-content">
                   <div className="card-info">
-                    <p><strong>Service Name:</strong> Akshay Apartment</p>
-                    <p><strong>Service Provider:</strong> John Doe</p>
-                    <p><strong>Location:</strong> ABC Street, Pune</p>
-                    <p><strong>Price:</strong> ₹6000/month</p>
-                    <p><strong>Note:</strong> Non-independent, Gate Time 05:00–11:00</p>
+                    <p><strong>Room Name:</strong> {room.messName}</p>
+                    <p><strong>Service Provider:</strong> {room.fullName}</p>
+                    <p><strong>Location:</strong> {room.address?.street}, {room.address?.city}</p>
+                    <p><strong>Price:</strong> ₹{room.price}/month</p>
                   </div>
                   <div className="card-logo">
-                    <img src={room1} alt="room" className="card-img" />
-                    <button className="interested-btn">Interested</button>
+                    <button className="interested-btn" onClick={() => handleInterested("room", room._id)}>Interested</button>
                   </div>
                 </div>
               </div>
@@ -34,23 +49,21 @@ const Suggestions = () => {
           </div>
         </div>
 
-        {/* Right: Mess Services */}
+        {/* Mess Services */}
         <div className="service-column">
-          <h3 className="section-title">Nearest Mess Service</h3>
+          <h3 className="section-title">Available Mess Services</h3>
           <div className="card-scroll">
-            {dummyCards.map((_, index) => (
-              <div className="service-card" key={`mess-${index}`}>
+            {messes.map(mess => (
+              <div className="service-card" key={mess._id}>
                 <div className="card-content">
                   <div className="card-info">
-                    <p><strong>Service Name:</strong> Uncle Mess</p>
-                    <p><strong>Service Provider:</strong> Chef Kumar</p>
-                    <p><strong>Location:</strong> XYZ Lane, Pune</p>
-                    <p><strong>Price:</strong> ₹2500/month</p>
-                    <p><strong>Note:</strong> 13 days/week, Sunday evening off</p>
+                    <p><strong>Service Name:</strong> {mess.companyName}</p>
+                    <p><strong>Service Provider:</strong> {mess.fullName}</p>
+                    <p><strong>Location:</strong> {mess.address?.area}, {mess.address?.city}</p>
+                    <p><strong>Price:</strong> ₹{mess.price}/month</p>
                   </div>
                   <div className="card-logo">
-                    <img src={mess1} alt="mess" className="card-img" />
-                    <button className="interested-btn">Interested</button>
+                    <button className="interested-btn" onClick={() => handleInterested("mess", mess._id)}>Interested</button>
                   </div>
                 </div>
               </div>

@@ -3,6 +3,8 @@ const Student = require("../models/Student");
 const sendOtp = require("../utils/sendOtp");
 const bcrypt = require("bcryptjs");
 const generateToken = require("../utils/generateToken");
+const Mess = require("../models/MessProvider");
+const Room = require("../models/RoomProvider");
 
 const otpStore = {}; // In-memory OTP store
 
@@ -140,5 +142,42 @@ exports.getStudentProfile = async (req, res) => {
   } catch (err) {
     console.error("Profile Fetch Error:", err);
     res.status(500).json({ message: "Failed to fetch profile" });
+  }
+};
+
+
+// Get all Mess and Room services
+exports.getAllSuggestions = async (req, res) => {
+  try {
+    const messes = await Mess.find();
+    const rooms = await Room.find();
+    res.status(200).json({ messes, rooms });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to fetch suggestions" });
+  }
+};
+
+// Add selected mess/room to student profile
+exports.addSuggestionToStudent = async (req, res) => {
+  const { type, providerId } = req.body;
+
+  try {
+    const student = await Student.findById(req.user.id);
+    if (!student) return res.status(404).json({ message: "Student not found" });
+
+    if (type === "mess") {
+      student.selectedMess = providerId;
+    } else if (type === "room") {
+      student.selectedRoom = providerId;
+    } else {
+      return res.status(400).json({ message: "Invalid type" });
+    }
+
+    await student.save();
+    res.status(200).json({ message: "Service added to student profile" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to update student suggestions" });
   }
 };

@@ -58,3 +58,23 @@ export const fetchStudentProfile = async (token) => {
   if (!res.ok) throw new Error("Failed to fetch student profile");
   return res.json();
 };
+
+
+export const fetchSuggestions = async (token) => {
+  const res = await fetch("http://localhost:5000/api/student/suggestions", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.json();
+};
+
+export const addStudentSuggestion = async (token, type, providerId) => {
+  const res = await fetch("http://localhost:5000/api/student/suggestions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ type, providerId }),
+  });
+  return res.json();
+};

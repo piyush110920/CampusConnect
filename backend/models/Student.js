@@ -14,7 +14,22 @@ const studentSchema = new mongoose.Schema({
     country: String,
     pinCode: String
   },
-  role: { type: String, default: 'student' }
+  role: {
+    type: String,
+    default: 'student'
+  },
+
+  // 🔽 NEW FIELDS TO TRACK STUDENT'S SELECTED PROVIDERS
+  selectedMess: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Mess',
+    default: null
+  },
+  selectedRoom: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Room',
+    default: null
+  }
 });
 
 module.exports = mongoose.model('Student', studentSchema);
