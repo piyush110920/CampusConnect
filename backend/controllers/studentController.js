@@ -124,3 +124,21 @@ exports.resetStudentPassword = async (req, res) => {
     res.status(500).json({ message: 'Failed to reset password' });
   }
 };
+
+// GET /api/student/profile
+exports.getStudentProfile = async (req, res) => {
+  try {
+    const student = await Student.findById(req.user.id);
+    if (!student) return res.status(404).json({ message: "Student not found" });
+
+    res.json({
+      fullName: student.fullName,
+      email: student.email,
+      college: student.college,
+      address: student.address,
+    });
+  } catch (err) {
+    console.error("Profile Fetch Error:", err);
+    res.status(500).json({ message: "Failed to fetch profile" });
+  }
+};
