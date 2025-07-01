@@ -59,27 +59,32 @@ const Dashboard = () => {
         )}
       </div>
 
-      {/* ---------- Mess Section ---------- */}
+      {/* // In the MESS SECTION */}
       <div className="section mess">
         <h4><FaUtensils /> MESS SERVICE</h4>
-        <p>Service provider name:</p>
-        <p>Mess name:</p>
-        <p>Contact:</p>
-        <p>Current Rating:</p>
-        <p>Date of joining:</p>
-        <p>Due On:</p>
+        {student?.selectedMess ? (
+          <>
+            <p><strong>Service provider name:</strong> {student.selectedMess.fullName}</p>
+            <p><strong>Mess name:</strong> {student.selectedMess.companyName}</p>
+            <p><strong>Contact:</strong> {student.selectedMess.phone}</p>
+            <p><strong>Location:</strong> {student.selectedMess.address?.area}, {student.selectedMess.address?.city}</p>
+          </>
+        ) : <p>No mess selected yet.</p>}
       </div>
 
-      {/* ---------- Room Section ---------- */}
+      {/* // In the ROOM SECTION */}
       <div className="section room">
         <h4><FaBed /> ROOM SERVICE</h4>
-        <p>Service provider name:</p>
-        <p>Room name:</p>
-        <p>Contact:</p>
-        <p>Current Rating:</p>
-        <p>Date of joining:</p>
-        <p>Due On:</p>
+        {student?.selectedRoom ? (
+          <>
+            <p><strong>Service provider name:</strong> {student.selectedRoom.fullName}</p>
+            <p><strong>Room name:</strong> {student.selectedRoom.messName}</p>
+            <p><strong>Contact:</strong> {student.selectedRoom.phone}</p>
+            <p><strong>Location:</strong> {student.selectedRoom.address?.street}, {student.selectedRoom.address?.city}</p>
+          </>
+        ) : <p>No room selected yet.</p>}
       </div>
+
     </div>
   );
 };

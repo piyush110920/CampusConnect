@@ -181,3 +181,28 @@ exports.addSuggestionToStudent = async (req, res) => {
     res.status(500).json({ message: "Failed to update student suggestions" });
   }
 };
+
+
+// GET /api/student/profile
+exports.getStudentProfile = async (req, res) => {
+  try {
+    const student = await Student.findById(req.user.id)
+      .populate({ path: "selectedMess", model: "MessProvider" })
+      .populate({ path: "selectedRoom", model: "RoomProvider" });
+
+
+    if (!student) return res.status(404).json({ message: "Student not found" });
+
+    res.json({
+      fullName: student.fullName,
+      email: student.email,
+      college: student.college,
+      address: student.address,
+      selectedMess: student.selectedMess,
+      selectedRoom: student.selectedRoom
+    });
+  } catch (err) {
+    console.error("Profile Fetch Error:", err);
+    res.status(500).json({ message: "Failed to fetch profile" });
+  }
+};

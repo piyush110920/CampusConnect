@@ -1,26 +1,43 @@
 import React, { useEffect, useState } from "react";
 import './Suggestions.css';
-import { fetchSuggestions, addStudentSuggestion } from "../../../services/api";
+import { fetchSuggestions, addStudentSuggestion, fetchStudentProfile } from "../../../services/api";
 
 const Suggestions = () => {
   const [messes, setMesses] = useState([]);
   const [rooms, setRooms] = useState([]);
+  const [student, setStudent] = useState(null); // 👈 to track selectedMess/Room
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return;
 
-    fetchSuggestions(token).then(data => {
-      setMesses(data.messes);
-      setRooms(data.rooms);
-    }).catch(err => console.error("Error loading suggestions:", err));
+    // Fetch available services
+    fetchSuggestions(token)
+      .then(data => {
+        setMesses(data.messes);
+        setRooms(data.rooms);
+      })
+      .catch(err => console.error("Error loading suggestions:", err));
+
+    // Fetch student's current selection
+    fetchStudentProfile(token)
+      .then(data => setStudent(data))
+      .catch(err => console.error("Error loading student profile:", err));
   }, []);
 
   const handleInterested = (type, id) => {
     const token = localStorage.getItem("token");
+
+    const confirmChange = window.confirm(`Are you sure you want to select this ${type}? It will replace your previous choice.`);
+    if (!confirmChange) return;
+
     addStudentSuggestion(token, type, id)
-      .then(() => alert("Added to your profile!"))
-      .catch((err) => console.error("Error adding suggestion:", err));
+      .then(() => {
+        alert("Updated your selection!");
+        return fetchStudentProfile(token); // Refresh selectedMess/Room
+      })
+      .then(data => setStudent(data))
+      .catch(err => console.error("Error updating suggestion:", err));
   };
 
   return (
@@ -41,7 +58,13 @@ const Suggestions = () => {
                     <p><strong>Price:</strong> ₹{room.price}/month</p>
                   </div>
                   <div className="card-logo">
-                    <button className="interested-btn" onClick={() => handleInterested("room", room._id)}>Interested</button>
+                    <button
+                      className="interested-btn"
+                      onClick={() => handleInterested("room", room._id)}
+                      disabled={student?.selectedRoom?._id === room._id}
+                    >
+                      {student?.selectedRoom?._id === room._id ? "Selected" : "Interested"}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -63,7 +86,13 @@ const Suggestions = () => {
                     <p><strong>Price:</strong> ₹{mess.price}/month</p>
                   </div>
                   <div className="card-logo">
-                    <button className="interested-btn" onClick={() => handleInterested("mess", mess._id)}>Interested</button>
+                    <button
+                      className="interested-btn"
+                      onClick={() => handleInterested("mess", mess._id)}
+                      disabled={student?.selectedMess?._id === mess._id}
+                    >
+                      {student?.selectedMess?._id === mess._id ? "Selected" : "Interested"}
+                    </button>
                   </div>
                 </div>
               </div>

@@ -19,15 +19,15 @@ const studentSchema = new mongoose.Schema({
     default: 'student'
   },
 
-  // 🔽 NEW FIELDS TO TRACK STUDENT'S SELECTED PROVIDERS
+  // ✅ Corrected references
   selectedMess: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Mess',
+    ref: 'MessProvider',
     default: null
   },
   selectedRoom: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Room',
+    ref: 'RoomProvider',
     default: null
   }
 });
