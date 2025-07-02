@@ -159,6 +159,8 @@ exports.getAllSuggestions = async (req, res) => {
 };
 
 // Add selected mess/room to student profile
+// controllers/studentController.js
+
 exports.addSuggestionToStudent = async (req, res) => {
   const { type, providerId } = req.body;
 
@@ -166,10 +168,14 @@ exports.addSuggestionToStudent = async (req, res) => {
     const student = await Student.findById(req.user.id);
     if (!student) return res.status(404).json({ message: "Student not found" });
 
+    const now = new Date(); // Current date and time
+
     if (type === "mess") {
       student.selectedMess = providerId;
+      student.selectedMessDate = now; // ✅ Save current date
     } else if (type === "room") {
       student.selectedRoom = providerId;
+      student.selectedRoomDate = now; // ✅ Save current date
     } else {
       return res.status(400).json({ message: "Invalid type" });
     }
@@ -181,7 +187,6 @@ exports.addSuggestionToStudent = async (req, res) => {
     res.status(500).json({ message: "Failed to update student suggestions" });
   }
 };
-
 
 // GET /api/student/profile
 exports.getStudentProfile = async (req, res) => {
@@ -199,7 +204,9 @@ exports.getStudentProfile = async (req, res) => {
       college: student.college,
       address: student.address,
       selectedMess: student.selectedMess,
-      selectedRoom: student.selectedRoom
+      selectedRoom: student.selectedRoom,
+      selectedMessDate: student.selectedMessDate,
+      selectedRoomDate: student.selectedRoomDate
     });
   } catch (err) {
     console.error("Profile Fetch Error:", err);

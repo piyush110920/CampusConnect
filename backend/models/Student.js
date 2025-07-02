@@ -18,8 +18,6 @@ const studentSchema = new mongoose.Schema({
     type: String,
     default: 'student'
   },
-
-  // ✅ Corrected references
   selectedMess: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'MessProvider',
@@ -28,6 +26,15 @@ const studentSchema = new mongoose.Schema({
   selectedRoom: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'RoomProvider',
+    default: null
+  },
+  // ✅ Add these new fields
+  selectedMessDate: {
+    type: Date,
+    default: null
+  },
+  selectedRoomDate: {
+    type: Date,
     default: null
   }
 });
