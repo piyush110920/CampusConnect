@@ -78,3 +78,17 @@ export const addStudentSuggestion = async (token, type, providerId) => {
   });
   return res.json();
 };
+
+export const sendStudentMessage = async (token, fullName, email, message) => {
+  const res = await fetch("http://localhost:5000/api/student/contact", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ fullName, email, message }),
+  });
+
+  if (!res.ok) throw new Error("Failed to send message");
+  return res.json();
+};

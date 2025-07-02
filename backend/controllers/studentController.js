@@ -5,6 +5,10 @@ const bcrypt = require("bcryptjs");
 const generateToken = require("../utils/generateToken");
 const Mess = require("../models/MessProvider");
 const Room = require("../models/RoomProvider");
+const sendContactMail = require('../utils/sendContactMail');
+const authMiddleware = require("../middleware/authMiddleware");
+
+const nodemailer = require("nodemailer");
 
 const otpStore = {}; // In-memory OTP store
 
@@ -211,5 +215,38 @@ exports.getStudentProfile = async (req, res) => {
   } catch (err) {
     console.error("Profile Fetch Error:", err);
     res.status(500).json({ message: "Failed to fetch profile" });
+  }
+};
+
+// POST /api/student/contact
+// controllers/studentController.js
+
+exports.sendContactMessage = async (req, res) => {
+  const { fullName, email, message } = req.body;
+
+  if (!fullName || !email || !message) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER,
+      subject: `Contact Form Message from ${fullName}`,
+      text: `From: ${fullName}\nEmail: ${email}\n\n${message}`,
+    });
+
+    res.status(200).json({ message: "Message sent successfully" });
+  } catch (err) {
+    console.error("Email Error:", err);
+    res.status(500).json({ message: "Failed to send message." });
   }
 };
