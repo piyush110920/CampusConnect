@@ -29,6 +29,23 @@ const Dashboard = () => {
       });
   }, []);
 
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-IN", {
+      year: "numeric",
+      month: "short",
+      day: "numeric"
+    });
+  };
+
+  const getDueDate = (dateString) => {
+    if (!dateString) return "N/A";
+    const date = new Date(dateString);
+    date.setMonth(date.getMonth() + 1);
+    return formatDate(date);
+  };
+
   return (
     <div className="dashboard-container">
       {/* ---------- Admin Section ---------- */}
@@ -59,7 +76,7 @@ const Dashboard = () => {
         )}
       </div>
 
-      {/* // In the MESS SECTION */}
+      {/* ---------- Mess Section ---------- */}
       <div className="section mess">
         <h4><FaUtensils /> MESS SERVICE</h4>
         {student?.selectedMess ? (
@@ -68,11 +85,15 @@ const Dashboard = () => {
             <p><strong>Mess name:</strong> {student.selectedMess.companyName}</p>
             <p><strong>Contact:</strong> {student.selectedMess.phone}</p>
             <p><strong>Location:</strong> {student.selectedMess.address?.area}, {student.selectedMess.address?.city}</p>
+            <p><strong>Date of Joining:</strong> {formatDate(student.selectedMessDate)}</p>
+            <p><strong>Date of Due:</strong> {getDueDate(student.selectedMessDate)}</p>
           </>
-        ) : <p>No mess selected yet.</p>}
+        ) : (
+          <p>No mess selected yet.</p>
+        )}
       </div>
 
-      {/* // In the ROOM SECTION */}
+      {/* ---------- Room Section ---------- */}
       <div className="section room">
         <h4><FaBed /> ROOM SERVICE</h4>
         {student?.selectedRoom ? (
@@ -81,10 +102,13 @@ const Dashboard = () => {
             <p><strong>Room name:</strong> {student.selectedRoom.messName}</p>
             <p><strong>Contact:</strong> {student.selectedRoom.phone}</p>
             <p><strong>Location:</strong> {student.selectedRoom.address?.street}, {student.selectedRoom.address?.city}</p>
+            <p><strong>Date of Joining:</strong> {formatDate(student.selectedRoomDate)}</p>
+            <p><strong>Date of Due:</strong> {getDueDate(student.selectedRoomDate)}</p>
           </>
-        ) : <p>No room selected yet.</p>}
+        ) : (
+          <p>No room selected yet.</p>
+        )}
       </div>
-
     </div>
   );
 };
