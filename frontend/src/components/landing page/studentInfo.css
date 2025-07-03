@@ -11,7 +11,7 @@
 .student-info-container {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: right;
   justify-content: space-between;
   background: rgba(10, 10, 20, 0.0); /* Matches landing page overlay */
   padding: 30px 80px;
@@ -24,8 +24,8 @@
 
 .student-info-text {
   flex: 1;
-  min-width: 300px;
-  max-width: 600px;
+  min-width: 600px;
+  max-width: 1500px;
   padding: 80px;
 }
 
@@ -89,8 +89,9 @@
 /* ==== IMAGE POPUP STYLES START ==== */
 .student-info-image {
   flex: 1;
+  align-items: right;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   min-width: 350px;
 }
 
@@ -100,7 +101,8 @@
 }
 
 .image-wrapper img {
-  width: 80%;
+  width: 70%;
+  align-items: right;
   max-width: 800px;
   border-radius: 30%;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
