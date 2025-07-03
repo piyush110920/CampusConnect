@@ -29,7 +29,7 @@
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s;
-  min-width: 0; /* prevents overflow issues */
+  min-width: 0;
   max-width: 50%;
   overflow: hidden;
 }
@@ -50,6 +50,7 @@
   border-radius: 4px;
 }
 
+/* ===== Service Card ===== */
 .service-card {
   background-color: #fff;
   padding: 20px;
@@ -59,6 +60,18 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+
+  /* Newly added left border */
+  border-left: 5px solid #6b2fb2;
+}
+
+/* Optional: Different colored borders based on type */
+.service-card.room {
+  border-left: 5px solid #ffc107; /* Yellow */
+}
+
+.service-card.mess {
+  border-left: 5px solid #28a745; /* Green */
 }
 
 .card-content {
@@ -105,8 +118,6 @@
   background-color: #6d3aa8;
   transform: scale(1.05);
 }
-
-
 
 /* Responsive Layout */
 @media (max-width: 1024px) {
