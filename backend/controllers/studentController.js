@@ -292,3 +292,45 @@ exports.rateMess = async (req, res) => {
     res.status(500).json({ message: "Failed to rate mess." });
   }
 };
+exports.rateRoom = async (req, res) => {
+  const { rating } = req.body;
+
+  if (!rating || rating < 1 || rating > 5) {
+    return res.status(400).json({ message: "Rating must be between 1 and 5." });
+  }
+
+  try {
+    const student = await Student.findById(req.user.id);
+    if (!student || !student.selectedRoom) {
+      return res.status(404).json({ message: "No room selected to rate." });
+    }
+
+    const room = await Room.findById(student.selectedRoom);
+    if (!room) {
+      return res.status(404).json({ message: "Room provider not found." });
+    }
+
+    const previousRating = student.selectedRoomRating;
+
+    if (previousRating) {
+      room.ratingSum = room.ratingSum - previousRating + rating;
+    } else {
+      room.ratingSum += rating;
+      room.totalRatings += 1;
+    }
+
+    room.averageRating = room.ratingSum / room.totalRatings;
+    student.selectedRoomRating = rating;
+
+    await room.save();
+    await student.save();
+
+    res.status(200).json({
+      message: "Rating submitted successfully",
+      averageRating: room.averageRating
+    });
+  } catch (err) {
+    console.error("Rate Room Error:", err);
+    res.status(500).json({ message: "Failed to rate room." });
+  }
+};

@@ -45,6 +45,7 @@ body {
   padding: 25px 30px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   flex: 1 1 300px;
+  width: 445px;
   transition: transform 0.2s ease;
 }
 

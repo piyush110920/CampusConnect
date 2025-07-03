@@ -44,7 +44,12 @@ selectedMessRating: {
   min: 1,
   max: 5,
   default: null
-}
+},
+selectedRoomRating: {
+  type: Number,
+  default: 0
+},
+
 
 });
 

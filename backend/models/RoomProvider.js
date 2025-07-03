@@ -17,6 +17,19 @@ const roomProviderSchema = new mongoose.Schema({
     type: String,
     default: 'room',
   },
+  ratingSum: {
+  type: Number,
+  default: 0
+  },
+  totalRatings: {
+    type: Number,
+    default: 0
+  },
+  averageRating: {
+    type: Number,
+    default: 0
+  },
+
 });
 
 module.exports = mongoose.model('RoomProvider', roomProviderSchema);
