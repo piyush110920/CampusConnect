@@ -35,9 +35,9 @@ const Footer = () => {
 
         <div className="footer-right">
           <p>
-            Plot number XX, near XYZ,<br />
-            ABC Road, City,<br />
-            State, Country - 000000
+            Plot number 01, near Grahak Seva Kendra,<br />
+            Vaishali nagar,Jaitala Road, Nagpur,<br />
+            Maharashtra, India - 440016
           </p>
         </div>
       </div>

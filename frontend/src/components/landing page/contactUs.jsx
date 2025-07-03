@@ -9,12 +9,15 @@ const ContactUs = () => {
     message: '',
   });
 
+  const [isSending, setIsSending] = useState(false); // New state
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSending(true); // Disable button and show "Sending..."
 
     try {
       const response = await fetch('http://localhost:5000/api/contact', {
@@ -34,6 +37,8 @@ const ContactUs = () => {
     } catch (err) {
       console.error('Error sending message:', err);
       alert('❌ Something went wrong.');
+    } finally {
+      setIsSending(false); // Re-enable button
     }
   };
 
@@ -90,7 +95,9 @@ const ContactUs = () => {
             required
           />
 
-          <button type="submit">Send Message 🚀</button>
+          <button type="submit" disabled={isSending}>
+            {isSending ? 'Sending...' : 'Send Message 🚀'}
+          </button>
         </form>
       </div>
     </div>
