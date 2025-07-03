@@ -36,7 +36,16 @@ const studentSchema = new mongoose.Schema({
   selectedRoomDate: {
     type: Date,
     default: null
-  }
+  },
+  // models/Student.js
+
+selectedMessRating: {
+  type: Number,
+  min: 1,
+  max: 5,
+  default: null
+}
+
 });
 
 module.exports = mongoose.model('Student', studentSchema);

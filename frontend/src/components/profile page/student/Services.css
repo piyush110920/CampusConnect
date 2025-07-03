@@ -7,80 +7,67 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to bottom right, #f5f6fa, #e6e6ff);
-  color: #222;
+  background: linear-gradient(to bottom right, #f7f9fc, #e8e8ff);
+  color: #333;
   min-height: 100vh;
 }
 
-/* ===== Main Container ===== */
+/* ===== Container ===== */
 .service-container {
-  padding: 100px 20px 40px 100px;
-  width: 100%;
-  max-width: 1200px;
+  padding: 90px 20px 40px 100px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
-/* ===== Section Title ===== */
 .service-title {
   font-size: 28px;
-  font-weight: bold;
+  font-weight: 700;
   color: #4b0082;
   margin-bottom: 35px;
-  text-transform: uppercase;
   border-bottom: 2px solid #ddd;
   padding-bottom: 10px;
+  text-transform: uppercase;
 }
 
-/* ===== Cards Wrapper ===== */
+/* ===== Card Layout ===== */
 .card-wrapper {
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
-/* ===== Info & Message Cards ===== */
 .info-card,
-.message-card {
-  background-color: #fff;
-  padding: 25px 30px;
+.message-card,
+.rating-card {
+  background: #fff;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  flex: 1 1 45%;
-  min-width: 320px;
+  padding: 25px 30px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  flex: 1 1 300px;
   transition: transform 0.2s ease;
 }
 
 .info-card:hover,
-.message-card:hover {
-  transform: translateY(-3px);
+.message-card:hover,
+.rating-card:hover {
+  transform: translateY(-4px);
 }
 
-/* ===== Colored Borders for Card Types ===== */
 .info-card {
-  border-left: 4px solid #007bff; /* Yellow for Room */
+  border-left: 5px solid #007bff;
 }
-
 .message-card {
-  border-left: 4px solid #28a745; /* Green for Mess */
+  border-left: 5px solid #28a745;
+}
+.rating-card {
+  border-left: 5px solid #ffa500;
 }
 
-.info-card.admin {
-  border-left: 4px solid #007bff; /* Blue for Admin */
-}
-
-/* Optional padding adjustment for border space */
-.info-card.room,
-.info-card.mess,
-.info-card.admin {
-  padding-left: 26px;
-}
-
-/* ===== Info Card Text ===== */
+/* ===== Info Text ===== */
 .info-card p {
-  font-size: 17px;
-  margin-bottom: 14px;
-  color: #333;
+  font-size: 16px;
+  margin-bottom: 12px;
   line-height: 1.5;
 }
 
@@ -88,11 +75,12 @@ body {
   color: #4b0082;
 }
 
-/* ===== Message Card ===== */
-.message-card h4 {
+/* ===== Message Section ===== */
+.message-card h4,
+.rating-card h4 {
   font-size: 20px;
-  color: #4b0082;
   margin-bottom: 14px;
+  color: #4b0082;
 }
 
 .message-card textarea {
@@ -101,85 +89,100 @@ body {
   border-radius: 8px;
   font-size: 15px;
   border: 1px solid #ccc;
-  background-color: #fdfdfd;
   resize: vertical;
   min-height: 140px;
-  color: #333;
+  background-color: #fdfdfd;
   margin-bottom: 18px;
 }
 
-/* ===== Action Buttons ===== */
 .service-buttons {
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .service-buttons button {
-  padding: 10px 22px;
-  font-size: 15px;
+  padding: 10px 20px;
   font-weight: 600;
-  border: none;
+  font-size: 15px;
   border-radius: 6px;
+  border: none;
+  color: white;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  color: #fff;
+  transition: 0.2s ease;
 }
 
 button.send {
   background-color: #2f2fff;
 }
-
 button.change {
   background-color: #ff9900;
 }
-
 button.remove {
-  background-color: #e63946;
+  background-color: #dc3545;
 }
-
 .service-buttons button:hover {
   opacity: 0.9;
 }
 
-.section.info-card {
-  border-left: 4px solid #007bff;
+/* ===== Rating Card ===== */
+.rating-card input {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  width: 70px;
+  margin-right: 10px;
 }
 
-.section.message-card {
-  border-left: 4px solid #28a745;
+.rating-card button {
+  padding: 8px 14px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
-.section.room {
-  border-left: 4px solid #ffc107;
+.rating-card button:hover {
+  background-color: #0056b3;
 }
 
-
-/* ===== Responsive Layout ===== */
-@media (max-width: 1024px) {
-  .service-container {
-    padding: 60px 20px;
-  }
+.rating-card p {
+  margin-top: 10px;
+  font-weight: bold;
 }
 
+/* ===== Info Messages ===== */
+.error {
+  color: red;
+  padding: 1rem;
+}
+
+.info-msg {
+  padding: 1rem;
+  font-style: italic;
+}
+
+/* ===== Responsive Design ===== */
 @media (max-width: 768px) {
   .card-wrapper {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
   }
 
   .info-card,
-  .message-card {
+  .message-card,
+  .rating-card {
     width: 100%;
-    max-width: 100%;
   }
 
   .service-buttons {
     justify-content: center;
+    flex-wrap: wrap;
   }
 
   .service-title {
-    font-size: 22px;
     text-align: center;
+    font-size: 24px;
   }
 }

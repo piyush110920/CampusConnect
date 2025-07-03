@@ -19,6 +19,21 @@ const messProviderSchema = new mongoose.Schema({
     type: String,
     default: 'mess',
   },
+  // models/MessProvider.js
+
+  averageRating: {
+    type: Number,
+    default: 0
+  },
+  totalRatings: {
+    type: Number,
+    default: 0
+  },
+  ratingSum: {
+    type: Number,
+    default: 0
+  }
+
 });
 
 module.exports = mongoose.model('MessProvider', messProviderSchema);

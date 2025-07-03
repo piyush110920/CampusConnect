@@ -250,3 +250,45 @@ exports.sendContactMessage = async (req, res) => {
     res.status(500).json({ message: "Failed to send message." });
   }
 };
+
+
+exports.rateMess = async (req, res) => {
+  const { rating } = req.body;
+
+  if (!rating || rating < 1 || rating > 5) {
+    return res.status(400).json({ message: "Rating must be between 1 and 5." });
+  }
+
+  try {
+    const student = await Student.findById(req.user.id);
+    if (!student || !student.selectedMess) {
+      return res.status(404).json({ message: "No mess selected to rate." });
+    }
+
+    const mess = await Mess.findById(student.selectedMess);
+    if (!mess) {
+      return res.status(404).json({ message: "Mess provider not found." });
+    }
+
+    const previousRating = student.selectedMessRating;
+
+    // Update rating
+    if (previousRating) {
+      mess.ratingSum = mess.ratingSum - previousRating + rating;
+    } else {
+      mess.ratingSum += rating;
+      mess.totalRatings += 1;
+    }
+
+    mess.averageRating = mess.ratingSum / mess.totalRatings;
+    student.selectedMessRating = rating;
+
+    await mess.save();
+    await student.save();
+
+    res.status(200).json({ message: "Rating submitted successfully", averageRating: mess.averageRating });
+  } catch (err) {
+    console.error("Rate Mess Error:", err);
+    res.status(500).json({ message: "Failed to rate mess." });
+  }
+};

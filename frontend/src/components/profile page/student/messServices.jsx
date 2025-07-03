@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './Services.css';
-import { fetchStudentProfile } from '../../../services/api';
+import { fetchStudentProfile, rateSelectedMess } from '../../../services/api';
 
 const MessServices = () => {
   const [student, setStudent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [rating, setRating] = useState(0);
+  const [avgRating, setAvgRating] = useState(0);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -18,6 +20,8 @@ const MessServices = () => {
     fetchStudentProfile(token)
       .then((data) => {
         setStudent(data);
+        setRating(data.selectedMessRating || 0);
+        setAvgRating(data.selectedMess?.averageRating || 0);
         setLoading(false);
       })
       .catch((err) => {
@@ -44,6 +48,18 @@ const MessServices = () => {
     return formatDate(date);
   };
 
+  const handleRatingSubmit = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const result = await rateSelectedMess(token, rating);
+      setAvgRating(result.averageRating);
+      alert("Rating submitted successfully!");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to submit rating.");
+    }
+  };
+
   return (
     <div className="service-container">
       <h3 className="service-title">Current Mess Service</h3>
@@ -54,6 +70,7 @@ const MessServices = () => {
         <p style={{ color: "red" }}>{error}</p>
       ) : student?.selectedMess ? (
         <div className="card-wrapper">
+
           {/* Info Card */}
           <div className="info-card">
             <p><strong>Service Name:</strong> {student.selectedMess.companyName}</p>
@@ -74,6 +91,21 @@ const MessServices = () => {
               <button className="remove">Remove</button>
             </div>
           </div>
+
+          {/* Rating Card */}
+          <div className="rating-card">
+            <h4>Rate This Mess</h4>
+            <input
+              type="number"
+              min="1"
+              max="5"
+              value={rating}
+              onChange={(e) => setRating(parseInt(e.target.value))}
+            />
+            <button onClick={handleRatingSubmit}>Submit Rating</button>
+            <p>Average Rating: ⭐ {avgRating?.toFixed(1) || "0.0"}</p>
+          </div>
+
         </div>
       ) : (
         <p style={{ padding: "1rem" }}>No mess selected yet.</p>

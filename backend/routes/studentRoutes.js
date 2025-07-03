@@ -12,6 +12,8 @@ router.post('/login', studentController.loginStudent);
 router.post('/forgot-password/send-otp', studentController.sendForgotPasswordOtp);
 router.post('/forgot-password/reset', studentController.resetStudentPassword);
 router.post('/suggestions', protect, studentController.addSuggestionToStudent);
+router.post('/rate-mess', protect, studentController.rateMess);
+
 
 router.post('/contact', studentController.sendContactMessage); // ✅ Correct
 
