@@ -73,7 +73,7 @@ const RoomServices = () => {
 
           {/* Info Card */}
           <div className="info-card">
-            <p><strong>Service Name:</strong> {student.selectedRoom.companyName}</p>
+            <p><strong>Room name:</strong> {student.selectedRoom.messName}</p>
             <p><strong>Service Provider:</strong> {student.selectedRoom.fullName}</p>
             <p><strong>Contact Number:</strong> {student.selectedRoom.phone}</p>
             <p><strong>Location:</strong> {student.selectedRoom.address?.area}, {student.selectedRoom.address?.city}</p>
