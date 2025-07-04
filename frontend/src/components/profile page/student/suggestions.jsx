@@ -55,7 +55,8 @@ const Suggestions = () => {
                     <p><strong>Room Name:</strong> {room.messName}</p>
                     <p><strong>Service Provider:</strong> {room.fullName}</p>
                     <p><strong>Location:</strong> {room.address?.street}, {room.address?.city}</p>
-                    <p><strong>Price:</strong> ₹{room.price}/month</p>
+                    <p><strong>Price:</strong> ₹{room.monthlyPrice}/month</p>
+
                   </div>
                   <div className="card-logo">
                     <button

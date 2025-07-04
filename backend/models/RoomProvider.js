@@ -17,9 +17,13 @@ const roomProviderSchema = new mongoose.Schema({
     type: String,
     default: 'room',
   },
+  monthlyPrice: {
+    type: Number,
+    required: true  // Ensure the provider enters a price during signup
+  },
   ratingSum: {
-  type: Number,
-  default: 0
+    type: Number,
+    default: 0
   },
   totalRatings: {
     type: Number,
@@ -29,7 +33,6 @@ const roomProviderSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-
 });
 
 module.exports = mongoose.model('RoomProvider', roomProviderSchema);

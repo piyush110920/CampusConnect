@@ -14,6 +14,7 @@ const RoomSignup = () => {
     landmark: '',
     city: '',
     pincode: '',
+    price: '', // ✅ added price
     password: '',
     confirmPassword: ''
   });
@@ -66,11 +67,11 @@ const RoomSignup = () => {
   const generateOtp = async () => {
     const {
       fullName, email, phone, messName, plotNumber, street,
-      landmark, city, pincode, password, confirmPassword
+      landmark, city, pincode, price, password, confirmPassword
     } = formData;
 
     if (!fullName || !email || !phone || !messName || !plotNumber || !street ||
-        !landmark || !city || !pincode || !password || !confirmPassword) {
+        !landmark || !city || !pincode || !price || !password || !confirmPassword) {
       alert('All fields are required!');
       return;
     }
@@ -136,6 +137,7 @@ const RoomSignup = () => {
           landmark: '',
           city: '',
           pincode: '',
+          price: '', // ✅ clear price field
           password: '',
           confirmPassword: ''
         });
@@ -154,22 +156,23 @@ const RoomSignup = () => {
 
   return (
     <form className="contact-form" onSubmit={handleSubmit}>
-      {[['Full Name', 'fullName'], ['Email Address', 'email'], ['Phone Number', 'phone'],
+      {[
+        ['Full Name', 'fullName'], ['Email Address', 'email'], ['Phone Number', 'phone'],
         ['Apartment Name', 'messName'], ['Plot Number', 'plotNumber'], ['Street Name', 'street'],
-        ['Landmark', 'landmark'], ['City', 'city'], ['Pincode', 'pincode']]
-        .map(([label, name]) => (
-          <React.Fragment key={name}>
-            <label>{label}:</label>
-            <input
-              name={name}
-              type={name === 'email' ? 'email' : 'text'}
-              value={formData[name]}
-              onChange={handleChange}
-              placeholder={`Enter your ${label.toLowerCase()}`}
-              readOnly={isFieldDisabled}
-            />
-          </React.Fragment>
-        ))}
+        ['Landmark', 'landmark'], ['City', 'city'], ['Pincode', 'pincode'], ['Monthly Price (₹)', 'price'] // ✅ added
+      ].map(([label, name]) => (
+        <React.Fragment key={name}>
+          <label>{label}:</label>
+          <input
+            name={name}
+            type={name === 'email' ? 'email' : name === 'price' ? 'number' : 'text'}
+            value={formData[name]}
+            onChange={handleChange}
+            placeholder={`Enter your ${label.toLowerCase()}`}
+            readOnly={isFieldDisabled}
+          />
+        </React.Fragment>
+      ))}
 
       <label>Password:</label>
       <div className="password-field">
