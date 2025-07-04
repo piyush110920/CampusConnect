@@ -16,6 +16,7 @@ const MessSignup = () => {
     state: '',
     country: '',
     pincode: '',
+    monthlyPrice: '', // ✅ added
     password: '',
     confirmPassword: ''
   });
@@ -68,7 +69,7 @@ const MessSignup = () => {
   const generateOtp = async () => {
     const {
       fullName, email, phone, companyName, plotNumber, landmark,
-      area, city, state, country, pincode, password, confirmPassword
+      area, city, state, country, pincode, monthlyPrice, password, confirmPassword
     } = formData;
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -79,6 +80,11 @@ const MessSignup = () => {
 
     if (Object.values(formData).some(val => !val)) {
       alert('All fields are required!');
+      return;
+    }
+
+    if (isNaN(monthlyPrice) || Number(monthlyPrice) <= 0) {
+      alert('Please enter a valid monthly price.');
       return;
     }
 
@@ -129,6 +135,11 @@ const MessSignup = () => {
       return;
     }
 
+    if (isNaN(formData.monthlyPrice) || Number(formData.monthlyPrice) <= 0) {
+      alert('Invalid monthly price.');
+      return;
+    }
+
     try {
       const res = await fetch('http://localhost:5000/api/mess/signup', {
         method: 'POST',
@@ -143,7 +154,8 @@ const MessSignup = () => {
         setFormData({
           fullName: '', companyName: '', email: '', phone: '',
           plotNumber: '', landmark: '', area: '', city: '',
-          state: '', country: '', pincode: '', password: '', confirmPassword: ''
+          state: '', country: '', pincode: '', monthlyPrice: '',
+          password: '', confirmPassword: ''
         });
         setOtp(['', '', '', '']);
         setOtpSent(false);
@@ -178,6 +190,18 @@ const MessSignup = () => {
         </React.Fragment>
       ))}
 
+      {/* ✅ Monthly Price Field */}
+      <label>Monthly Price (₹):</label>
+      <input
+        type="number"
+        name="monthlyPrice"
+        value={formData.monthlyPrice}
+        onChange={handleChange}
+        disabled={isFieldDisabled}
+        placeholder="Enter monthly price"
+      />
+
+      {/* Password */}
       <label>Password:</label>
       <div className="password-field">
         <input
@@ -193,6 +217,7 @@ const MessSignup = () => {
         </span>
       </div>
 
+      {/* Password Checklist */}
       <ul className="password-checklist">
         <li className={passwordChecks.lowercase ? 'valid' : ''}>✔ Lowercase</li>
         <li className={passwordChecks.uppercase ? 'valid' : ''}>✔ Uppercase</li>
@@ -201,6 +226,7 @@ const MessSignup = () => {
         <li className={passwordChecks.length ? 'valid' : ''}>✔ 8+ Characters</li>
       </ul>
 
+      {/* Confirm Password */}
       <label>Confirm Password:</label>
       <div className="password-field">
         <input
@@ -216,6 +242,7 @@ const MessSignup = () => {
         </span>
       </div>
 
+      {/* OTP */}
       {otpSent ? (
         <>
           <label>Enter OTP:</label>

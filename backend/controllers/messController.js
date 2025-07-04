@@ -18,12 +18,11 @@ exports.generateOtp = async (req, res) => {
     res.status(500).json({ message: "Failed to send OTP." });
   }
 };
-
 exports.signupMessProvider = async (req, res) => {
   const {
     fullName, companyName, email, phone,
     plotNumber, landmark, area, city, state,
-    country, pincode, password, otp
+    country, pincode, monthlyPrice, password, otp // ✅ monthlyPrice added here
   } = req.body;
 
   if (otpStore[email] !== otp) {
@@ -42,6 +41,7 @@ exports.signupMessProvider = async (req, res) => {
       email,
       phone,
       address: { plotNumber, landmark, area, city, state, country, pincode },
+      monthlyPrice, // ✅ monthlyPrice added here
       password: hashedPassword
     });
 

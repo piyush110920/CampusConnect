@@ -83,7 +83,8 @@ const Suggestions = () => {
                     <p><strong>Service Name:</strong> {mess.companyName}</p>
                     <p><strong>Service Provider:</strong> {mess.fullName}</p>
                     <p><strong>Location:</strong> {mess.address?.area}, {mess.address?.city}</p>
-                    <p><strong>Price:</strong> ₹{mess.price}/month</p>
+                    <p><strong>Price:</strong> ₹{mess.monthlyPrice}/month</p>
+
                   </div>
                   <div className="card-logo">
                     <button

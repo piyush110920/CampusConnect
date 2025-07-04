@@ -14,13 +14,15 @@ const messProviderSchema = new mongoose.Schema({
     country: String,
     pincode: String,
   },
+  monthlyPrice: {
+    type: Number,
+    required: true,
+  },
   password: String,
   role: {
     type: String,
     default: 'mess',
   },
-  // models/MessProvider.js
-
   averageRating: {
     type: Number,
     default: 0
@@ -33,7 +35,6 @@ const messProviderSchema = new mongoose.Schema({
     type: Number,
     default: 0
   }
-
 });
 
 module.exports = mongoose.model('MessProvider', messProviderSchema);
