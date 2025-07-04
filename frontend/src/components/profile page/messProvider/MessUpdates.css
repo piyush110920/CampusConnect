@@ -1,0 +1,31 @@
+.mess-updates-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 100px 20px 40px 100px;
+  gap: 10px;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+
+.update-box {
+  background-color: #d3d3d3;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.update-msg {
+  color: purple;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 0;
+}
+
+.no-msg {
+  color: #666;
+  font-style: italic;
+}

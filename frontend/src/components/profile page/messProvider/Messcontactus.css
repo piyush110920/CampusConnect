@@ -1,0 +1,130 @@
+.mess-contact-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 100px 20px 40px 100px;
+  background: linear-gradient(to bottom right, #ffffff, #ffffff);
+  gap: 40px;
+}
+
+.mess-contact-card {
+  flex: 1 1 45%;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-width: 500px;
+}
+
+.mess-contact-heading {
+  color: #834fc1;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.mess-contact-form {
+  width: 100%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  color: #5e3ca4;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 12px;
+  border: 1px solid #c8b6e2;
+  border-radius: 8px;
+  background-color: #f3effd;
+  color: #333;
+  font-size: 14px;
+}
+
+.form-group input[readonly] {
+  background-color: #eaeaea;
+  color: #555;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.submit-wrapper {
+  text-align: center;
+}
+
+.submit-wrapper button {
+  background: linear-gradient(to right, #834fc1, #a887f5);
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.submit-wrapper button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(to right, #6e3abf, #9675e5);
+}
+
+.contact-info-card h3 {
+  color: #5e3ca4;
+  font-size: 22px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.contact-info-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.contact-info-list li {
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.contact-info-list li strong {
+  color: #834fc1;
+}
+
+.mess-contact-card {
+  border-left: 4px solid #007bff;
+}
+
+.contact-info-card {
+  border-left: 4px solid #28a745;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mess-contact-container {
+    flex-direction: column;
+    padding: 30px 20px;
+  }
+
+  .mess-contact-card {
+    flex: 1 1 100%;
+  }
+
+  .submit-wrapper button {
+    width: 100%;
+  }
+}

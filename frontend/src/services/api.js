@@ -120,3 +120,20 @@ export const rateSelectedRoom = async (token, rating) => {
   if (!res.ok) throw new Error("Failed to submit rating");
   return res.json();
 };
+
+
+// Add this line near the top of your file
+const BASE_URL_MESS = "http://localhost:5000/api/mess";
+
+// -------------------- MESS PROVIDER PROFILE -------------------- //
+
+export const fetchMessProfile = async (token) => {
+  const res = await fetch(`${BASE_URL_MESS}/mess-profilepage`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch mess provider profile");
+  return res.json();
+};

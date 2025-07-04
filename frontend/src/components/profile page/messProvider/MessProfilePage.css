@@ -1,81 +1,23 @@
-.mess-profile-container {
-  display: flex;
-  flex-direction: column;
+.profile-container {
+  background-color: #ffffff; /* White background */
   min-height: 100vh;
   width: 100vw;
-  overflow-x: hidden;
-  background-color: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+  z-index: 99;
 }
 
 .profile-body {
   display: flex;
-  flex: 1;
-  min-height: calc(100vh - 70px);
+  width: 100%;
+  height: calc(150px - 70px); /* Adjusting height after navbar */
+  z-index: 10;
+  background-color: #ffffff; /* Ensure body also has white bg */
 }
 
-.mess-sidebar {
-  width: 180px;
-  background-color: #111;
-  color: white;
-  height: calc(100vh - 80px);
-  padding: 20px;
-  position: sticky;
-  top: 80px;
-  transition: transform 0.3s ease-in-out;
-}
-
-.mess-sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-
-.mess-sidebar li {
-  padding: 10px 0;
-}
-
-.mess-sidebar a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.mess-content-area {
+.profile-content {
   flex: 1;
   padding: 20px;
-}
-
-/* Hamburger style */
-.mobile-hamburger {
-  display: none;
-  position: absolute;
-  top: 90px;
-  left: 20px;
-  font-size: 26px;
-  cursor: pointer;
-  z-index: 1000;
-  color: #333;
-}
-
-/* Responsive sidebar */
-@media (max-width: 768px) {
-  .mess-sidebar {
-    position: absolute;
-    left: 0;
-    top: 80px;
-    height: calc(100vh - 80px);
-    transform: translateX(-100%);
-    z-index: 999;
-  }
-
-  .mess-sidebar.open {
-    transform: translateX(0);
-  }
-
-  .mobile-hamburger {
-    display: block;
-  }
-
-  .mess-content-area {
-    padding: 10px;
-  }
+  color: #333333; /* Change from white to readable dark text */
+  background-color: #ffffff; /* Add white background here too */
 }

@@ -36,7 +36,7 @@ const MessLoginForm = () => {
 
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('role', 'mess');
-      navigate('/dashboard');
+      navigate('/mess-profilepage/mess-dashboard');
     } catch (err) {
       alert(err.response?.data?.message || 'Login failed.');
     }

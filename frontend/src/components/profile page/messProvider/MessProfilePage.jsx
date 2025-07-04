@@ -1,39 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import MessNavbar from './MessNavbar';
-import MessSidebar from './messSidebar';
+import MessSidebar from './MessSidebar';
 import MessDashboard from './MessDashboard';
-// import Updates from './Updates';
-// import ConnectedPeople from './ConnectedPeople';
-// import Requests from './Requests';
-// import ContactUs from './ContactUs';
-import './MessProfilePage.css';
+import Messcontactus from './Messcontactus';
+import MessUpdates from './MessUpdates';
+
+import './MessProfilePage.css'
 
 const MessProfilePage = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
   return (
-    <div className="mess-profile-container">
-      <MessNavbar hideWelcomeText />
-      
-      {/* Hamburger toggle only visible on mobile */}
-      <div className="mobile-hamburger" onClick={toggleSidebar}>
-        &#9776;
-      </div>
-
+    <div className='profile-container'>
+      <MessNavbar />
       <div className="profile-body">
-        <MessSidebar isOpen={isSidebarOpen} />
-        <div className="mess-content-area">
+        <MessSidebar />
+        {/* Right-side content comes here */}
+        <div className="content-section">
           <Routes>
-            <Route path="dashboard" element={<MessDashboard />} />
-            {/* <Route path="updates" element={<Updates />} />
-            <Route path="connected" element={<ConnectedPeople />} />
-            <Route path="requests" element={<Requests />} />
-            <Route path="contact" element={<ContactUs />} /> */}
+            <Route path="/mess-dashboard" element={<MessDashboard />} />
+            <Route path="/mess-updates" element={<MessUpdates />} />
+            {/* <Route path="/mess-connected-people" element={<MessConnectedPeople/>} /> */}
+            {/* <Route path="/mess-requests" element={<MessRequest/>} />  */}
+            <Route path="/messcontactus" element={<Messcontactus/>} /> 
+            {/* Add more routes as needed */}
           </Routes>
         </div>
       </div>
@@ -42,3 +31,4 @@ const MessProfilePage = () => {
 };
 
 export default MessProfilePage;
+

@@ -5,11 +5,11 @@ import ContactUs from './components/landing page/contactUs.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx'; // Import
 import LoginPage from "./components/login page/loginpage.jsx";
 import ForgotPassword from "./components/login page/forgotPassword.jsx";
-import ProfilePage from './components/profile page/student/ProfilePage.jsx';
+import ProfilePage from "./components/profile page/student/profilepage.jsx";
 import MessProfilePage from "./components/profile page/messProvider/MessProfilePage.jsx";
 import MessForgotPassword from "./components/login page/messForgotpass.jsx";
 import RoomForgotPassword from "./components/login page/roomForgotpass.jsx";
-import Dashboard from "./components/profile page/student/ProfilePage.jsx"; // ✅
+// import Dashboard from "./components/profile page/student/ProfilePage.jsx"; // ✅
 
 <Route path="/landing" element={<LandingPage />} />
 
@@ -28,7 +28,7 @@ function App() {
         <Route path="/student-forgot-password" element={<ForgotPassword/>}/>
         <Route path="/mess-forgot-password" element={<MessForgotPassword/>}/>
         <Route path="/room-forgot-password" element={<RoomForgotPassword/>}/>
-        <Route path="/mess-profile-page" element={<MessProfilePage/>}/>
+        <Route path="/mess-profilepage/*" element={<MessProfilePage/>}/>
         <Route path="/*" element={<ProfilePage/>}/>
         {/* <Route path="/mess-profile-page" element={<MessProfilePage/>}/>  */}
       </Routes>
