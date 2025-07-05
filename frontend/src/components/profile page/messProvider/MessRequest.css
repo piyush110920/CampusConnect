@@ -1,0 +1,96 @@
+.mess-request-container {
+  padding: 30px;
+  background-color: #f9f9fb;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 100px 20px 40px 100px;
+
+}
+
+.mess-request-container h2 {
+  font-size: 28px;
+  margin-bottom: 25px;
+  color: #4b0082;
+}
+
+.loading,
+.no-requests {
+  font-size: 16px;
+  color: #555;
+  padding: 20px 0;
+}
+
+.scroll-card-wrapper {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding-bottom: 10px;
+  scroll-behavior: smooth;
+}
+
+.student-card {
+  min-width: 280px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+  border-left: 6px solid #007bff;
+}
+
+.student-card:hover {
+  transform: translateY(-5px);
+}
+
+.student-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.student-header h4 {
+  margin: 0;
+  font-size: 20px;
+  color: #222;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  font-size: 13px;
+  border-radius: 20px;
+  color: white;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.status-badge.pending {
+  background-color: #ffc107;
+}
+
+.status-badge.accepted {
+  background-color: #28a745;
+}
+
+.student-card p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #444;
+}
+
+.accept-btn {
+  margin-top: 15px;
+  padding: 10px 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.accept-btn:hover {
+  background-color: #1e7e34;
+}
