@@ -33,6 +33,11 @@ const roomProviderSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  connectionCount: {
+  type: Number,
+  default: 0
+}
+
 });
 
 module.exports = mongoose.model('RoomProvider', roomProviderSchema);

@@ -165,6 +165,7 @@ exports.getAllSuggestions = async (req, res) => {
 // Add selected mess/room to student profile
 // controllers/studentController.js
 
+
 exports.addSuggestionToStudent = async (req, res) => {
   const { type, providerId } = req.body;
 
@@ -172,14 +173,28 @@ exports.addSuggestionToStudent = async (req, res) => {
     const student = await Student.findById(req.user.id);
     if (!student) return res.status(404).json({ message: "Student not found" });
 
-    const now = new Date(); // Current date and time
+    const now = new Date();
 
     if (type === "mess") {
       student.selectedMess = providerId;
-      student.selectedMessDate = now; // ✅ Save current date
+      student.selectedMessDate = now;
+
+      // ✅ Increment connection count for selected mess
+      const mess = await Mess.findById(providerId);
+      if (mess) {
+        mess.connectionCount = (mess.connectionCount || 0) + 1;
+        await mess.save();
+      }
     } else if (type === "room") {
       student.selectedRoom = providerId;
-      student.selectedRoomDate = now; // ✅ Save current date
+      student.selectedRoomDate = now;
+
+      // ✅ Increment connection count for selected room
+      const room = await Room.findById(providerId);
+      if (room) {
+        room.connectionCount = (room.connectionCount || 0) + 1;
+        await room.save();
+      }
     } else {
       return res.status(400).json({ message: "Invalid type" });
     }
@@ -187,7 +202,7 @@ exports.addSuggestionToStudent = async (req, res) => {
     await student.save();
     res.status(200).json({ message: "Service added to student profile" });
   } catch (err) {
-    console.error(err);
+    console.error("Suggestion Add Error:", err);
     res.status(500).json({ message: "Failed to update student suggestions" });
   }
 };

@@ -34,7 +34,12 @@ const messProviderSchema = new mongoose.Schema({
   ratingSum: {
     type: Number,
     default: 0
-  }
+  },
+  connectionCount: {
+  type: Number,
+  default: 0
+}
+
 });
 
 module.exports = mongoose.model('MessProvider', messProviderSchema);

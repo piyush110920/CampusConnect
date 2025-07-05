@@ -117,12 +117,14 @@ exports.resetMessPassword = async (req, res) => {
 };
 
 // Get Mess Provider Profile
+// GET /api/mess/mess-profilepage
 exports.getMessProfile = async (req, res) => {
   try {
     const mess = await MessProvider.findById(req.user.id).select("-password");
 
     if (!mess) return res.status(404).json({ message: "Mess provider not found" });
 
+    // Assume rating & connectionCount are stored in DB
     res.json({
       fullName: mess.fullName,
       companyName: mess.companyName,
@@ -130,9 +132,11 @@ exports.getMessProfile = async (req, res) => {
       phone: mess.phone,
       address: mess.address,
       monthlyPrice: mess.monthlyPrice,
+      averageRating: mess.averageRating || 0,
+      ratingCount: mess.ratingCount || 0,
+      connectionCount: mess.connectionCount || 0
     });
   } catch (err) {
-    console.error("Mess Profile Fetch Error:", err);
     res.status(500).json({ message: "Failed to fetch mess profile" });
   }
 };
