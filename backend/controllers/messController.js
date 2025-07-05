@@ -115,3 +115,24 @@ exports.resetMessPassword = async (req, res) => {
     res.status(500).json({ message: "Failed to reset password." });
   }
 };
+
+// Get Mess Provider Profile
+exports.getMessProfile = async (req, res) => {
+  try {
+    const mess = await MessProvider.findById(req.user.id).select("-password");
+
+    if (!mess) return res.status(404).json({ message: "Mess provider not found" });
+
+    res.json({
+      fullName: mess.fullName,
+      companyName: mess.companyName,
+      email: mess.email,
+      phone: mess.phone,
+      address: mess.address,
+      monthlyPrice: mess.monthlyPrice,
+    });
+  } catch (err) {
+    console.error("Mess Profile Fetch Error:", err);
+    res.status(500).json({ message: "Failed to fetch mess profile" });
+  }
+};
