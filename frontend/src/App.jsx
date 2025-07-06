@@ -9,6 +9,7 @@ import ProfilePage from "./components/profile page/student/profilepage.jsx";
 import MessProfilePage from "./components/profile page/messProvider/MessProfilePage.jsx";
 import MessForgotPassword from "./components/login page/messForgotpass.jsx";
 import RoomForgotPassword from "./components/login page/roomForgotpass.jsx";
+import RoomProfilePage from "./components/profile page/RoomProvider/RoomProfilepage.jsx";
 // import Dashboard from "./components/profile page/student/ProfilePage.jsx"; // ✅
 
 <Route path="/landing" element={<LandingPage />} />
@@ -30,7 +31,7 @@ function App() {
         <Route path="/room-forgot-password" element={<RoomForgotPassword/>}/>
         <Route path="/mess-profilepage/*" element={<MessProfilePage/>}/>
         <Route path="/*" element={<ProfilePage/>}/>
-        {/* <Route path="/mess-profile-page" element={<MessProfilePage/>}/>  */}
+        <Route path="/room-profilepage/*" element={<RoomProfilePage/>}/> 
       </Routes>
     </BrowserRouter>
 

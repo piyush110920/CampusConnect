@@ -8,7 +8,7 @@ import MessServices from './messServices';
 import Suggestions from './suggestions';
 import StdContactus from './Stdcontactus';
 
-import chatbotIcon from '../../../assets/chat.png'
+
 import './profilepage.css'
 
 const ProfilePage = () => {
@@ -29,9 +29,6 @@ const ProfilePage = () => {
           </Routes>
         </div>
       </div>
-      {/* Chatbot Icon */}
-      
-      <img src={chatbotIcon} alt="chatbot" className="chatbot-icon" />
     </div>
   );
 };

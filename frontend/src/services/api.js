@@ -139,3 +139,18 @@ export const fetchMessProfile = async (token) => {
 };
 
 
+//  -------------------- ROOM PROVIDER PROFILE -------------------- //
+
+const BASE_URL_ROOM = "http://localhost:5000/api/room";
+
+export const fetchRoomProfile = async (token) => {
+  const res = await fetch(`${BASE_URL_ROOM}/room-profilepage`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch room provider profile");
+  return res.json();
+};
+

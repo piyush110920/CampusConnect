@@ -5,6 +5,8 @@ import MessSidebar from './MessSidebar';
 import MessDashboard from './MessDashboard';
 import Messcontactus from './Messcontactus';
 import MessUpdates from './MessUpdates';
+// import MessRequest from './MessRequest';
+// import MessConnectedPeople from './MessConnectedPeople';
 
 import './MessProfilePage.css'
 

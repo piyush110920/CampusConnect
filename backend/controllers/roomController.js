@@ -122,3 +122,30 @@ exports.resetRoomPassword = async (req, res) => {
     res.status(500).json({ message: "Failed to reset password." });
   }
 };
+
+
+
+// Get Mess Provider Profile
+// GET /api/mess/mess-profilepage
+exports.getRoomProfile = async (req, res) => {
+  try {
+    const room = await RoomProvider.findById(req.user.id).select("-password");
+
+    if (!room) return res.status(404).json({ message: "Room provider not found" });
+
+    // Assume rating & connectionCount are stored in DB
+    res.json({
+      fullName: room.fullName,
+      messName: room.messName,
+      email: room.email,
+      phone: room.phone,
+      address: room.address,
+      monthlyPrice: room.monthlyPrice,
+      averageRating: room.averageRating || 0,
+      ratingSum: room.ratingSum || 0,
+      connectionCount: room.connectionCount || 0
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch room profile" });
+  }
+};

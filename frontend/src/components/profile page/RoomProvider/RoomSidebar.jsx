@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import './Sidebar.css';
+import './RoomSidebar.css';
 import {
   FaBars,
   FaTimes,
   FaHome,
-  FaBed,
-  FaUtensils,
-  FaLightbulb,
+  FaUsers,
+  FaComments,
+  FaInfoCircle,
   FaEnvelope,
 } from 'react-icons/fa';
 
-const Sidebar = () => {
+const RoomSidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,11 +21,11 @@ const Sidebar = () => {
   };
 
   const navItems = [
-    { icon: <FaHome />, label: 'Dashboard', path: '/dashboard' },
-    { icon: <FaBed />, label: 'Room Services', path: '/room-services' },
-    { icon: <FaUtensils />, label: 'Mess Services', path: '/mess-services' },
-    { icon: <FaLightbulb />, label: 'Suggestions', path: '/suggestions' },
-    { icon: <FaEnvelope />, label: 'Contact Us', path: '/studentcontactus' },
+    { icon: <FaHome />, label: 'Dashboard', path: '/room-profilepage/room-dashboard' },
+    { icon: <FaComments />, label: 'Updates', path: '/room-profilepage/room-updates' },
+    { icon: <FaUsers />, label: 'Connected People', path: '/room-profilepage/room-connected-people' },
+    { icon: <FaInfoCircle />, label: 'Requests', path: '/room-profilepage/room-requests' },
+    { icon: <FaEnvelope />, label: 'Contact Us', path: '/room-profilepage/roomcontactus' },
   ];
 
   const handleNavigate = (path) => {
@@ -38,7 +38,7 @@ const Sidebar = () => {
         <button className="toggle-btn" onClick={toggleSidebar}>
           {isExpanded ? <FaTimes /> : <FaBars />}
         </button>
-        {isExpanded && <h2 className="sidebar-title">Student Profile</h2>}
+        {isExpanded && <h2 className="sidebar-title">Room Profile</h2>}
       </div>
       <ul className="sidebar-menu">
         {navItems.map((item, index) => {
@@ -59,4 +59,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default RoomSidebar;

@@ -88,6 +88,7 @@ body {
   width: 100%;
   padding: 14px;
   border-radius: 8px;
+  color: black;      
   font-size: 15px;
   border: 1px solid #ccc;
   resize: vertical;

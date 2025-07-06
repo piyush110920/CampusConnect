@@ -1,0 +1,23 @@
+.profile-container {
+  background-color: #ffffff; /* White background */
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  z-index: 99;
+}
+
+.profile-body {
+  display: flex;
+  width: 100%;
+  height: calc(150px - 70px); /* Adjusting height after navbar */
+  z-index: 10;
+  background-color: #ffffff; /* Ensure body also has white bg */
+}
+
+.profile-content {
+  flex: 1;
+  padding: 20px;
+  color: #333333; /* Change from white to readable dark text */
+  background-color: #ffffff; /* Add white background here too */
+}

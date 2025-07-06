@@ -40,7 +40,7 @@ const RoomLoginForm = () => {
       localStorage.setItem('role', role);
 
       alert(`✅ ${message}`);
-      navigate('/dashboard');
+      navigate('/room-profilepage/room-dashboard');
     } catch (err) {
       console.error('Login error:', err.response?.data || err.message);
       alert(err.response?.data?.message || '❌ Login failed. Please try again.');

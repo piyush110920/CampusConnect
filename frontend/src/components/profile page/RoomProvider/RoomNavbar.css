@@ -1,0 +1,166 @@
+/* NAVBAR STYLES */
+.navbar {
+  width: 100%;
+  height: 80px;
+  background: #42046c;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.navbar-logo {
+  height: 80px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+/* Right Section */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.welcome-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.highlight-role {
+  color: #c7a1ff;
+  font-weight: bold;
+}
+
+.navbar-profile {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.navbar-profile:hover {
+  transform: scale(1.05);
+}
+
+/* DROPDOWN MENU */
+.profile-dropdown {
+  position: absolute;
+  top: 90px;
+  right: 0;
+  background-color: #42046c;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 2000;
+  width: 170px;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.profile-dropdown button {
+  background: none;
+  border: none;
+  padding: 12px 20px;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+  color: #ffffff;
+  transition: background 0.2s ease;
+}
+
+.profile-dropdown button:hover {
+  background-color: #dbabff56;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* RESPONSIVE - TABLET */
+@media screen and (max-width: 900px) {
+  .navbar {
+    height: 80px;
+    padding: 0 16px;
+  }
+
+  .navbar-logo {
+    height: 70px;
+  }
+
+  .navbar-profile {
+    height: 44px;
+    width: 44px;
+  }
+
+  .welcome-text {
+    font-size: 14px;
+  }
+
+  .profile-dropdown {
+    top: 75px;
+    width: 160px;
+  }
+}
+
+/* RESPONSIVE - MOBILE */
+@media screen and (max-width: 600px) {
+  .navbar {
+    height: 70px;
+    padding: 0 12px;
+  }
+
+  .navbar-logo {
+    height: 60px;
+  }
+
+  .navbar-profile {
+    height: 40px;
+    width: 40px;
+  }
+
+  .navbar-right {
+    gap: 8px;
+  }
+
+  .welcome-text {
+    font-size: 13px;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .profile-dropdown {
+    top: 65px;
+    width: 150px;
+  }
+
+  .profile-dropdown button {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}
