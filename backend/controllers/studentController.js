@@ -398,7 +398,7 @@ exports.sendMessMessage = async (req, res) => {
       studentId,
       messId: student.selectedMess._id,
       studentName: student.fullName,
-      studentPhone: student.phone, // 🔴 THIS LINE
+      studentPhone: student.phoneNumber, // 🔴 THIS LINE
       message: req.body.message,
     });
 
@@ -424,7 +424,7 @@ exports.sendRoomMessage = async (req, res) => {
       studentId,
       roomId: student.selectedRoom._id,
       studentName: student.fullName,
-      studentPhone: student.phone,
+      studentPhone: student.phoneNumber,
       message: req.body.message,
     });
 

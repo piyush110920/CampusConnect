@@ -46,7 +46,7 @@ const MessUpdates = () => {
               <div className="update-header">
                 <span><strong>From:</strong> {msg.studentName}</span>
                 <span className="timestamp">{new Date(msg.createdAt).toLocaleString()}</span>
-              </div>
+              </div> 
               <div className="update-body">
                 <p><strong>Contact:</strong> {msg.studentPhone}</p>
                 <p className="message-text">“{msg.message}”</p>
