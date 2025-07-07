@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import './Services.css';
 
-import { fetchStudentProfile, rateSelectedMess, sendMessMessage } from '../../../services/api';
+import {
+  fetchStudentProfile,
+  rateSelectedMess,
+  sendMessMessage
+} from '../../../services/api';
 
 const MessServices = () => {
   const [student, setStudent] = useState(null);
@@ -9,7 +13,9 @@ const MessServices = () => {
   const [error, setError] = useState(null);
   const [rating, setRating] = useState(0);
   const [avgRating, setAvgRating] = useState(0);
-  const [message, setMessage] = useState(""); // 👈 message state
+  const [message, setMessage] = useState("");
+  const [sending, setSending] = useState(false);           // ✅ for message
+  const [submittingRating, setSubmittingRating] = useState(false); // ✅ for rating
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -51,6 +57,7 @@ const MessServices = () => {
   };
 
   const handleRatingSubmit = async () => {
+    setSubmittingRating(true); // ✅
     try {
       const token = localStorage.getItem("token");
       const result = await rateSelectedMess(token, rating);
@@ -59,20 +66,25 @@ const MessServices = () => {
     } catch (err) {
       console.error(err);
       alert("Failed to submit rating.");
+    } finally {
+      setSubmittingRating(false); // ✅
     }
   };
 
   const handleSendMessage = async () => {
-  try {
-    const token = localStorage.getItem("token");
-    await sendMessMessage(token, message);
-    alert("Message sent successfully!");
-    setMessage("");
-  } catch (err) {
-    console.error(err);
-    alert(err.message || "Failed to send message");
-  }
-};
+    setSending(true); // ✅
+    try {
+      const token = localStorage.getItem("token");
+      await sendMessMessage(token, message);
+      alert("Message sent successfully!");
+      setMessage("");
+    } catch (err) {
+      console.error(err);
+      alert(err.message || "Failed to send message");
+    } finally {
+      setSending(false); // ✅
+    }
+  };
 
   return (
     <div className="service-container">
@@ -105,9 +117,13 @@ const MessServices = () => {
               onChange={(e) => setMessage(e.target.value)}
             />
             <div className="service-buttons">
-              <button className="send" onClick={handleSendMessage}>Send</button>
-              <button className="change">Change</button>
-              <button className="remove">Remove</button>
+              <button
+                className="send"
+                onClick={handleSendMessage}
+                disabled={sending || !message.trim()} // ✅ disable if sending or message is empty
+              >
+                {sending ? "Sending..." : "Send"}
+              </button>
             </div>
           </div>
 
@@ -121,7 +137,12 @@ const MessServices = () => {
               value={rating}
               onChange={(e) => setRating(parseInt(e.target.value))}
             />
-            <button onClick={handleRatingSubmit}>Submit Rating</button>
+            <button
+              onClick={handleRatingSubmit}
+              disabled={submittingRating} // ✅
+            >
+              {submittingRating ? "Submitting..." : "Submit Rating"}
+            </button>
             <p>Average Rating: ⭐ {avgRating?.toFixed(1) || "0.0"}</p>
           </div>
 

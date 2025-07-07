@@ -9,6 +9,8 @@ const RoomServices = () => {
   const [rating, setRating] = useState(0);
   const [avgRating, setAvgRating] = useState(0);
   const [message, setMessage] = useState("");
+  const [sending, setSending] = useState(false);       // ✅ For sending message
+  const [submittingRating, setSubmittingRating] = useState(false); // ✅ For submitting rating
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -50,6 +52,7 @@ const RoomServices = () => {
   };
 
   const handleRatingSubmit = async () => {
+    setSubmittingRating(true); // ✅ Start loading
     try {
       const token = localStorage.getItem("token");
       const result = await rateSelectedRoom(token, rating);
@@ -58,10 +61,13 @@ const RoomServices = () => {
     } catch (err) {
       console.error(err);
       alert("Failed to submit rating.");
+    } finally {
+      setSubmittingRating(false); // ✅ End loading
     }
   };
 
   const handleSendMessage = async () => {
+    setSending(true); // ✅ Start sending
     try {
       const token = localStorage.getItem("token");
       await sendRoomMessage(token, message);
@@ -70,6 +76,8 @@ const RoomServices = () => {
     } catch (err) {
       console.error(err);
       alert("Failed to send message.");
+    } finally {
+      setSending(false); // ✅ End sending
     }
   };
 
@@ -84,6 +92,7 @@ const RoomServices = () => {
       ) : student?.selectedRoom ? (
         <div className="card-wrapper">
 
+          {/* Info Card */}
           <div className="info-card">
             <p><strong>Room name:</strong> {student.selectedRoom.messName}</p>
             <p><strong>Service Provider:</strong> {student.selectedRoom.fullName}</p>
@@ -93,16 +102,28 @@ const RoomServices = () => {
             <p><strong>Date of Due:</strong> {getDueDate(student.selectedRoomDate)}</p>
           </div>
 
+          {/* Message Card */}
           <div className="message-card">
             <h4>Drop Message</h4>
-            <textarea rows="6" placeholder="Write your message here..." value={message} onChange={(e) => setMessage(e.target.value)} />
+            <textarea
+              rows="6"
+              placeholder="Write your message here..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
             <div className="service-buttons">
-              <button className="send" onClick={handleSendMessage}>Send</button>
-              <button className="change">Change</button>
-              <button className="remove">Remove</button>
+              <button
+                className="send"
+                onClick={handleSendMessage}
+                disabled={sending || !message.trim()} // ✅ Disable if sending or empty
+              >
+                {sending ? "Sending..." : "Send"}
+              </button>
+
             </div>
           </div>
 
+          {/* Rating Card */}
           <div className="rating-card">
             <h4>Rate This Room</h4>
             <input
@@ -112,7 +133,12 @@ const RoomServices = () => {
               value={rating}
               onChange={(e) => setRating(parseInt(e.target.value))}
             />
-            <button onClick={handleRatingSubmit}>Submit Rating</button>
+            <button
+              onClick={handleRatingSubmit}
+              disabled={submittingRating}
+            >
+              {submittingRating ? "Submitting..." : "Submit Rating"}
+            </button>
             <p>Average Rating: ⭐ {avgRating?.toFixed(1) || "0.0"}</p>
           </div>
 
