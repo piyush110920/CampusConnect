@@ -63,21 +63,43 @@ const MessDashboard = () => {
       <div className="section rating">
         <h4><FaStar /> Average Rating</h4>
         <p style={{ fontSize: "18px", fontWeight: "500" }}>
-          {mess?.averageRating ? `${mess.averageRating} / 5 ⭐` : "No rating yet"}
+          {mess?.averageRating ? `${mess.averageRating} / 5 ⭐` : "Review till now"}
         </p>
         <p style={{ fontSize: "14px", color: "#555" }}>
-          {mess?.ratingCount ? `Based on ${mess.ratingCount} reviews` : "No reviews yet"}
+          {mess?.ratingCount ? `Based on ${mess.ratingCount} reviews` : "Review till now"}
         </p>
       </div>
 
       {/* ---------- Total Connections Section ---------- */}
       <div className="section connections">
         <h4><FaUsers /> Total Connections</h4>
-        <p style={{ fontSize: "18px", fontWeight: "500" }}>
-          {mess?.connectionCount || 0} students connected
-        </p>
-        <p style={{ fontSize: "14px", color: "#555" }}>Updated recently</p>
+
+        {/* Past Experience */}
+        <div style={{ marginBottom: "20px" }}>
+          <h5 style={{ fontSize: "22px", color: "#2c3e50", marginBottom: "5px", fontWeight: "600" }}>
+            Past Experience
+          </h5>
+
+          <p style={{ fontSize: "18px", fontWeight: "500" }}>
+            {mess?.connectionCount || 0} students connected till today
+          </p>
+          <p style={{ fontSize: "14px", color: "#555" }}>Updated recently</p>
+        </div>
+
+        <hr style={{ border: "none", borderTop: "1px solid #ccc", margin: "15px 0" }} />
+
+        {/* Current Status */}
+        <div>
+          <h5 style={{ fontSize: "22px", color: "#2c3e50", marginBottom: "5px", fontWeight: "600" }}>
+            Current Status
+          </h5>
+          <p style={{ fontSize: "18px", fontWeight: "500" }}>
+            {mess?.connectionCount || 0} students currently connected
+          </p>
+          <p style={{ fontSize: "14px", color: "#555" }}>Updated recently</p>
+        </div>
       </div>
+
     </div>
   );
 };
