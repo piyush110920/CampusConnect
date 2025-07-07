@@ -1,5 +1,5 @@
 // backend/server.js
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
