@@ -7,7 +7,10 @@ const sendOtp = async (email, otp) => {
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS
-    }
+    },
+    tls: {
+    rejectUnauthorized: false  // 👈 Add this line
+  }
   });
 
   const mailOptions = {
