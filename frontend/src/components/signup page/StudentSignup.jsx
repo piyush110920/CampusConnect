@@ -7,6 +7,7 @@ const StudentSignup = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
+    phoneNumber: '', // ✅ added phone number
     password: '',
     confirmPassword: '',
     college: '',
@@ -30,7 +31,6 @@ const StudentSignup = () => {
   const isFieldDisabled = otpSent;
 
   useEffect(() => {
-    // Reset OTP state if email changes
     setOtp(['', '', '', '']);
     setOtpSent(false);
     setOtpVerified(false);
@@ -74,7 +74,7 @@ const StudentSignup = () => {
 
   const generateOtp = async () => {
     const {
-      fullName, email, password, confirmPassword, college,
+      fullName, email, phoneNumber, password, confirmPassword, college,
       plotNumber, landmark, area, city, state, country, pinCode
     } = formData;
 
@@ -84,7 +84,12 @@ const StudentSignup = () => {
       return;
     }
 
-    if (!fullName || !email || !password || !confirmPassword || !college ||
+    if (!/^[6-9]\d{9}$/.test(phoneNumber)) {
+      alert('Please enter a valid 10-digit Indian phone number.');
+      return;
+    }
+
+    if (!fullName || !email || !phoneNumber || !password || !confirmPassword || !college ||
       !plotNumber || !landmark || !area || !city || !state || !country || !pinCode) {
       alert('All fields are required!');
       return;
@@ -150,7 +155,7 @@ const StudentSignup = () => {
       if (res.ok) {
         alert('🎉 Signup Successful!');
         setFormData({
-          fullName: '', email: '', password: '', confirmPassword: '', college: '',
+          fullName: '', email: '', phoneNumber: '', password: '', confirmPassword: '', college: '',
           plotNumber: '', landmark: '', area: '', city: '', state: '', country: '', pinCode: ''
         });
         setOtp(['', '', '', '']);
@@ -168,30 +173,115 @@ const StudentSignup = () => {
 
   return (
     <form className="contact-form" onSubmit={handleSubmit}>
-      {[
-        ['Full Name', 'fullName'],
-        ['Email Address', 'email'],
-        ['College Name', 'college'],
-        ['Plot Number', 'plotNumber'],
-        ['Landmark', 'landmark'],
-        ['Area', 'area'],
-        ['City', 'city'],
-        ['State', 'state'],
-        ['Country', 'country'],
-        ['Pin Code', 'pinCode']
-      ].map(([label, name]) => (
-        <React.Fragment key={name}>
-          <label>{label}:</label>
-          <input
-            type="text"
-            name={name}
-            placeholder={`Enter your ${label.toLowerCase()}`}
-            value={formData[name]}
-            onChange={handleChange}
-            readOnly={isFieldDisabled}
-          />
-        </React.Fragment>
-      ))}
+      <label>Full Name:</label>
+      <input
+        type="text"
+        name="fullName"
+        placeholder="Enter your full name"
+        value={formData.fullName}
+        onChange={handleChange}
+        readOnly={isFieldDisabled}
+      />
+
+      <label>Email Address:</label>
+      <input
+        type="email"
+        name="email"
+        placeholder="Enter your email"
+        value={formData.email}
+        onChange={handleChange}
+        readOnly={isFieldDisabled}
+      />
+
+      <label>Phone Number:</label>
+      <input
+        type="tel"
+        name="phoneNumber"
+        placeholder="Enter your 10-digit phone number"
+        value={formData.phoneNumber}
+        onChange={handleChange}
+        readOnly={isFieldDisabled}
+      />
+
+      <label>College Name:</label>
+      <input
+        type="text"
+        name="college"
+        placeholder="Enter your college name"
+        value={formData.college}
+        onChange={handleChange}
+        readOnly={isFieldDisabled}
+      />
+
+      <label>Plot Number:</label>
+      <input
+        type="text"
+        name="plotNumber"
+        placeholder="Enter your plot number"
+        value={formData.plotNumber}
+        onChange={handleChange}
+        readOnly={isFieldDisabled}
+      />
+
+      <label>Landmark:</label>
+      <input
+        type="text"
+        name="landmark"
+        placeholder="Enter your landmark"
+        value={formData.landmark}
+        onChange={handleChange}
+        readOnly={isFieldDisabled}
+      />
+
+      <label>Area:</label>
+      <input
+        type="text"
+        name="area"
+        placeholder="Enter your area"
+        value={formData.area}
+        onChange={handleChange}
+        readOnly={isFieldDisabled}
+      />
+
+      <label>City:</label>
+      <input
+        type="text"
+        name="city"
+        placeholder="Enter your city"
+        value={formData.city}
+        onChange={handleChange}
+        readOnly={isFieldDisabled}
+      />
+
+      <label>State:</label>
+      <input
+        type="text"
+        name="state"
+        placeholder="Enter your state"
+        value={formData.state}
+        onChange={handleChange}
+        readOnly={isFieldDisabled}
+      />
+
+      <label>Country:</label>
+      <input
+        type="text"
+        name="country"
+        placeholder="Enter your country"
+        value={formData.country}
+        onChange={handleChange}
+        readOnly={isFieldDisabled}
+      />
+
+      <label>Pin Code:</label>
+      <input
+        type="text"
+        name="pinCode"
+        placeholder="Enter your pin code"
+        value={formData.pinCode}
+        onChange={handleChange}
+        readOnly={isFieldDisabled}
+      />
 
       <label>Password:</label>
       <div className="password-field">

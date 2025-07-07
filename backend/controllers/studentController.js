@@ -30,31 +30,64 @@ exports.generateOtp = async (req, res) => {
 };
 
 // Signup Handler
+
+
 exports.signupStudent = async (req, res) => {
   const {
-    fullName, email, password, college,
-    plotNumber, landmark, area, city, state, country, pinCode, otp
+    fullName,
+    email,
+    phoneNumber,
+    password,
+    college,
+    plotNumber,
+    landmark,
+    area,
+    city,
+    state,
+    country,
+    pinCode,
+    otp
   } = req.body;
 
+  // 🔐 OTP validation
   if (otpStore[email] !== otp) {
     return res.status(400).json({ message: "Invalid OTP" });
   }
 
   try {
+    // 📧 Check for existing email
     const existingStudent = await Student.findOne({ email });
-    if (existingStudent) return res.status(400).json({ message: "Email already registered" });
+    if (existingStudent) {
+      return res.status(400).json({ message: "Email already registered" });
+    }
 
+    // 🔒 Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    // ✅ Create new student
     const newStudent = new Student({
       fullName,
       email,
+      phoneNumber,
       password: hashedPassword,
       college,
-      address: { plotNumber, landmark, area, city, state, country, pinCode }
+      address: {
+        plotNumber,
+        landmark,
+        area,
+        city,
+        state,
+        country,
+        pinCode
+      }
     });
 
+    // 💾 Save to database
     await newStudent.save();
+
+    // 🧹 Clean up OTP store
     delete otpStore[email];
+
     res.status(201).json({ message: "Student registered successfully!" });
   } catch (err) {
     console.error("Signup Error:", err);
