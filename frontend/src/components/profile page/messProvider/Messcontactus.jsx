@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './Messcontactus.css';
-import { fetchStudentProfile, sendStudentMessage } from '../../../services/api';
+import { fetchMessProfile, sendStudentMessage } from '../../../services/api';
 
 const Messcontactus = () => {
   const [message, setMessage] = useState('');
-  const [student, setStudent] = useState({ fullName: '', email: '' });
+  const [provider, setProvider] = useState({ fullName: '', email: '' });
   const [loading, setLoading] = useState(true);
   const [feedback, setFeedback] = useState('');
-  const [submitting, setSubmitting] = useState(false); // New state
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -17,17 +17,17 @@ const Messcontactus = () => {
       return;
     }
 
-    fetchStudentProfile(token)
+    fetchMessProfile(token)
       .then((data) => {
-        setStudent({
+        setProvider({
           fullName: data.fullName,
           email: data.email,
         });
         setLoading(false);
       })
       .catch((err) => {
-        console.error('Error fetching student data:', err);
-        setFeedback('Failed to load student information.');
+        console.error('Error fetching mess provider data:', err);
+        setFeedback('Failed to load provider information.');
         setLoading(false);
       });
   }, []);
@@ -38,8 +38,11 @@ const Messcontactus = () => {
     setSubmitting(true);
     setFeedback('');
 
+    // ✅ Prepend provider role into the message
+    const formattedMessage = `🧑‍🍳 Message from Mess Provider\n\nMessage:\n${message}`;
+
     try {
-      const res = await sendStudentMessage(token, student.fullName, student.email, message);
+      const res = await sendStudentMessage(token, provider.fullName, provider.email, formattedMessage);
       setFeedback(res.message || 'Message sent!');
       setMessage('');
     } catch (err) {
@@ -57,17 +60,17 @@ const Messcontactus = () => {
         <h2 className="mess-contact-heading">Contact Admin Support</h2>
 
         {loading ? (
-          <p>Loading student info...</p>
+          <p>Loading provider info...</p>
         ) : (
           <form className="mess-contact-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <label>Full Name:</label>
-              <input type="text" value={student.fullName} readOnly />
+              <input type="text" value={provider.fullName} readOnly />
             </div>
 
             <div className="form-group">
               <label>Email ID:</label>
-              <input type="email" value={student.email} readOnly />
+              <input type="email" value={provider.email} readOnly />
             </div>
 
             <div className="form-group">
@@ -100,7 +103,7 @@ const Messcontactus = () => {
           <li><strong>Facebook:</strong> /campusconnect</li>
           <li><strong>LinkedIn:</strong> www.linkedin.com/in/piyush110920</li>
           <li><strong>Instagram:</strong> @piyu_sh1120</li>
-          <li><strong>Address:</strong> Plot Number 01, Jaitala Road, Near Raisoni Coolege of Engineering, Vaishali Nagar, Hingna Road, Nagpur-440016</li>
+          <li><strong>Address:</strong> Plot Number 01, Jaitala Road, Near Raisoni College of Engineering, Vaishali Nagar, Hingna Road, Nagpur-440016</li>
         </ul>
       </div>
     </div>

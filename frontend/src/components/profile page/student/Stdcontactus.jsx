@@ -7,7 +7,7 @@ const Stdcontactus = () => {
   const [student, setStudent] = useState({ fullName: '', email: '' });
   const [loading, setLoading] = useState(true);
   const [feedback, setFeedback] = useState('');
-  const [submitting, setSubmitting] = useState(false); // New state
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -38,8 +38,11 @@ const Stdcontactus = () => {
     setSubmitting(true);
     setFeedback('');
 
+    // ✅ Prepend student role into the message
+    const formattedMessage = `🎓 Message from Student\n\nMessage:\n${message}`;
+
     try {
-      const res = await sendStudentMessage(token, student.fullName, student.email, message);
+      const res = await sendStudentMessage(token, student.fullName, student.email, formattedMessage);
       setFeedback(res.message || 'Message sent!');
       setMessage('');
     } catch (err) {
