@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Services.css';
-import { fetchStudentProfile, rateSelectedRoom } from '../../../services/api';
+import { fetchStudentProfile, rateSelectedRoom, sendRoomMessage } from '../../../services/api';
 
 const RoomServices = () => {
   const [student, setStudent] = useState(null);
@@ -8,6 +8,7 @@ const RoomServices = () => {
   const [error, setError] = useState(null);
   const [rating, setRating] = useState(0);
   const [avgRating, setAvgRating] = useState(0);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -60,6 +61,18 @@ const RoomServices = () => {
     }
   };
 
+  const handleSendMessage = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await sendRoomMessage(token, message);
+      alert("Message sent successfully!");
+      setMessage("");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to send message.");
+    }
+  };
+
   return (
     <div className="service-container">
       <h3 className="service-title">Current Room Service</h3>
@@ -71,7 +84,6 @@ const RoomServices = () => {
       ) : student?.selectedRoom ? (
         <div className="card-wrapper">
 
-          {/* Info Card */}
           <div className="info-card">
             <p><strong>Room name:</strong> {student.selectedRoom.messName}</p>
             <p><strong>Service Provider:</strong> {student.selectedRoom.fullName}</p>
@@ -81,18 +93,16 @@ const RoomServices = () => {
             <p><strong>Date of Due:</strong> {getDueDate(student.selectedRoomDate)}</p>
           </div>
 
-          {/* Message Card */}
           <div className="message-card">
             <h4>Drop Message</h4>
-            <textarea rows="6" placeholder="Write your message here..." />
+            <textarea rows="6" placeholder="Write your message here..." value={message} onChange={(e) => setMessage(e.target.value)} />
             <div className="service-buttons">
-              <button className="send">Send</button>
+              <button className="send" onClick={handleSendMessage}>Send</button>
               <button className="change">Change</button>
               <button className="remove">Remove</button>
             </div>
           </div>
 
-          {/* Rating Card */}
           <div className="rating-card">
             <h4>Rate This Room</h4>
             <input

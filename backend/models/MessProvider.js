@@ -36,10 +36,26 @@ const messProviderSchema = new mongoose.Schema({
     default: 0
   },
   connectionCount: {
-  type: Number,
-  default: 0
-}
+    type: Number,
+    default: 0
+  },
 
+  // ✅ Message Array
+  messages: [
+    {
+      studentId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Student',
+      },
+      studentName: String,
+      studentPhone: String,
+      message: String,
+      createdAt: {
+        type: Date,
+        default: Date.now
+      }
+    }
+  ]
 });
 
 module.exports = mongoose.model('MessProvider', messProviderSchema);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Services.css';
-import { fetchStudentProfile, rateSelectedMess } from '../../../services/api';
+
+import { fetchStudentProfile, rateSelectedMess, sendMessMessage } from '../../../services/api';
 
 const MessServices = () => {
   const [student, setStudent] = useState(null);
@@ -8,6 +9,7 @@ const MessServices = () => {
   const [error, setError] = useState(null);
   const [rating, setRating] = useState(0);
   const [avgRating, setAvgRating] = useState(0);
+  const [message, setMessage] = useState(""); // 👈 message state
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -60,6 +62,18 @@ const MessServices = () => {
     }
   };
 
+  const handleSendMessage = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    await sendMessMessage(token, message);
+    alert("Message sent successfully!");
+    setMessage("");
+  } catch (err) {
+    console.error(err);
+    alert(err.message || "Failed to send message");
+  }
+};
+
   return (
     <div className="service-container">
       <h3 className="service-title">Current Mess Service</h3>
@@ -84,9 +98,14 @@ const MessServices = () => {
           {/* Message Card */}
           <div className="message-card">
             <h4>Drop Message</h4>
-            <textarea rows="6" placeholder="Write your message here..." />
+            <textarea
+              rows="6"
+              placeholder="Write your message here..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
             <div className="service-buttons">
-              <button className="send">Send</button>
+              <button className="send" onClick={handleSendMessage}>Send</button>
               <button className="change">Change</button>
               <button className="remove">Remove</button>
             </div>

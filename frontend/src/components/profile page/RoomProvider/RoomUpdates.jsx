@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import './MessUpdates.css';
+import './RoomUpdates.css'; // ✅ Reuse same CSS
 
-const MessUpdates = () => {
+const RoomUpdates = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -9,20 +9,20 @@ const MessUpdates = () => {
     const fetchMessages = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("http://localhost:5000/api/mess/messages", {
+        const res = await fetch("http://localhost:5000/api/room/messages", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
         if (!res.ok) {
-          throw new Error("Failed to fetch messages");
+          throw new Error("Failed to fetch room messages");
         }
 
         const data = await res.json();
         setMessages(data);
       } catch (error) {
-        console.error("Error fetching messages:", error);
+        console.error("Error fetching room messages:", error);
       } finally {
         setLoading(false);
       }
@@ -59,4 +59,4 @@ const MessUpdates = () => {
   );
 };
 
-export default MessUpdates;
+export default RoomUpdates;

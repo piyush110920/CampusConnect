@@ -3,6 +3,8 @@ const sendOtp = require("../utils/sendOtp");
 const bcrypt = require("bcryptjs");
 const generateToken = require("../utils/generateToken");
 
+const RoomMessage = require("../models/RoomMessage");
+
 const signupOtpStore = {}; // For signup
 const resetOtpStore = {};  // For password reset
 
@@ -147,5 +149,17 @@ exports.getRoomProfile = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ message: "Failed to fetch room profile" });
+  }
+};
+
+exports.getRoomMessages = async (req, res) => {
+  try {
+    const roomId = req.user.id;
+
+    const messages = await RoomMessage.find({ roomId }).sort({ createdAt: -1 });
+    res.status(200).json(messages);
+  } catch (err) {
+    console.error("Room Messages Error:", err);
+    res.status(500).json({ message: "Failed to fetch room messages" });
   }
 };

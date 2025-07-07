@@ -4,7 +4,7 @@ import RoomNavbar from './RoomNavbar';
 import RoomSidebar from './RoomSidebar';
 import RoomDashboard from './RoomDashboard';
 import Roomcontactus from './Roomcontactus';
-// import MessUpdates from './MessUpdates';
+import RoomUpdates from './RoomUpdates';
 // // import MessRequest from './MessRequest';
 // import MessConnectedPeople from './MessConnectedPeople';
 
@@ -20,7 +20,7 @@ const RoomProfilePage = () => {
         <div className="content-section">
           <Routes>
             <Route path="/room-dashboard" element={<RoomDashboard />} />
-            {/* <Route path="/room-updates" element={<RoomUpdates />} /> */}
+            <Route path="/room-updates" element={<RoomUpdates />} />
             {/* <Route path="/room-connected-people" element={<RoomConnectedPeople/>} /> */}
             {/* <Route path="/mess-requests" element={<MessRequest/>} />  */}
             <Route path="/roomcontactus" element={<Roomcontactus/>} /> 

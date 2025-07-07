@@ -7,6 +7,8 @@ const Mess = require("../models/MessProvider");
 const Room = require("../models/RoomProvider");
 const sendContactMail = require('../utils/sendContactMail');
 const authMiddleware = require("../middleware/authMiddleware");
+const MessMessage = require("../models/MessMessage");
+const RoomMessage = require("../models/RoomMessage");
 
 const nodemailer = require("nodemailer");
 
@@ -347,5 +349,56 @@ exports.rateRoom = async (req, res) => {
   } catch (err) {
     console.error("Rate Room Error:", err);
     res.status(500).json({ message: "Failed to rate room." });
+  }
+};
+
+exports.sendMessMessage = async (req, res) => {
+  try {
+    const studentId = req.user.id;
+    const student = await Student.findById(studentId).populate("selectedMess");
+
+    if (!student.selectedMess) {
+      return res.status(400).json({ message: "No mess provider selected" });
+    }
+
+    const newMessage = new MessMessage({
+      studentId,
+      messId: student.selectedMess._id,
+      studentName: student.fullName,
+      studentPhone: student.phone, // 🔴 THIS LINE
+      message: req.body.message,
+    });
+
+    await newMessage.save();
+
+    res.status(201).json({ message: "Message sent to mess provider" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to send message" });
+  }
+};
+
+exports.sendRoomMessage = async (req, res) => {
+  try {
+    const studentId = req.user.id;
+    const student = await Student.findById(studentId).populate("selectedRoom");
+
+    if (!student.selectedRoom) {
+      return res.status(400).json({ message: "No room provider selected" });
+    }
+
+    const newMessage = new RoomMessage({
+      studentId,
+      roomId: student.selectedRoom._id,
+      studentName: student.fullName,
+      studentPhone: student.phone,
+      message: req.body.message,
+    });
+
+    await newMessage.save();
+    res.status(201).json({ message: "Message sent to room provider" });
+  } catch (error) {
+    console.error("Send Room Message Error:", error);
+    res.status(500).json({ message: "Failed to send message" });
   }
 };

@@ -2,6 +2,7 @@ const MessProvider = require("../models/MessProvider");
 const sendOtp = require("../utils/sendOtp");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const MessMessage = require("../models/MessMessage");
 
 const otpStore = {};
 const resetOtpStore = {}; // Store for password reset OTPs
@@ -138,5 +139,17 @@ exports.getMessProfile = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ message: "Failed to fetch mess profile" });
+  }
+};
+exports.getMessMessages = async (req, res) => {
+  try {
+    const messId = req.user.id; // ✅ This depends on authenticateMess setting req.user
+
+    const messages = await MessMessage.find({ messId }).sort({ createdAt: -1 });
+
+    res.status(200).json(messages);
+  } catch (error) {
+    console.error("Error fetching messages:", error);
+    res.status(500).json({ message: "Failed to fetch messages." });
   }
 };

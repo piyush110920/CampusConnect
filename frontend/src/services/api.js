@@ -154,3 +154,34 @@ export const fetchRoomProfile = async (token) => {
   return res.json();
 };
 
+export const sendMessMessage = async (token, message) => {
+  const res = await fetch("http://localhost:5000/api/student/send-mess-message", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ message }),
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.message || "Failed to send message");
+  }
+
+  return res.json(); // Will return { message: "Message sent to mess provider" }
+};
+
+export const sendRoomMessage = async (token, message) => {
+  const res = await fetch("http://localhost:5000/api/student/send-room-message", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ message }),
+  });
+
+  if (!res.ok) throw new Error("Failed to send room message");
+  return res.json();
+};
