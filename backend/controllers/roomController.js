@@ -2,6 +2,8 @@ const RoomProvider = require("../models/RoomProvider");
 const sendOtp = require("../utils/sendOtp");
 const bcrypt = require("bcryptjs");
 const generateToken = require("../utils/generateToken");
+const RoomRequest = require("../models/RoomRequest");
+const Student = require("../models/Student");
 
 const RoomMessage = require("../models/RoomMessage");
 
@@ -161,5 +163,48 @@ exports.getRoomMessages = async (req, res) => {
   } catch (err) {
     console.error("Room Messages Error:", err);
     res.status(500).json({ message: "Failed to fetch room messages" });
+  }
+};
+
+exports.getRoomRequests = async (req, res) => {
+  try {
+    const providerId = req.user.id;
+
+    const requests = await RoomRequest.find({ room: providerId })
+      .populate("student")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json(requests);
+  } catch (err) {
+    console.error("Room Request Fetch Error:", err);
+    res.status(500).json({ message: "Failed to fetch room requests" });
+  }
+};
+
+// Accept a room request
+exports.acceptRoomRequest = async (req, res) => {
+  try {
+    const { studentId } = req.body;
+    const providerId = req.user.id;
+
+    const request = await RoomRequest.findOneAndUpdate(
+      { student: studentId, room: providerId, status: "Pending" },
+      { status: "Accepted" },
+      { new: true }
+    );
+
+    if (!request) {
+      return res.status(404).json({ message: "Request not found" });
+    }
+
+    await Student.findByIdAndUpdate(studentId, {
+      selectedRoom: providerId,
+      roomRequestStatus: "Accepted"
+    });
+
+    res.status(200).json({ message: "Room request accepted" });
+  } catch (err) {
+    console.error("Accept Room Request Error:", err);
+    res.status(500).json({ message: "Failed to accept request" });
   }
 };

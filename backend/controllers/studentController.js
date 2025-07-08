@@ -10,6 +10,10 @@ const authMiddleware = require("../middleware/authMiddleware");
 const MessMessage = require("../models/MessMessage");
 const RoomMessage = require("../models/RoomMessage");
 
+
+const RoomRequest = require('../models/RoomRequest');
+const MessRequest = require("../models/MessRequest");
+
 const nodemailer = require("nodemailer");
 
 const otpStore = {}; // In-memory OTP store
@@ -170,6 +174,7 @@ exports.resetStudentPassword = async (req, res) => {
 exports.getStudentProfile = async (req, res) => {
   try {
     const student = await Student.findById(req.user.id);
+    
     if (!student) return res.status(404).json({ message: "Student not found" });
 
     res.json({
@@ -214,22 +219,42 @@ exports.addSuggestionToStudent = async (req, res) => {
       student.selectedMess = providerId;
       student.selectedMessDate = now;
 
-      // ✅ Increment connection count for selected mess
       const mess = await Mess.findById(providerId);
       if (mess) {
         mess.connectionCount = (mess.connectionCount || 0) + 1;
         await mess.save();
       }
+
+      // ✅ Save mess request to database
+      const existing = await MessRequest.findOne({ student: student._id, mess: providerId, status: 'Pending' });
+      if (!existing) {
+        await MessRequest.create({
+          student: student._id,
+          mess: providerId,
+          status: 'Pending',
+        });
+      }
+
     } else if (type === "room") {
       student.selectedRoom = providerId;
       student.selectedRoomDate = now;
 
-      // ✅ Increment connection count for selected room
       const room = await Room.findById(providerId);
       if (room) {
         room.connectionCount = (room.connectionCount || 0) + 1;
         await room.save();
       }
+
+      // ✅ Optional: Save room request to database
+      const existing = await RoomRequest.findOne({ student: student._id, room: providerId, status: 'Pending' });
+      if (!existing) {
+        await RoomRequest.create({
+          student: student._id,
+          room: providerId,
+          status: 'Pending',
+        });
+      }
+
     } else {
       return res.status(400).json({ message: "Invalid type" });
     }
@@ -237,7 +262,7 @@ exports.addSuggestionToStudent = async (req, res) => {
     await student.save();
     res.status(200).json({ message: "Service added to student profile" });
   } catch (err) {
-    console.error("Suggestion Add Error:", err);
+    console.error("❌ Suggestion Add Error:", err);
     res.status(500).json({ message: "Failed to update student suggestions" });
   }
 };
@@ -433,5 +458,163 @@ exports.sendRoomMessage = async (req, res) => {
   } catch (error) {
     console.error("Send Room Message Error:", error);
     res.status(500).json({ message: "Failed to send message" });
+  }
+};
+
+exports.sendMessConnectionRequest = async (req, res) => {
+  const studentId = req.user.id;
+  const { messId } = req.body;
+
+  try {
+    const existingRequest = await MessRequest.findOne({ studentId, status: 'Pending' });
+    if (existingRequest) {
+      return res.status(400).json({ message: "You already have a pending request." });
+    }
+
+    await MessRequest.create({
+      studentId,
+      messId,
+      type: "Connect",
+    });
+
+    // Update student profile to block other interests
+    await Student.findByIdAndUpdate(studentId, { messRequestStatus: 'Pending', selectedMess: messId });
+
+    res.status(200).json({ message: "Request sent to mess provider." });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to send request." });
+  }
+};
+
+exports.sendMessDisconnectRequest = async (req, res) => {
+  const studentId = req.user.id;
+  const student = await Student.findById(studentId);
+  const messId = student.selectedMess;
+
+  if (!messId) return res.status(400).json({ message: "No mess currently selected." });
+
+  await MessRequest.create({
+    studentId,
+    messId,
+    type: "Disconnect"
+  });
+
+  res.status(200).json({ message: "Disconnect request sent." });
+};
+
+
+// Student requests a mess
+exports.requestMessService = async (req, res) => {
+  try {
+    const studentId = req.user.id;
+    const { providerId } = req.body;
+
+    const student = await Student.findById(studentId);
+    if (!student) return res.status(404).json({ message: "Student not found" });
+
+    if (student.selectedMess?.toString() === providerId) {
+      return res.status(400).json({ message: "You have already selected this mess" });
+    }
+
+    // Disconnect logic: store previous mess if switching
+    if (student.selectedMess && student.selectedMess.toString() !== providerId) {
+      student.previousMess = student.selectedMess;
+      student.selectedMess = null;
+      student.messRequestStatus = 'Pending';
+
+      await MessRequest.create({
+        studentId,
+        messId: providerId,
+        status: 'Pending'
+      });
+
+      await student.save();
+      return res.status(200).json({ message: "Requested new mess. Awaiting approval." });
+    }
+
+    // Initial request
+    student.messRequestStatus = 'Pending';
+
+    await MessRequest.create({
+      studentId,
+      messId: providerId
+    });
+
+    await student.save();
+    res.status(200).json({ message: "Request sent to mess provider" });
+
+  } catch (error) {
+    console.error("Mess request error:", error);
+    res.status(500).json({ message: "Failed to request mess" });
+  }
+};
+
+// Request a Room
+exports.requestRoomService = async (req, res) => {
+  try {
+    const studentId = req.user.id;
+    const { providerId } = req.body;
+
+    const student = await Student.findById(studentId);
+    if (!student) return res.status(404).json({ message: "Student not found" });
+
+    if (student.selectedRoom?.toString() === providerId) {
+      return res.status(400).json({ message: "You have already selected this room" });
+    }
+
+    // Switching room
+    if (student.selectedRoom && student.selectedRoom.toString() !== providerId) {
+      student.previousRoom = student.selectedRoom;
+      student.selectedRoom = null;
+      student.roomRequestStatus = 'Pending';
+
+      await RoomRequest.create({
+        student: studentId,
+        room: providerId,
+        status: 'Pending'
+      });
+
+      await student.save();
+      return res.status(200).json({ message: "Requested new room. Awaiting approval." });
+    }
+
+    // First-time request
+    student.roomRequestStatus = 'Pending';
+
+    await RoomRequest.create({
+      student: studentId,
+      room: providerId,
+    });
+
+    await student.save();
+    res.status(200).json({ message: "Room request sent" });
+
+  } catch (err) {
+    console.error("Room request error:", err);
+    res.status(500).json({ message: "Failed to request room" });
+  }
+};
+// Request to disconnect from current Room
+exports.sendRoomDisconnectRequest = async (req, res) => {
+  const studentId = req.user.id;
+  const student = await Student.findById(studentId);
+  const roomId = student.selectedRoom;
+
+  if (!roomId) return res.status(400).json({ message: "No room currently selected." });
+
+  try {
+    await RoomRequest.create({
+      student: studentId,
+      room: roomId,
+      status: 'Pending',
+    });
+
+    student.roomRequestStatus = 'Pending';
+    await student.save();
+
+    res.status(200).json({ message: "Disconnect request sent." });
+  } catch (err) {
+    console.error("Room disconnect error:", err);
+    res.status(500).json({ message: "Failed to send disconnect request." });
   }
 };

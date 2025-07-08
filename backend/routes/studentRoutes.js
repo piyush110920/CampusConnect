@@ -16,6 +16,8 @@ router.post('/rate-mess', protect, studentController.rateMess);
 router.post('/rate-room', protect, studentController.rateRoom);
 router.post("/send-mess-message", protect, studentController.sendMessMessage);
 router.post("/send-room-message", protect, sendRoomMessage);
+router.post("/request-mess", protect, studentController.requestMessService);
+router.post('/add-suggestion', protect, studentController.addSuggestionToStudent);
 
 
 

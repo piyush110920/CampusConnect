@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import './MessRequest.css';
-import { fetchMessRequests, acceptMessRequest } from '../../../services/api';
+import './RoomRequest.css';
+import { fetchRoomRequests, acceptRoomRequest } from '../../../services/api';
 
-const MessRequest = () => {
+const RoomRequest = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [accepting, setAccepting] = useState(null);
@@ -11,13 +11,13 @@ const MessRequest = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetchMessRequests(token)
+    fetchRoomRequests(token)
       .then(data => {
         setRequests(data);
         setLoading(false);
       })
       .catch(err => {
-        console.error("Error loading requests:", err);
+        console.error("Error loading room requests:", err);
         setError("Failed to load requests.");
         setLoading(false);
       });
@@ -28,7 +28,7 @@ const MessRequest = () => {
     const token = localStorage.getItem("token");
 
     try {
-      await acceptMessRequest(token, studentId);
+      await acceptRoomRequest(token, studentId);
       setRequests(prev =>
         prev.map(r =>
           r.student._id === studentId ? { ...r, status: "Accepted" } : r
@@ -43,8 +43,8 @@ const MessRequest = () => {
   };
 
   return (
-    <div className="mess-request-container">
-      <h2>📬 Student Mess Requests</h2>
+    <div className="room-request-container">
+      <h2>🏘️ Student Room Requests</h2>
 
       {loading ? (
         <p className="loading">Loading...</p>
@@ -82,4 +82,4 @@ const MessRequest = () => {
   );
 };
 
-export default MessRequest;
+export default RoomRequest;

@@ -3,6 +3,8 @@ const sendOtp = require("../utils/sendOtp");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const MessMessage = require("../models/MessMessage");
+const MessRequest = require("../models/MessRequest");
+const Student = require("../models/Student");
 
 const otpStore = {};
 const resetOtpStore = {}; // Store for password reset OTPs
@@ -153,3 +155,101 @@ exports.getMessMessages = async (req, res) => {
     res.status(500).json({ message: "Failed to fetch messages." });
   }
 };
+
+
+exports.getMessRequests = async (req, res) => {
+  try {
+    const messId = req.user.id;
+
+    const requests = await MessRequest.find({ mess: messId })
+      .populate('student')
+      .sort({ createdAt: -1 });
+
+    res.json(requests);
+  } catch (err) {
+    console.error("Fetch Mess Requests Error:", err);
+    res.status(500).json({ message: "Failed to load mess requests" });
+  }
+};
+exports.acceptMessRequest = async (req, res) => {
+  const { studentId } = req.body;
+  const messId = req.user.id;
+
+  try {
+    const request = await MessRequest.findOne({ student: studentId, mess: messId });
+    if (!request) return res.status(404).json({ message: "Request not found" });
+
+    // Update request status
+    request.status = "Accepted";
+    await request.save();
+
+    // Update student profile with selected mess info
+    await Student.findByIdAndUpdate(
+      studentId,
+      {
+        selectedMess: messId,
+        selectedMessDate: new Date()
+      },
+      { new: true }
+    );
+
+    // Increment mess provider's connection count
+    await MessProvider.findByIdAndUpdate(
+      messId,
+      { $inc: { connectionCount: 1 } }
+    );
+
+    res.status(200).json({ message: "Request accepted" });
+  } catch (error) {
+    console.error("Accept Mess Request Error:", error);
+    res.status(500).json({ message: "Failed to accept request" });
+  }
+};
+
+// Get mess requests for provider
+exports.getMessRequests = async (req, res) => {
+  try {
+    const messId = req.user.id;
+
+    const requests = await MessRequest.find({ mess: messId })
+      .populate("student", "fullName email college address")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json(requests);
+  } catch (err) {
+    console.error("Error fetching mess requests:", err);
+    res.status(500).json({ message: "Failed to fetch mess requests" });
+  }
+};
+
+// Accept a request
+exports.acceptRequest = async (req, res) => {
+  try {
+    const messId = req.user.id;
+    const requestId = req.params.requestId;
+
+    const request = await MessRequest.findById(requestId);
+    if (!request || request.messId.toString() !== messId) {
+      return res.status(404).json({ message: "Request not found" });
+    }
+
+    request.status = "Accepted";
+    await request.save();
+
+    const student = await Student.findById(request.studentId);
+    student.selectedMess = messId;
+    student.messRequestStatus = "Accepted";
+    student.selectedMessDate = new Date();
+    student.previousMess = null;
+    await student.save();
+
+    // Optional: increment connection count
+    await MessProvider.findByIdAndUpdate(messId, { $inc: { connectionCount: 1 } });
+
+    res.status(200).json({ message: "Request accepted" });
+  } catch (error) {
+    console.error("Accept request error:", error);
+    res.status(500).json({ message: "Failed to accept request" });
+  }
+};
+

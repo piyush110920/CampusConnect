@@ -51,6 +51,17 @@ selectedRoomRating: {
   type: Number,
   default: 0
 },
+messRequestStatus: {
+  type: String,
+  enum: ['Pending', 'Accepted', 'Rejected', 'Disconnected'],
+  default: null
+},
+previousMess: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'MessProvider',
+  default: null
+}
+
 
 
 });

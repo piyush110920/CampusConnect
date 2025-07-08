@@ -185,3 +185,62 @@ export const sendRoomMessage = async (token, message) => {
   if (!res.ok) throw new Error("Failed to send room message");
   return res.json();
 };
+export const fetchMessRequests = async (token) => {
+  const res = await fetch("http://localhost:5000/api/mess/requests", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch mess requests");
+  return res.json();
+};
+
+export const acceptMessRequest = async (token, studentId) => {
+  const res = await fetch("http://localhost:5000/api/mess/accept-request", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ studentId }),
+  });
+
+  if (!res.ok) throw new Error("Failed to accept request");
+  return res.json();
+};
+
+
+export const fetchConnectedStudents = async (token) => {
+  const res = await fetch("http://localhost:5000/api/mess/connected", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.json();
+};
+
+
+export const fetchRoomRequests = async (token) => {
+  const res = await fetch("http://localhost:5000/api/room/requests", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch room requests");
+  return res.json();
+};
+
+export const acceptRoomRequest = async (token, studentId) => {
+  const res = await fetch("http://localhost:5000/api/room/accept-request", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ studentId }),
+  });
+
+  if (!res.ok) throw new Error("Failed to accept room request");
+  return res.json();
+};
