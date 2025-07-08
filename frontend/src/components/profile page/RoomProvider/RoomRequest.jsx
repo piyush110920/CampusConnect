@@ -29,10 +29,9 @@ const RoomRequest = () => {
 
     try {
       await acceptRoomRequest(token, studentId);
+      // Remove request after successful acceptance since it's deleted from DB
       setRequests(prev =>
-        prev.map(r =>
-          r.student._id === studentId ? { ...r, status: "Accepted" } : r
-        )
+        prev.filter(r => r.student._id !== studentId)
       );
     } catch (err) {
       console.error("Accept failed:", err);

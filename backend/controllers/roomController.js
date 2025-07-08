@@ -208,3 +208,20 @@ exports.acceptRoomRequest = async (req, res) => {
     res.status(500).json({ message: "Failed to accept request" });
   }
 };
+// Get connected room students (accepted)
+exports.getConnectedRoomStudents = async (req, res) => {
+  try {
+    const roomId = req.user.id;
+
+    const acceptedRequests = await RoomRequest.find({
+      room: roomId,
+      status: 'Accepted'
+    }).populate('student');
+
+    const connectedStudents = acceptedRequests.map(r => r.student);
+    res.status(200).json(connectedStudents);
+  } catch (err) {
+    console.error("Fetch Connected Room Students Error:", err);
+    res.status(500).json({ message: "Failed to fetch connected room students" });
+  }
+};

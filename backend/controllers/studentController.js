@@ -215,7 +215,17 @@ exports.addSuggestionToStudent = async (req, res) => {
 
     const now = new Date();
 
+    // ------------------------ MESS ------------------------
     if (type === "mess") {
+      // ❌ Remove old Accepted request if student is switching mess
+      if (student.selectedMess && student.selectedMess.toString() !== providerId) {
+        await MessRequest.deleteOne({
+          student: student._id,
+          mess: student.selectedMess,
+          status: 'Accepted',
+        });
+      }
+
       student.selectedMess = providerId;
       student.selectedMessDate = now;
 
@@ -225,8 +235,13 @@ exports.addSuggestionToStudent = async (req, res) => {
         await mess.save();
       }
 
-      // ✅ Save mess request to database
-      const existing = await MessRequest.findOne({ student: student._id, mess: providerId, status: 'Pending' });
+      // ✅ Save new request if not already pending
+      const existing = await MessRequest.findOne({
+        student: student._id,
+        mess: providerId,
+        status: 'Pending',
+      });
+
       if (!existing) {
         await MessRequest.create({
           student: student._id,
@@ -235,7 +250,17 @@ exports.addSuggestionToStudent = async (req, res) => {
         });
       }
 
+    // ------------------------ ROOM ------------------------
     } else if (type === "room") {
+      // ❌ Remove old Accepted request if student is switching room
+      if (student.selectedRoom && student.selectedRoom.toString() !== providerId) {
+        await RoomRequest.deleteOne({
+          student: student._id,
+          room: student.selectedRoom,
+          status: 'Accepted',
+        });
+      }
+
       student.selectedRoom = providerId;
       student.selectedRoomDate = now;
 
@@ -245,8 +270,13 @@ exports.addSuggestionToStudent = async (req, res) => {
         await room.save();
       }
 
-      // ✅ Optional: Save room request to database
-      const existing = await RoomRequest.findOne({ student: student._id, room: providerId, status: 'Pending' });
+      // ✅ Save new request if not already pending
+      const existing = await RoomRequest.findOne({
+        student: student._id,
+        room: providerId,
+        status: 'Pending',
+      });
+
       if (!existing) {
         await RoomRequest.create({
           student: student._id,
@@ -261,6 +291,7 @@ exports.addSuggestionToStudent = async (req, res) => {
 
     await student.save();
     res.status(200).json({ message: "Service added to student profile" });
+
   } catch (err) {
     console.error("❌ Suggestion Add Error:", err);
     res.status(500).json({ message: "Failed to update student suggestions" });

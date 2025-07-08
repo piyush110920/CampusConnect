@@ -244,3 +244,26 @@ export const acceptRoomRequest = async (token, studentId) => {
   if (!res.ok) throw new Error("Failed to accept room request");
   return res.json();
 };
+
+export const fetchConnectedMessStudents = async (token) => {
+  const res = await fetch("http://localhost:5000/api/mess/connected-students", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch connected students");
+  return res.json();
+};
+export const fetchConnectedRoomStudents = async (token) => {
+  const res = await fetch("http://localhost:5000/api/room/connected-room-students", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch connected room students");
+  return res.json();
+};

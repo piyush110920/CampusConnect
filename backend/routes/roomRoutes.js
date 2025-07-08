@@ -13,6 +13,8 @@ router.post('/forgot-password/send-otp', roomController.sendRoomResetOtp);
 router.post('/forgot-password/reset', roomController.resetRoomPassword);
 router.get('/requests', authenticateRoom, roomController.getRoomRequests);
 router.post('/accept-request', authenticateRoom, roomController.acceptRoomRequest);
+router.get('/connected-room-students', authenticateRoom, roomController.getConnectedRoomStudents);
+
 // Protected Room Profile Page
 router.get('/room-profilepage', protect, roomController.getRoomProfile);
 

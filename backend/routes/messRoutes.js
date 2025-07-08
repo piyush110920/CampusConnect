@@ -11,6 +11,7 @@ router.post('/forgot-password/reset', messController.resetMessPassword);
 router.get('/requests', authenticateMess, messController.getMessRequests);
 router.post("/requests/:requestId/accept", authenticateMess, messController.acceptRequest);
 router.post("/accept-request", authenticateMess, messController.acceptMessRequest);
+router.get('/connected-students', authenticateMess, messController.getConnectedStudents);
 
 // ✅ Use controller correctly
 router.get("/messages", authenticateMess, messController.getMessMessages);

@@ -1,0 +1,60 @@
+.connected-people-container {
+  padding: 100px 20px 40px 100px;
+  background-color: #f9f9fb;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.connected-people-container h2 {
+  font-size: 28px;
+  margin-bottom: 25px;
+  color: #4b0082;
+}
+
+.connected-grid {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding-bottom: 10px;
+  scroll-behavior: smooth;
+}
+
+.connected-card {
+  min-width: 280px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+  border-left: 6px solid #6f42c1; /* Deep purple to differentiate */
+}
+
+.connected-card:hover {
+  transform: translateY(-5px);
+}
+
+.connected-card h4 {
+  margin: 0 0 10px 0;
+  font-size: 20px;
+  color: #222;
+}
+
+.connected-card p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #444;
+}
+
+.connected-grid::-webkit-scrollbar {
+  height: 8px;
+}
+
+.connected-grid::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.connected-grid::-webkit-scrollbar-track {
+  background: transparent;
+}

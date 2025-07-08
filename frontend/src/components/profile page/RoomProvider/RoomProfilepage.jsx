@@ -6,7 +6,7 @@ import RoomDashboard from './RoomDashboard';
 import Roomcontactus from './Roomcontactus';
 import RoomUpdates from './RoomUpdates';
 import RoomRequest from './RoomRequest';
-// import MessConnectedPeople from './MessConnectedPeople';
+import RoomConnectedPeople from './ConnectedRoomPeople';
 
 import './RoomProfilePage.css'
 
@@ -21,7 +21,7 @@ const RoomProfilePage = () => {
           <Routes>
             <Route path="/room-dashboard" element={<RoomDashboard />} />
             <Route path="/room-updates" element={<RoomUpdates />} />
-            {/* <Route path="/room-connected-people" element={<RoomConnectedPeople/>} /> */}
+            <Route path="/room-connected-people" element={<RoomConnectedPeople/>} />
             <Route path="/room-requests" element={<RoomRequest/>} /> 
             <Route path="/roomcontactus" element={<Roomcontactus/>} /> 
             {/* Add more routes as needed */}

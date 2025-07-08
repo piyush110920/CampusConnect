@@ -207,20 +207,23 @@ exports.acceptMessRequest = async (req, res) => {
 };
 
 // Get mess requests for provider
-exports.getMessRequests = async (req, res) => {
+// GET all pending mess requests for a provider
+exports.getRoomRequests = async (req, res) => {
   try {
-    const messId = req.user.id;
+    const roomId = req.user.id;
 
-    const requests = await MessRequest.find({ mess: messId })
+    // Only fetch requests with status 'Pending'
+    const requests = await RoomRequest.find({ room: roomId, status: 'Pending' })
       .populate("student", "fullName email college address")
       .sort({ createdAt: -1 });
 
     res.status(200).json(requests);
   } catch (err) {
-    console.error("Error fetching mess requests:", err);
-    res.status(500).json({ message: "Failed to fetch mess requests" });
+    console.error("Error fetching room requests:", err);
+    res.status(500).json({ message: "Failed to fetch room requests" });
   }
 };
+
 
 // Accept a request
 exports.acceptRequest = async (req, res) => {
@@ -253,3 +256,21 @@ exports.acceptRequest = async (req, res) => {
   }
 };
 
+
+exports.getConnectedStudents = async (req, res) => {
+  try {
+    const messId = req.user.id;
+
+    const acceptedRequests = await MessRequest.find({
+      mess: messId,
+      status: 'Accepted'
+    }).populate('student');
+
+    const connectedStudents = acceptedRequests.map(r => r.student);
+
+    res.status(200).json(connectedStudents);
+  } catch (err) {
+    console.error("Fetch Connected Students Error:", err);
+    res.status(500).json({ message: "Failed to fetch connected students" });
+  }
+};
