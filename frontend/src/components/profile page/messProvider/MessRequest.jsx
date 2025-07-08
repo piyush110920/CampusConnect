@@ -1,40 +1,54 @@
 import React, { useEffect, useState } from 'react';
 import './MessRequest.css';
-import { getMessRequests, acceptRequest } from '../../../services/api';
 
 const MessRequest = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [accepting, setAccepting] = useState(null); // to track loading per-button
+  const [accepting, setAccepting] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    // Simulate a delay and mock fetch
+    const mockRequests = [
+      {
+        student: {
+          _id: 's1',
+          fullName: 'Aman Gupta',
+          email: 'aman.gupta@example.com',
+          college: 'IIT Delhi',
+          address: { city: 'New Delhi', state: 'Delhi' },
+        },
+        status: 'Pending',
+      },
+      {
+        student: {
+          _id: 's2',
+          fullName: 'Sneha Reddy',
+          email: 'sneha.reddy@example.com',
+          college: 'NIT Warangal',
+          address: { city: 'Warangal', state: 'Telangana' },
+        },
+        status: 'Pending',
+      },
+    ];
 
-    getMessRequests(token)
-      .then((data) => {
-        setRequests(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch requests", err.message);
-        setLoading(false);
-      });
+    setTimeout(() => {
+      setRequests(mockRequests);
+      setLoading(false);
+    }, 500);
   }, []);
 
   const handleAccept = async (studentId) => {
-    const token = localStorage.getItem("token");
-    setAccepting(studentId); // show loading for that student
+    setAccepting(studentId);
 
-    try {
-      await acceptRequest(token, studentId);
+    // Simulate a network delay and update
+    setTimeout(() => {
       setRequests((prev) =>
-        prev.filter((r) => r.student._id !== studentId) // 👈 remove from UI after accept
+        prev.map((r) =>
+          r.student._id === studentId ? { ...r, status: 'Accepted' } : r
+        )
       );
-    } catch (err) {
-      console.error("Accept failed:", err.message);
-    } finally {
-      setAccepting(null); // reset button loading
-    }
+      setAccepting(null);
+    }, 800);
   };
 
   return (
@@ -56,13 +70,13 @@ const MessRequest = () => {
               <p><strong>College:</strong> {student.college}</p>
               <p><strong>Location:</strong> {student.address?.city}, {student.address?.state}</p>
 
-              {status === "Pending" && (
+              {status === 'Pending' && (
                 <button
                   className="accept-btn"
                   onClick={() => handleAccept(student._id)}
                   disabled={accepting === student._id}
                 >
-                  {accepting === student._id ? "Accepting..." : "Accept Request"}
+                  {accepting === student._id ? 'Accepting...' : 'Accept Request'}
                 </button>
               )}
             </div>
