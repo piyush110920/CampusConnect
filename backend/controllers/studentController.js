@@ -213,11 +213,9 @@ exports.addSuggestionToStudent = async (req, res) => {
     const student = await Student.findById(req.user.id);
     if (!student) return res.status(404).json({ message: "Student not found" });
 
-    const now = new Date();
-
     // ------------------------ MESS ------------------------
     if (type === "mess") {
-      // ❌ Remove old Accepted request if student is switching mess
+      // ❌ Remove old accepted request if switching
       if (student.selectedMess && student.selectedMess.toString() !== providerId) {
         await MessRequest.deleteOne({
           student: student._id,
@@ -226,16 +224,7 @@ exports.addSuggestionToStudent = async (req, res) => {
         });
       }
 
-      student.selectedMess = providerId;
-      student.selectedMessDate = now;
-
-      const mess = await Mess.findById(providerId);
-      if (mess) {
-        mess.connectionCount = (mess.connectionCount || 0) + 1;
-        await mess.save();
-      }
-
-      // ✅ Save new request if not already pending
+      // ✅ Check if there's already a pending request
       const existing = await MessRequest.findOne({
         student: student._id,
         mess: providerId,
@@ -252,7 +241,7 @@ exports.addSuggestionToStudent = async (req, res) => {
 
     // ------------------------ ROOM ------------------------
     } else if (type === "room") {
-      // ❌ Remove old Accepted request if student is switching room
+      // ❌ Remove old accepted request if switching
       if (student.selectedRoom && student.selectedRoom.toString() !== providerId) {
         await RoomRequest.deleteOne({
           student: student._id,
@@ -261,16 +250,7 @@ exports.addSuggestionToStudent = async (req, res) => {
         });
       }
 
-      student.selectedRoom = providerId;
-      student.selectedRoomDate = now;
-
-      const room = await Room.findById(providerId);
-      if (room) {
-        room.connectionCount = (room.connectionCount || 0) + 1;
-        await room.save();
-      }
-
-      // ✅ Save new request if not already pending
+      // ✅ Check if there's already a pending request
       const existing = await RoomRequest.findOne({
         student: student._id,
         room: providerId,
@@ -289,12 +269,11 @@ exports.addSuggestionToStudent = async (req, res) => {
       return res.status(400).json({ message: "Invalid type" });
     }
 
-    await student.save();
-    res.status(200).json({ message: "Service added to student profile" });
+    res.status(200).json({ message: "Request sent. Awaiting provider approval." });
 
   } catch (err) {
     console.error("❌ Suggestion Add Error:", err);
-    res.status(500).json({ message: "Failed to update student suggestions" });
+    res.status(500).json({ message: "Failed to send request" });
   }
 };
 
