@@ -19,7 +19,7 @@ const MessNavbar = () => {
   };
 
   const handleUpdateDetails = () => {
-    navigate('/update-details');
+    navigate('/mess-profilepage/update-details');
   };
 
   useEffect(() => {

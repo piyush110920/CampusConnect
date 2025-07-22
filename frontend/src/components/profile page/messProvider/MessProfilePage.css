@@ -1,23 +1,27 @@
 .profile-container {
-  background-color: #ffffff; /* White background */
+  background-color: #8d7575; /* White background */
   min-height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
   z-index: 99;
+  overflow-y: auto;
 }
 
 .profile-body {
   display: flex;
   width: 100%;
-  height: calc(150px - 70px); /* Adjusting height after navbar */
+  min-height: calc(100vh - 70px); /* Adjusting height after navbar */
   z-index: 10;
-  background-color: #ffffff; /* Ensure body also has white bg */
+  background-color: #9c3737;
+  /* overflow-y: auto; Ensure body also has white bg */
 }
 
-.profile-content {
+.content-section {
   flex: 1;
-  padding: 20px;
-  color: #333333; /* Change from white to readable dark text */
-  background-color: #ffffff; /* Add white background here too */
+  /* padding: 20px; */
+  color: #333333; 
+  width: 100%;/* Change from white to readable dark text */
+  background-color: #ffffff;
+   /* Add white background here too */
 }

@@ -1,86 +1,51 @@
-.mess-updates-container {
-  padding: 100px 20px 40px 100px; /* Balanced padding considering sidebar */
-  min-height: 100vh;
-  background: linear-gradient(to right, #f4f6f8, #fdfdfd);
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  width: 100%;
-  flex-grow: 1; /* In case used inside a flex layout */
+.mess-update-container {
+  max-width: 550px;
+  margin: 90px auto;
+  padding: 25px;
+  background-color: #f7f7f7;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+
 }
 
-.updates-title {
-  font-size: 32px;
-  font-weight: 700;
-  color: #2c3e50;
-  margin-bottom: 30px;
+.mess-update-container h2 {
   text-align: center;
-  border-bottom: 3px solid #6c63ff;
-  display: inline-block;
-  padding-bottom: 10px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-bottom: 20px;
+  color: #42046c;
 }
 
-.status-msg {
-  text-align: center;
-  color: #7f8c8d;
-  font-size: 18px;
-  margin-top: 50px;
-  font-style: italic;
-}
-
-.messages-list {
+.mess-update-form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  width: 100%;
+  gap: 14px;
 }
 
-.update-card {
-  width: 1400px;
-  background-color: #ffffff;
-  border-left: 6px solid #6c63ff;
-  border-radius: 16px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  padding: 28px 32px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  font-size: 18px;
-}
-
-.update-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-}
-
-.update-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 16px;
-  color: #34495e;
-  margin-bottom: 12px;
-  flex-wrap: wrap;
-}
-
-.timestamp {
-  font-size: 14px;
-  color: #999;
-}
-
-.update-body p {
-  margin: 6px 0;
-  font-size: 16px;
-  color: #2c3e50;
-  line-height: 1.5;
-}
-
-.message-text {
-  font-style: italic;
-  color: #6c63ff;
-  font-weight: 600;
-  font-size: 17px;
-  background-color: #f0f0ff;
-  padding: 10px 14px;
+.mess-update-form input {
+  padding: 10px;
+  font-size: 15px;
   border-radius: 6px;
+  border: 1px solid #aaa;
+  color: #000;
+}
+
+.mess-update-form button {
+  padding: 12px;
+  background-color: #42046c;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.mess-update-form button:hover {
+  background-color: #5c2d91;
+}
+
+.success-msg {
+  color: green;
+  font-weight: 500;
+  text-align: center;
   margin-top: 10px;
 }

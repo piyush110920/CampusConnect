@@ -7,6 +7,7 @@ import Roomcontactus from './Roomcontactus';
 import RoomUpdates from './RoomUpdates';
 import RoomRequest from './RoomRequest';
 import RoomConnectedPeople from './ConnectedRoomPeople';
+import RoomUpdateDetails from './RoomUpdateDetails';
 
 import './RoomProfilePage.css'
 
@@ -24,6 +25,7 @@ const RoomProfilePage = () => {
             <Route path="/room-connected-people" element={<RoomConnectedPeople/>} />
             <Route path="/room-requests" element={<RoomRequest/>} /> 
             <Route path="/roomcontactus" element={<Roomcontactus/>} /> 
+            <Route path="/update-details" element={<RoomUpdateDetails/>} />
             {/* Add more routes as needed */}
           </Routes>
         </div>

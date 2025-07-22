@@ -19,7 +19,7 @@ const RoomNavbar = () => {
   };
 
   const handleUpdateDetails = () => {
-    navigate('/update-details');
+    navigate('/room-profilepage/update-details');
   };
 
   useEffect(() => {

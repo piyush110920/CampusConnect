@@ -7,7 +7,7 @@ import RoomServices from './roomServices';
 import MessServices from './messServices';
 import Suggestions from './suggestions';
 import StdContactus from './Stdcontactus';
-
+import StdUpdateDetails from './StdUpdateDetails';
 
 import './profilepage.css'
 
@@ -25,6 +25,7 @@ const ProfilePage = () => {
             <Route path="/mess-services" element={<MessServices />} />
             <Route path="/suggestions" element={<Suggestions/>} />
             <Route path="/studentcontactus" element={<StdContactus/>} />
+            <Route path="/update-details" element={<StdUpdateDetails/>} />
             {/* Add more routes as needed */}
           </Routes>
         </div>

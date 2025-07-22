@@ -7,6 +7,7 @@ import Messcontactus from './Messcontactus';
 import MessUpdates from './MessUpdates';
 import MessRequest from './MessRequest';
 import ConnectedPeople from './ConnectedPeople';
+import MessUpdateDetails from './MessUpdateDetails';
 
 import './MessProfilePage.css'
 
@@ -24,6 +25,7 @@ const MessProfilePage = () => {
             <Route path="/mess-connected-people" element={<ConnectedPeople/>} />
             <Route path="/mess-requests" element={<MessRequest/>} /> 
             <Route path="/messcontactus" element={<Messcontactus/>} /> 
+            <Route path="/update-details" element={<MessUpdateDetails/>} />
             {/* Add more routes as needed */}
           </Routes>
         </div>
