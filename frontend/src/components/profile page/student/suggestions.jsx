@@ -85,7 +85,7 @@ const Suggestions = () => {
                 <div className="service-card" key={room._id}>
                   <div className="card-content">
                     <div className="card-info">
-                      <p><strong>Name:</strong> {room.companyName}</p>
+                      <p><strong>Name:</strong> {room.messName}</p>
                       <p><strong>Provider:</strong> {room.fullName}</p>
                       <p><strong>Location:</strong> {room.address?.area}, {room.address?.city}</p>
                       <p><strong>Price:</strong> ₹{room.monthlyPrice}/month</p>
