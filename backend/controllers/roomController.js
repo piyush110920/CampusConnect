@@ -187,6 +187,7 @@ exports.acceptRoomRequest = async (req, res) => {
     const { studentId } = req.body;
     const providerId = req.user.id;
 
+    // Accept the room request
     const request = await RoomRequest.findOneAndUpdate(
       { student: studentId, room: providerId, status: "Pending" },
       { status: "Accepted" },
@@ -197,10 +198,16 @@ exports.acceptRoomRequest = async (req, res) => {
       return res.status(404).json({ message: "Request not found" });
     }
 
-    await Student.findByIdAndUpdate(studentId, {
-      selectedRoom: providerId,
-      roomRequestStatus: "Accepted"
-    });
+    // Update student details
+    const student = await Student.findById(studentId);
+    student.selectedRoom = providerId;
+    student.selectedRoomDate = new Date(); // ✅ Set join date
+    student.roomRequestStatus = "Accepted";
+    student.previousRoom = null; // ✅ If you're tracking previous room
+    await student.save();
+
+    // Optional: increment room connection count
+    await RoomProvider.findByIdAndUpdate(providerId, { $inc: { connectionCount: 1 } });
 
     res.status(200).json({ message: "Room request accepted" });
   } catch (err) {
@@ -208,6 +215,7 @@ exports.acceptRoomRequest = async (req, res) => {
     res.status(500).json({ message: "Failed to accept request" });
   }
 };
+
 // Get connected room students (accepted)
 exports.getConnectedRoomStudents = async (req, res) => {
   try {
