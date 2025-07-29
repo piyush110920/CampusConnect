@@ -64,7 +64,7 @@ const Suggestions = () => {
                       onClick={() => handleInterested("mess", mess._id)}
                       disabled={isRequested || isPending}
                     >
-                      {isRequested ? "Requested" : isPending ? "Pending" : "Send Request"}
+                      {isRequested ? "Selected" : isPending ? "Pending" : "Send Request"}
                     </button>
                   </div>
                 </div>
@@ -95,7 +95,7 @@ const Suggestions = () => {
                       onClick={() => handleInterested("room", room._id)}
                       disabled={isRequested || isPending}
                     >
-                      {isRequested ? "Requested" : isPending ? "Pending" : "Send Request"}
+                      {isRequested ? "Selected" : isPending ? "Pending" : "Send Request"}
                     </button>
                   </div>
                 </div>
