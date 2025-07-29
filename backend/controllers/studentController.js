@@ -180,6 +180,7 @@ exports.getStudentProfile = async (req, res) => {
     res.json({
       fullName: student.fullName,
       email: student.email,
+      phone: student.phoneNumber,
       college: student.college,
       address: student.address,
     });
@@ -290,6 +291,7 @@ exports.getStudentProfile = async (req, res) => {
     res.json({
       fullName: student.fullName,
       email: student.email,
+      phone: student.phoneNumber,
       college: student.college,
       address: student.address,
       selectedMess: student.selectedMess,

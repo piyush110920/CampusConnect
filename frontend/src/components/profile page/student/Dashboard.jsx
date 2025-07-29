@@ -59,6 +59,7 @@ const Dashboard = () => {
           <>
             <p><strong>Name:</strong> {student.fullName}</p>
             <p><strong>Email:</strong> {student.email}</p>
+            <p><strong>Phone:</strong> {student.phone}</p>
             <p><strong>College:</strong> {student.college}</p>
             <p><strong>Address:</strong></p>
             <ul style={{ marginLeft: "20px" }}>
