@@ -61,9 +61,9 @@ const MessRequest = () => {
                 <span className={`status-badge ${status.toLowerCase()}`}>{status}</span>
               </div>
 
-              <p><strong>Email:</strong> {student.email}</p>
               <p><strong>College:</strong> {student.college}</p>
-              <p><strong>Location:</strong> {student.address.city}, {student.address.state}</p>
+              <p><strong>Location:</strong> {"Plot Number "}{student.address.plotNumber}, {student.address.landmark}, {student.address.area}, {student.address.city}, {student.address.state}, {student.address.country}{"-"}{student.address.pinCode}</p>
+
 
               {status === "Pending" && (
                 <button
