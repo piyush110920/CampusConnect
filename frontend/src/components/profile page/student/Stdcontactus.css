@@ -1,10 +1,13 @@
 .std-contact-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: flex-start;
   padding: 100px 20px 40px 100px;
-  background: linear-gradient(to bottom right, #ffffff, #ffffff);
-  gap: 40px;
+  gap: 30px;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
 }
 
 .std-contact-card {
