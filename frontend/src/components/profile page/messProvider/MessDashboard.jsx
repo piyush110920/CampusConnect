@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import './MessDashboard.css';
 import { FaUserShield, FaUsers, FaStar } from 'react-icons/fa';
-import { fetchMessProfile } from "../../../services/api"; // ✅ use mess profile fetcher
+import { fetchMessProfile, fetchConnectedMessStudents } from "../../../services/api";
 
 const MessDashboard = () => {
   const [mess, setMess] = useState(null);
+  const [connectedStudents, setConnectedStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -16,15 +17,23 @@ const MessDashboard = () => {
       return;
     }
 
-    fetchMessProfile(token)
-      .then((data) => {
-        setMess(data);
+    const loadData = async () => {
+      try {
+        const [messData, connectedData] = await Promise.all([
+          fetchMessProfile(token),
+          fetchConnectedMessStudents(token)
+        ]);
+        setMess(messData);
+        setConnectedStudents(connectedData);
+      } catch (err) {
+        console.error("Dashboard error:", err);
+        setError("Failed to load dashboard data");
+      } finally {
         setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
+      }
+    };
+
+    loadData();
   }, []);
 
   return (
@@ -63,7 +72,7 @@ const MessDashboard = () => {
       <div className="section rating">
         <h4><FaStar /> Average Rating</h4>
         <p style={{ fontSize: "18px", fontWeight: "500" }}>
-          {mess?.averageRating ? `${mess.averageRating} / 5 ⭐` : "Review till now"}
+          {mess?.averageRating ? `${mess.averageRating.toFixed(2)} / 5 ⭐` : "Review till now"}
         </p>
         <p style={{ fontSize: "14px", color: "#555" }}>
           {mess?.ratingCount ? `Based on ${mess.ratingCount} reviews` : "Review till now"}
@@ -79,7 +88,6 @@ const MessDashboard = () => {
           <h5 style={{ fontSize: "22px", color: "#2c3e50", marginBottom: "5px", fontWeight: "600" }}>
             Past Experience
           </h5>
-
           <p style={{ fontSize: "18px", fontWeight: "500" }}>
             {mess?.connectionCount || 0} students connected till today
           </p>
@@ -94,12 +102,11 @@ const MessDashboard = () => {
             Current Status
           </h5>
           <p style={{ fontSize: "18px", fontWeight: "500" }}>
-            {mess?.connectionCount || 0} students currently connected
+            {connectedStudents.length} students currently connected
           </p>
           <p style={{ fontSize: "14px", color: "#555" }}>Updated recently</p>
         </div>
       </div>
-
     </div>
   );
 };

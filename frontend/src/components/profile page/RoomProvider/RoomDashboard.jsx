@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import './RoomDashboard.css';
 import { FaUserShield, FaUsers, FaStar } from 'react-icons/fa';
-import { fetchRoomProfile } from "../../../services/api";
+import { fetchRoomProfile, fetchConnectedRoomStudents } from "../../../services/api";
 
 const RoomDashboard = () => {
   const [room, setRoom] = useState(null);
+  const [connectedStudents, setConnectedStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -16,15 +17,23 @@ const RoomDashboard = () => {
       return;
     }
 
-    fetchRoomProfile(token)
-      .then((data) => {
-        setRoom(data);
+    const loadData = async () => {
+      try {
+        const [roomData, connectedData] = await Promise.all([
+          fetchRoomProfile(token),
+          fetchConnectedRoomStudents(token)
+        ]);
+        setRoom(roomData);
+        setConnectedStudents(connectedData);
+      } catch (err) {
+        console.error("Dashboard error:", err);
+        setError("Failed to load dashboard data");
+      } finally {
         setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
+      }
+    };
+
+    loadData();
   }, []);
 
   return (
@@ -61,7 +70,7 @@ const RoomDashboard = () => {
       <div className="section rating">
         <h4><FaStar /> Average Rating</h4>
         <p style={{ fontSize: "18px", fontWeight: "500" }}>
-          {room?.averageRating ? `${room.averageRating.toFixed(1)} / 5 ⭐` : "Review till now"}
+          {room?.averageRating ? `${room.averageRating.toFixed(2)} / 5 ⭐` : "Review till now"}
         </p>
         <p style={{ fontSize: "14px", color: "#555" }}>
           {room?.totalRatings
@@ -79,7 +88,6 @@ const RoomDashboard = () => {
           <h5 style={{ fontSize: "22px", color: "#2c3e50", marginBottom: "5px", fontWeight: "600" }}>
             Past Experience
           </h5>
-
           <p style={{ fontSize: "18px", fontWeight: "500" }}>
             {room?.connectionCount || 0} students connected till today
           </p>
@@ -94,12 +102,11 @@ const RoomDashboard = () => {
             Current Status
           </h5>
           <p style={{ fontSize: "18px", fontWeight: "500" }}>
-            {room?.connectionCount || 0} students currently connected
+            {connectedStudents.length} students currently connected
           </p>
           <p style={{ fontSize: "14px", color: "#555" }}>Updated recently</p>
         </div>
       </div>
-
     </div>
   );
 };
