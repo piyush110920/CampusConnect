@@ -42,6 +42,9 @@ const MessRequest = () => {
     }
   };
 
+  // Filter only pending requests
+  const pendingRequests = requests.filter(r => r.status === "Pending");
+
   return (
     <div className="mess-request-container">
       <h2>📬 Student Mess Requests</h2>
@@ -50,11 +53,11 @@ const MessRequest = () => {
         <p className="loading">Loading...</p>
       ) : error ? (
         <p className="error">{error}</p>
-      ) : requests.length === 0 ? (
+      ) : pendingRequests.length === 0 ? (
         <p className="no-requests">No pending requests</p>
       ) : (
         <div className="scroll-card-wrapper">
-          {requests.map(({ _id, student, status }) => (
+          {pendingRequests.map(({ _id, student, status }) => (
             <div key={_id} className={`student-card ${status.toLowerCase()}`}>
               <div className="student-header">
                 <h4>{student.fullName}</h4>
@@ -62,18 +65,15 @@ const MessRequest = () => {
               </div>
 
               <p><strong>College:</strong> {student.college}</p>
-              <p><strong>Location:</strong> {"Plot Number "}{student.address.plotNumber}, {student.address.landmark}, {student.address.area}, {student.address.city}, {student.address.state}, {student.address.country}{"-"}{student.address.pinCode}</p>
+              <p><strong>Location:</strong> {"Plot Number "}{student.address.plotNumber}, {student.address.landmark}, {student.address.area}, {student.address.city}, {student.address.state}, {student.address.country}{" - "}{student.address.pinCode}</p>
 
-
-              {status === "Pending" && (
-                <button
-                  className="accept-btn"
-                  onClick={() => handleAccept(student._id)}
-                  disabled={accepting === student._id}
-                >
-                  {accepting === student._id ? "Accepting..." : "Accept"}
-                </button>
-              )}
+              <button
+                className="accept-btn"
+                onClick={() => handleAccept(student._id)}
+                disabled={accepting === student._id}
+              >
+                {accepting === student._id ? "Accepting..." : "Accept"}
+              </button>
             </div>
           ))}
         </div>

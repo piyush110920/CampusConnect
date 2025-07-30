@@ -29,7 +29,7 @@ const RoomRequest = () => {
 
     try {
       await acceptRoomRequest(token, studentId);
-      // Remove request after successful acceptance since it's deleted from DB
+      // Remove request after successful acceptance
       setRequests(prev =>
         prev.filter(r => r.student._id !== studentId)
       );
@@ -41,6 +41,9 @@ const RoomRequest = () => {
     }
   };
 
+  // Filter only pending room requests
+  const pendingRequests = requests.filter(r => r.status === "Pending");
+
   return (
     <div className="room-request-container">
       <h2>🏘️ Student Room Requests</h2>
@@ -49,28 +52,26 @@ const RoomRequest = () => {
         <p className="loading">Loading...</p>
       ) : error ? (
         <p className="error">{error}</p>
-      ) : requests.length === 0 ? (
+      ) : pendingRequests.length === 0 ? (
         <p className="no-requests">No pending requests</p>
       ) : (
         <div className="scroll-card-wrapper">
-          {requests.map(({ _id, student, status }) => (
+          {pendingRequests.map(({ _id, student, status }) => (
             <div key={_id} className={`student-card ${status.toLowerCase()}`}>
               <div className="student-header">
                 <h4>{student.fullName}</h4>
                 <span className={`status-badge ${status.toLowerCase()}`}>{status}</span>
               </div>
               <p><strong>College:</strong> {student.college}</p>
-              <p><strong>Location:</strong> {"Plot Number "}{student.address.plotNumber}, {student.address.landmark}, {student.address.area}, {student.address.city}, {student.address.state}, {student.address.country}{"-"}{student.address.pinCode}</p>
+              <p><strong>Location:</strong> {"Plot Number "}{student.address.plotNumber}, {student.address.landmark}, {student.address.area}, {student.address.city}, {student.address.state}, {student.address.country}{" - "}{student.address.pinCode}</p>
 
-              {status === "Pending" && (
-                <button
-                  className="accept-btn"
-                  onClick={() => handleAccept(student._id)}
-                  disabled={accepting === student._id}
-                >
-                  {accepting === student._id ? "Accepting..." : "Accept"}
-                </button>
-              )}
+              <button
+                className="accept-btn"
+                onClick={() => handleAccept(student._id)}
+                disabled={accepting === student._id}
+              >
+                {accepting === student._id ? "Accepting..." : "Accept"}
+              </button>
             </div>
           ))}
         </div>
