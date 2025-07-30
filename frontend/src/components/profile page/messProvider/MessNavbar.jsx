@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './MessNavbar.css';
 import logo from '../../../assets/CampusConnect logo.png';
 import profileImg from '../../../assets/profileImage.png';
 
 const MessNavbar = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [messName, setMessName] = useState('');
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
@@ -32,6 +34,25 @@ const MessNavbar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    const fetchMessProfile = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const res = await axios.get('http://localhost:5000/api/mess/mess-profilepage', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setMessName(res.data.fullName || 'Mess Provider');
+      } catch (error) {
+        console.error('Failed to fetch Mess profile:', error);
+        setMessName('Mess Provider');
+      }
+    };
+
+    fetchMessProfile();
+  }, []);
+
   return (
     <nav className="navbar">
       <div className="navbar-left">
@@ -39,7 +60,7 @@ const MessNavbar = () => {
       </div>
       <div className="navbar-right" ref={dropdownRef}>
         <span className="welcome-text">
-          &larr; Welcome <span className="highlight-role">Mess Provider</span>
+          &larr; Welcome <span className="highlight-role">{messName}</span>
         </span>
         <img
           src={profileImg}
