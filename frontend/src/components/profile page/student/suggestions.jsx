@@ -56,7 +56,7 @@ const Suggestions = () => {
                     <div className="card-info">
                       <p><strong>Name:</strong> {mess.companyName}</p>
                       <p><strong>Provider:</strong> {mess.fullName}</p>
-                      <p><strong>Location:</strong> {mess.address?.area}, {mess.address?.city}</p>
+                      <p><strong>Location:</strong>Plot Number {mess.address?.plotNumber}, {mess.address?.landmark}, {mess.address?.area}, {mess.address?.city}, {mess.address?.state}, {mess.address?.country}- {mess.address?.pincode}</p>
                       <p><strong>Price:</strong> ₹{mess.monthlyPrice}/month</p>
                     </div>
                     <button
@@ -87,7 +87,7 @@ const Suggestions = () => {
                     <div className="card-info">
                       <p><strong>Name:</strong> {room.messName}</p>
                       <p><strong>Provider:</strong> {room.fullName}</p>
-                      <p><strong>Location:</strong> {room.address?.area}, {room.address?.city}</p>
+                      <p><strong>Location:</strong>Plot Number {room.address?.plotNumber}, {room.address?.street}, {room.address?.landmark}, {room.address?.city}- {room.address?.pincode}</p>
                       <p><strong>Price:</strong> ₹{room.monthlyPrice}/month</p>
                     </div>
                     <button

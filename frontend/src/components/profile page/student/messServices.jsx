@@ -102,7 +102,7 @@ const MessServices = () => {
             <p><strong>Service Name:</strong> {student.selectedMess.companyName}</p>
             <p><strong>Service Provider:</strong> {student.selectedMess.fullName}</p>
             <p><strong>Contact Number:</strong> {student.selectedMess.phone}</p>
-            <p><strong>Location:</strong> {student.selectedMess.address?.area}, {student.selectedMess.address?.city}</p>
+            <p><strong>Location:</strong> Plot Number {student.selectedMess.address?.plotNumber}, {student.selectedMess.address?.landmark}, {student.selectedMess.address?.area}, {student.selectedMess.address?.city}, {student.selectedMess.address?.state}, {student.selectedMess.address?.country}- {student.selectedMess.address?.pincode}</p>
             <p><strong>Date of Joining:</strong> {formatDate(student.selectedMessDate)}</p>
             <p><strong>Date of Due:</strong> {getDueDate(student.selectedMessDate)}</p>
           </div>

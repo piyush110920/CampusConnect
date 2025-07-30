@@ -97,7 +97,7 @@ const RoomServices = () => {
             <p><strong>Room name:</strong> {student.selectedRoom.messName}</p>
             <p><strong>Service Provider:</strong> {student.selectedRoom.fullName}</p>
             <p><strong>Contact Number:</strong> {student.selectedRoom.phone}</p>
-            <p><strong>Location:</strong> {student.selectedRoom.address?.area}, {student.selectedRoom.address?.city}</p>
+            <p><strong>Location:</strong> Plot Number {student.selectedRoom.address?.plotNumber}, {student.selectedRoom.address?.street}, {student.selectedRoom.address?.landmark}, {student.selectedRoom.address?.city}- {student.selectedRoom.address?.pincode}</p>
             <p><strong>Date of Joining:</strong> {formatDate(student.selectedRoomDate)}</p>
             <p><strong>Date of Due:</strong> {getDueDate(student.selectedRoomDate)}</p>
           </div>
