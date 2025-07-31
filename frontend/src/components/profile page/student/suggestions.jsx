@@ -38,6 +38,11 @@ const Suggestions = () => {
     setStudent(updatedProfile);
   };
 
+  const formatRating = (rating) => {
+    if (!rating || rating === 0) return "null";
+    return rating.toFixed(1);
+  };
+
   return (
     <div className="suggestions-page">
       <div className="suggestions-container">
@@ -56,8 +61,9 @@ const Suggestions = () => {
                     <div className="card-info">
                       <p><strong>Name:</strong> {mess.companyName}</p>
                       <p><strong>Provider:</strong> {mess.fullName}</p>
-                      <p><strong>Location:</strong>Plot Number {mess.address?.plotNumber}, {mess.address?.landmark}, {mess.address?.area}, {mess.address?.city}, {mess.address?.state}, {mess.address?.country}- {mess.address?.pincode}</p>
+                      <p><strong>Location:</strong> Plot Number {mess.address?.plotNumber}, {mess.address?.landmark}, {mess.address?.area}, {mess.address?.city}, {mess.address?.state}, {mess.address?.country} - {mess.address?.pincode}</p>
                       <p><strong>Price:</strong> ₹{mess.monthlyPrice}/month</p>
+                      <p><strong>Rating:</strong> {formatRating(mess.averageRating)}</p>
                     </div>
                     <button
                       className="interested-btn"
@@ -87,8 +93,9 @@ const Suggestions = () => {
                     <div className="card-info">
                       <p><strong>Name:</strong> {room.messName}</p>
                       <p><strong>Provider:</strong> {room.fullName}</p>
-                      <p><strong>Location:</strong>Plot Number {room.address?.plotNumber}, {room.address?.street}, {room.address?.landmark}, {room.address?.city}- {room.address?.pincode}</p>
+                      <p><strong>Location:</strong> Plot Number {room.address?.plotNumber}, {room.address?.street}, {room.address?.landmark}, {room.address?.city} - {room.address?.pincode}</p>
                       <p><strong>Price:</strong> ₹{room.monthlyPrice}/month</p>
+                      <p><strong>Rating:</strong> {formatRating(room.averageRating)}</p>
                     </div>
                     <button
                       className="interested-btn"

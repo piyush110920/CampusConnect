@@ -340,48 +340,54 @@ exports.sendContactMessage = async (req, res) => {
 
 
 exports.rateMess = async (req, res) => {
-  const { rating } = req.body;
-
-  if (!rating || rating < 1 || rating > 5) {
-    return res.status(400).json({ message: "Rating must be between 1 and 5." });
-  }
-
   try {
-    const student = await Student.findById(req.user.id);
-    if (!student || !student.selectedMess) {
-      return res.status(404).json({ message: "No mess selected to rate." });
+    const studentId = req.user.id;
+    const { rating } = req.body;
+
+    // Validate rating value
+    if (!rating || rating < 1 || rating > 5) {
+      return res.status(400).json({ message: "Rating must be between 1 and 5." });
     }
 
+    // Find student and check if mess is selected
+    const student = await Student.findById(studentId);
+    if (!student || !student.selectedMess) {
+      return res.status(400).json({ message: "No selected mess found for student." });
+    }
+
+    // Find the mess provider
     const mess = await Mess.findById(student.selectedMess);
     if (!mess) {
       return res.status(404).json({ message: "Mess provider not found." });
     }
 
-    const previousRating = student.selectedMessRating;
+    // Update mess rating stats
+    mess.ratingSum += rating;
+    mess.totalRatings += 1;
+    mess.averageRating = parseFloat((mess.ratingSum / mess.totalRatings).toFixed(2));
+    if (mess.averageRating > 5) mess.averageRating = 5; // safety check
 
-    // Update rating
-    if (previousRating) {
-      mess.ratingSum = mess.ratingSum - previousRating + rating;
-    } else {
-      mess.ratingSum += rating;
-      mess.totalRatings += 1;
-    }
-
-    mess.averageRating = mess.ratingSum / mess.totalRatings;
+    // Store rating in student if needed
     student.selectedMessRating = rating;
 
+    // Save both
     await mess.save();
     await student.save();
 
-    res.status(200).json({ message: "Rating submitted successfully", averageRating: mess.averageRating });
-  } catch (err) {
-    console.error("Rate Mess Error:", err);
-    res.status(500).json({ message: "Failed to rate mess." });
+    return res.status(200).json({
+      message: "Rating submitted successfully.",
+      averageRating: mess.averageRating,
+    });
+  } catch (error) {
+    console.error("Rating error:", error);
+    return res.status(500).json({ message: "Server error while rating mess." });
   }
 };
+
 exports.rateRoom = async (req, res) => {
   const { rating } = req.body;
 
+  // Validate rating input
   if (!rating || rating < 1 || rating > 5) {
     return res.status(400).json({ message: "Rating must be between 1 and 5." });
   }
@@ -389,7 +395,7 @@ exports.rateRoom = async (req, res) => {
   try {
     const student = await Student.findById(req.user.id);
     if (!student || !student.selectedRoom) {
-      return res.status(404).json({ message: "No room selected to rate." });
+      return res.status(400).json({ message: "No selected room found for student." });
     }
 
     const room = await Room.findById(student.selectedRoom);
@@ -399,28 +405,34 @@ exports.rateRoom = async (req, res) => {
 
     const previousRating = student.selectedRoomRating;
 
+    // Update rating sum and count based on whether this is an update or new rating
     if (previousRating) {
       room.ratingSum = room.ratingSum - previousRating + rating;
+      // totalRatings remains unchanged
     } else {
       room.ratingSum += rating;
       room.totalRatings += 1;
     }
 
-    room.averageRating = room.ratingSum / room.totalRatings;
+    // Recalculate average with safety
+    room.averageRating = parseFloat((room.ratingSum / room.totalRatings).toFixed(2));
+    if (room.averageRating > 5) room.averageRating = 5;
+
     student.selectedRoomRating = rating;
 
     await room.save();
     await student.save();
 
-    res.status(200).json({
-      message: "Rating submitted successfully",
+    return res.status(200).json({
+      message: "Rating submitted successfully.",
       averageRating: room.averageRating
     });
   } catch (err) {
     console.error("Rate Room Error:", err);
-    res.status(500).json({ message: "Failed to rate room." });
+    return res.status(500).json({ message: "Server error while rating room." });
   }
 };
+
 
 exports.sendMessMessage = async (req, res) => {
   try {
