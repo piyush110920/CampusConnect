@@ -12,7 +12,6 @@ const StdUpdateDetails = () => {
     pincode: ''
   });
 
-  const [feedback, setFeedback] = useState({ message: '', type: '' });
   const [phoneMessage, setPhoneMessage] = useState('');
   const [addressMessage, setAddressMessage] = useState('');
 
