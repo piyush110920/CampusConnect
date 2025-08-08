@@ -344,3 +344,48 @@ export const updateMessAddress = async (token, address) => {
   if (!res.ok) throw new Error("Failed to update mess address");
   return res.json();
 };
+
+
+// -------------------- UPDATE ROOM DETAILS -------------------- //
+
+export const updateRoomPhone = async (token, phone) => {
+  const res = await fetch(`${BASE_URL}/room/update-phone`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ phone }),
+  });
+
+  if (!res.ok) throw new Error("Failed to update room phone");
+  return res.json();
+};
+
+export const updateRoomMonthlyPrice = async (token, monthlyPrice) => {
+  const res = await fetch(`${BASE_URL}/room/update-price`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ monthlyPrice }),
+  });
+
+  if (!res.ok) throw new Error("Failed to update room monthly price");
+  return res.json();
+};
+
+export const updateRoomAddress = async (token, address) => {
+  const res = await fetch(`${BASE_URL}/room/update-address`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(address),
+  });
+
+  if (!res.ok) throw new Error("Failed to update room address");
+  return res.json();
+};

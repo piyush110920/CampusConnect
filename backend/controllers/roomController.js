@@ -233,3 +233,89 @@ exports.getConnectedRoomStudents = async (req, res) => {
     res.status(500).json({ message: "Failed to fetch connected room students" });
   }
 };
+
+
+
+// -------------------- UPDATE ROOM DETAILS -------------------- //
+
+// Update phone
+exports.updateRoomPhone = async (req, res) => {
+  try {
+    const roomId = req.user.id;
+    const { phone } = req.body;
+
+    // Validate phone number (10 digits starting with 6-9)
+    if (!/^[6-9]\d{9}$/.test(phone)) {
+      return res.status(400).json({ message: "Invalid phone number" });
+    }
+
+    const room = await RoomProvider.findByIdAndUpdate(
+      roomId,
+      { phone }, // Match schema field name
+      { new: true }
+    );
+
+    if (!room) {
+      return res.status(404).json({ message: "Room not found" });
+    }
+
+    res.json({ message: "Phone updated successfully", room });
+  } catch (error) {
+    console.error("Update Room Phone Error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+// Update monthly price
+exports.updateRoomMonthlyPrice = async (req, res) => {
+  try {
+    const roomId = req.user.id;
+    const { monthlyPrice } = req.body;
+
+    if (!monthlyPrice || monthlyPrice <= 0) {
+      return res.status(400).json({ message: "Invalid monthly price" });
+    }
+
+    const room = await RoomProvider.findByIdAndUpdate(
+      roomId,
+      { monthlyPrice },
+      { new: true }
+    );
+
+    if (!room) {
+      return res.status(404).json({ message: "Room not found" });
+    }
+
+    res.json({ message: "Monthly price updated successfully", room });
+  } catch (error) {
+    console.error("Update Room Monthly Price Error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+// Update address
+exports.updateRoomAddress = async (req, res) => {
+  try {
+    const roomId = req.user.id;
+    const { plotNumber, street, landmark, city, pincode } = req.body;
+
+    if (!/^\d{6}$/.test(pincode)) {
+      return res.status(400).json({ message: "Invalid pincode" });
+    }
+
+    const room = await RoomProvider.findByIdAndUpdate(
+      roomId,
+      { address: { plotNumber, street, landmark, city, pincode } },
+      { new: true }
+    );
+
+    if (!room) {
+      return res.status(404).json({ message: "Room not found" });
+    }
+
+    res.json({ message: "Address updated successfully", room });
+  } catch (error) {
+    console.error("Update Room Address Error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};

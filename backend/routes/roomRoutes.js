@@ -15,6 +15,11 @@ router.get('/requests', authenticateRoom, roomController.getRoomRequests);
 router.post('/accept-request', authenticateRoom, roomController.acceptRoomRequest);
 router.get('/connected-room-students', authenticateRoom, roomController.getConnectedRoomStudents);
 
+
+router.put("/update-phone", authenticateRoom, roomController.updateRoomPhone);
+router.put("/update-price", authenticateRoom, roomController.updateRoomMonthlyPrice);
+router.put("/update-address", authenticateRoom, roomController.updateRoomAddress);
+
 // Protected Room Profile Page
 router.get('/room-profilepage', protect, roomController.getRoomProfile);
 

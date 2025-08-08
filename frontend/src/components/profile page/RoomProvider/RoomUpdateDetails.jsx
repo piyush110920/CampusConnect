@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import './UpdateDetails.css';
 import { FaEdit } from 'react-icons/fa';
 
+const BASE_URL = "http://localhost:5000/api/room"; // updated for rooms
+
 const RoomUpdateDetails = () => {
   const [formData, setFormData] = useState({
     phone: '',
@@ -17,10 +19,15 @@ const RoomUpdateDetails = () => {
   const [priceMessage, setPriceMessage] = useState('');
   const [addressMessage, setAddressMessage] = useState('');
 
+  const [loadingPhone, setLoadingPhone] = useState(false);
+  const [loadingPrice, setLoadingPrice] = useState(false);
+  const [loadingAddress, setLoadingAddress] = useState(false);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Validation
   const validatePhone = () => {
     const phoneRegex = /^[6-9]\d{9}$/;
     return phoneRegex.test(formData.phone) ? null : "Enter valid 10-digit number starting with 6-9.";
@@ -35,43 +42,128 @@ const RoomUpdateDetails = () => {
     return pincodeRegex.test(formData.pincode) ? null : "Enter valid 6-digit pincode.";
   };
 
-  const handlePhoneSubmit = (e) => {
+  // Update phone
+  const handlePhoneSubmit = async (e) => {
     e.preventDefault();
-    const phoneErr = validatePhone();
-    if (phoneErr) {
-      setPhoneMessage(phoneErr);
+    const error = validatePhone();
+    if (error) {
+      setPhoneMessage(error);
       return;
     }
 
-    setTimeout(() => {
-      setPhoneMessage("Phone number updated successfully!");
-    }, 500);
+    setLoadingPhone(true);
+    setPhoneMessage('');
+
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${BASE_URL}/update-phone`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ phone: formData.phone })
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Error updating phone");
+
+      setPhoneMessage(data.message || "Phone number updated successfully!");
+      setFormData({ ...formData, phone: '' });
+
+    } catch (err) {
+      setPhoneMessage(err.message);
+    } finally {
+      setLoadingPhone(false);
+      setTimeout(() => setPhoneMessage(''), 3000);
+    }
   };
 
-  const handlePriceSubmit = (e) => {
+  // Update monthly price
+  const handlePriceSubmit = async (e) => {
     e.preventDefault();
-    const priceErr = validatePrice();
-    if (priceErr) {
-      setPriceMessage(priceErr);
+    const error = validatePrice();
+    if (error) {
+      setPriceMessage(error);
       return;
     }
 
-    setTimeout(() => {
-      setPriceMessage("Monthly price updated successfully!");
-    }, 500);
+    setLoadingPrice(true);
+    setPriceMessage('');
+
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${BASE_URL}/update-price`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ monthlyPrice: formData.monthlyPrice })
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Error updating monthly price");
+
+      setPriceMessage(data.message || "Monthly price updated successfully!");
+      setFormData({ ...formData, monthlyPrice: '' });
+
+    } catch (err) {
+      setPriceMessage(err.message);
+    } finally {
+      setLoadingPrice(false);
+      setTimeout(() => setPriceMessage(''), 3000);
+    }
   };
 
-  const handleAddressSubmit = (e) => {
+  // Update address
+  const handleAddressSubmit = async (e) => {
     e.preventDefault();
-    const pinErr = validatePincode();
-    if (pinErr) {
-      setAddressMessage(pinErr);
+    const error = validatePincode();
+    if (error) {
+      setAddressMessage(error);
       return;
     }
 
-    setTimeout(() => {
-      setAddressMessage("Address updated successfully!");
-    }, 500);
+    setLoadingAddress(true);
+    setAddressMessage('');
+
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${BASE_URL}/update-address`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          plotNumber: formData.plotNumber,
+          street: formData.street,
+          landmark: formData.landmark,
+          city: formData.city,
+          pincode: formData.pincode
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Error updating address");
+
+      setAddressMessage(data.message || "Address updated successfully!");
+      setFormData({
+        ...formData,
+        plotNumber: '',
+        street: '',
+        landmark: '',
+        city: '',
+        pincode: ''
+      });
+
+    } catch (err) {
+      setAddressMessage(err.message);
+    } finally {
+      setLoadingAddress(false);
+      setTimeout(() => setAddressMessage(''), 3000);
+    }
   };
 
   return (
@@ -92,7 +184,9 @@ const RoomUpdateDetails = () => {
               required
             />
           </div>
-          <button type="submit" className="update-btn">Update Phone</button>
+          <button type="submit" className="update-btn" disabled={loadingPhone}>
+            {loadingPhone ? "Updating..." : "Update Phone"}
+          </button>
         </form>
       </div>
 
@@ -111,7 +205,9 @@ const RoomUpdateDetails = () => {
               required
             />
           </div>
-          <button type="submit" className="update-btn">Update Price</button>
+          <button type="submit" className="update-btn" disabled={loadingPrice}>
+            {loadingPrice ? "Updating..." : "Update Price"}
+          </button>
         </form>
       </div>
 
@@ -163,7 +259,9 @@ const RoomUpdateDetails = () => {
               required
             />
           </div>
-          <button type="submit" className="update-btn">Update Address</button>
+          <button type="submit" className="update-btn" disabled={loadingAddress}>
+            {loadingAddress ? "Updating..." : "Update Address"}
+          </button>
         </form>
       </div>
     </div>
