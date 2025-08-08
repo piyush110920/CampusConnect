@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const messController = require('../controllers/messController');
 const { protect, authenticateMess } = require("../middleware/authMiddleware");
+const { updateMessPhone,updateMessMonthlyPrice, updateMessAddress } = require("../controllers/messController");
 
 router.post('/generate-otp', messController.generateOtp);
 router.post('/signup', messController.signupMessProvider);
@@ -12,6 +13,10 @@ router.get('/requests', authenticateMess, messController.getMessRequests);
 router.post("/requests/:requestId/accept", authenticateMess, messController.acceptRequest);
 router.post("/accept-request", authenticateMess, messController.acceptMessRequest);
 router.get('/connected-students', authenticateMess, messController.getConnectedStudents);
+
+router.put("/update-phone", authenticateMess, updateMessPhone);
+router.put("/update-price", authenticateMess, updateMessMonthlyPrice);
+router.put("/update-address", authenticateMess, updateMessAddress);
 
 // ✅ Use controller correctly
 router.get("/messages", authenticateMess, messController.getMessMessages);

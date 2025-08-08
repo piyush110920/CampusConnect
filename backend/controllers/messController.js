@@ -274,3 +274,86 @@ exports.getConnectedStudents = async (req, res) => {
     res.status(500).json({ message: "Failed to fetch connected students" });
   }
 };
+
+
+// Update phone
+exports.updateMessPhone = async (req, res) => {
+  try {
+    const messId = req.user.id;
+    const { phone } = req.body;
+
+    // Validate phone number (10 digits starting with 6-9)
+    if (!/^[6-9]\d{9}$/.test(phone)) {
+      return res.status(400).json({ message: "Invalid phone number" });
+    }
+
+    const mess = await MessProvider.findByIdAndUpdate(
+      messId,
+      { phone }, // Make sure this matches your schema field
+      { new: true }
+    );
+
+    if (!mess) {
+      return res.status(404).json({ message: "Mess not found" });
+    }
+
+    res.json({ message: "Phone updated successfully", mess });
+  } catch (error) {
+    console.error("Update Phone Error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+// Update monthly price
+exports.updateMessMonthlyPrice = async (req, res) => {
+  try {
+    const messId = req.user.id;
+    const { monthlyPrice } = req.body;
+
+    if (!monthlyPrice || monthlyPrice <= 0) {
+      return res.status(400).json({ message: "Invalid monthly price" });
+    }
+
+    const mess = await MessProvider.findByIdAndUpdate(
+      messId,
+      { monthlyPrice },
+      { new: true }
+    );
+
+    if (!mess) {
+      return res.status(404).json({ message: "Mess not found" });
+    }
+
+    res.json({ message: "Monthly price updated successfully", mess });
+  } catch (error) {
+    console.error("Update Monthly Price Error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+// Update address
+exports.updateMessAddress = async (req, res) => {
+  try {
+    const messId = req.user.id;
+    const { plotNumber, landmark, area, city, state, country, pincode} = req.body;
+
+    if (!/^\d{6}$/.test(pincode)) {
+      return res.status(400).json({ message: "Invalid pincode" });
+    }
+
+    const mess = await MessProvider.findByIdAndUpdate(
+      messId,
+      { address: { plotNumber, landmark, area, city, state, country, pincode } },
+      { new: true }
+    );
+
+    if (!mess) {
+      return res.status(404).json({ message: "Mess not found" });
+    }
+
+    res.json({ message: "Address updated successfully", mess });
+  } catch (error) {
+    console.error("Update Address Error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
