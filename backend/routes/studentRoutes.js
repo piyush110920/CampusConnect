@@ -5,6 +5,8 @@ const studentController = require('../controllers/studentController');
 const { protect } = require('../middleware/authMiddleware'); // 👈 import middleware
 const { contactAdmin } = require("../controllers/studentController");
 const { sendRoomMessage } = require("../controllers/studentController");
+const { updatePhone, updateAddress } = require("../controllers/studentController");
+
 // Auth & OTP Routes
 router.post('/generate-otp', studentController.generateOtp);
 router.post('/signup', studentController.signupStudent);
@@ -19,7 +21,8 @@ router.post("/send-room-message", protect, sendRoomMessage);
 router.post("/request-mess", protect, studentController.requestMessService);
 router.post('/add-suggestion', protect, studentController.addSuggestionToStudent);
 
-
+router.put("/update-phone", protect, updatePhone);
+router.put("/update-address", protect, updateAddress);
 
 router.post('/contact', studentController.sendContactMessage); // ✅ Correct
 

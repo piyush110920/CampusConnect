@@ -269,3 +269,32 @@ export const fetchConnectedRoomStudents = async (token) => {
 };
 
 
+// -------------------- UPDATE STUDENT DETAILS -------------------- //
+
+export const updateStudentPhone = async (token, phone) => {
+  const res = await fetch(`${BASE_URL}/update-phone`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ phone }),
+  });
+
+  if (!res.ok) throw new Error("Failed to update phone");
+  return res.json();
+};
+
+export const updateStudentAddress = async (token, address) => {
+  const res = await fetch(`${BASE_URL}/update-address`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ address }),
+  });
+
+  if (!res.ok) throw new Error("Failed to update address");
+  return res.json();
+};

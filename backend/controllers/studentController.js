@@ -642,3 +642,50 @@ exports.sendRoomDisconnectRequest = async (req, res) => {
     res.status(500).json({ message: "Failed to send disconnect request." });
   }
 };
+
+
+exports.updatePhone = async (req, res) => {
+  try {
+    const studentId = req.user.id; // from JWT
+    const { phone } = req.body;
+
+    if (!/^[6-9]\d{9}$/.test(phone)) {
+      return res.status(400).json({ message: "Invalid phone number" });
+    }
+
+    const student = await Student.findByIdAndUpdate(
+      studentId,
+      { phoneNumber: phone },
+      { new: true }
+    );
+
+    res.json({ message: "Phone updated successfully", student });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+// Update address
+exports.updateAddress = async (req, res) => {
+  try {
+    const studentId = req.user.id;
+    const { plotNumber, landmark, area, city, state, country, pinCode } = req.body;
+
+    // Validate pincode
+    if (!/^\d{6}$/.test(pinCode)) {
+      return res.status(400).json({ message: "Invalid pincode" });
+    }
+
+    const student = await Student.findByIdAndUpdate(
+      studentId,
+      {
+        address: { plotNumber, landmark, area, city, state, country, pinCode }
+      },
+      { new: true }
+    );
+
+    res.json({ message: "Address updated successfully", student });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
