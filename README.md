@@ -1,6 +1,6 @@
 # 📚 CampusConnect
 <p align="center">
-    <img width="1023" height="421" alt="logo" src="https://github.com/user-attachments/assets/95648b44-4029-49f2-9fff-7f9328264074" />
+    <img width="1023" height="421" alt="logo" src="https://github.com/user-attachments/assets/95648b44-4029-49f2-9fff-7f9328264074" alt="CampusConnect Logo" width="150" />
 
 </p>
 
