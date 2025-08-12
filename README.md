@@ -46,42 +46,56 @@
 
 ```
 CampusConnect/
-├── backend/
-│   ├── controllers/
-│   │   ├── studentController.js
-│   │   ├── roomController.js
-│   │   └── messController.js
-│   ├── models/
-│   │   ├── Student.js
-│   │   ├── Room.js
-│   │   └── Mess.js
-│   ├── routes/
-│   │   ├── studentRoutes.js
-│   │   ├── roomRoutes.js
-│   │   └── messRoutes.js
-│   ├── utils/
-│   │   ├── sendOtp.js
-│   │   └── generateToken.js
-│   ├── middleware/
-│   │   └── authMiddleware.js
-│   ├── server.js
-│   ├── .env
-│   └── package.json
-│
-├── frontend/
-│   ├── components/
-│   │   ├── landing page/
-│   │   ├── login page/
-│   │   ├── profile page/
-│   │   │   ├── messProvider/
-│   │   │   ├── RoomProvider/
-│   │   │   └── student/
-│   │   ├── signup page/
-│   │   ├── particle.jsx
-│   │   └── ScrollToTop.jsx
-│   └── package.json
-│
-└── README.md
+├── backend/           ← Express + MongoDB (API server)
+├── frontend/          ← React + Vite (Client app)
+└── README.md          ← Optional documentation
+
+backend/
+├── controllers/
+│   ├── studentController.js      # signup, login, profile
+│   ├── roomController.js         # room assignment, fetch
+│   └── messController.js         # mess assignment, fetch
+├── models/
+│   ├── Student.js                # Student schema
+│   ├── Room.js                   # Room schema
+│   └── Mess.js                   # Mess schema
+├── routes/
+│   ├── studentRoutes.js          # /api/student
+│   ├── roomRoutes.js             # /api/room
+│   └── messRoutes.js             # /api/mess
+├── utils/
+│   ├── sendOtp.js                # Sends OTP via email
+│   └── generateToken.js          # Generates JWT token
+├── middleware/
+│   └── authMiddleware.js         # Protects routes using JWT
+├── server.js                     # Starts express server + connects MongoDB
+├── .env                          # MONGO_URI, JWT_SECRET, PORT
+└── package.json                  # Express, Mongoose, Dotenv, CORS, etc.
+
+
+
+
+components/
+├── landing page/
+├── login page/
+├── profile page/
+│   ├── messProvider/
+│   ├── RoomProvider/
+│   └── student/
+│       ├── Dashboard.jsx
+│       ├── Dashboard.css
+│       ├── messServices.jsx
+│       ├── Navbar.jsx
+│       ├── Navbar.css
+│       ├── profilepage.jsx
+│       ├── profilepage.css
+│       ├── roomServices.jsx
+│       ├── Services.css
+│       └── Sidebar.jsx
+├── signup page/
+├── particle.jsx
+└── ScrollToTop.jsx
+
 ```
 
 ---
