@@ -123,4 +123,4 @@ npm run dev
 ---
 
 ## 📜 License
-This project is licensed under the  **[MIT License](https://opensource.org/licenses/MIT)**.
+This project is licensed under the  **[MIT License](https://github.com/piyush110920/CampusConnect/blob/main/LICENSE)**.
