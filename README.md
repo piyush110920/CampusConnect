@@ -1,5 +1,5 @@
 # 📚 CampusConnect
-<p align="center">
+<p align="right">
     <img width="400"  alt="logo" src="https://github.com/user-attachments/assets/95648b44-4029-49f2-9fff-7f9328264074"/>
 
 </p>
