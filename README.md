@@ -1,6 +1,6 @@
 # 📚 CampusConnect
 <p align="center">
-  <img src="assets/logo.png" alt="CampusConnect Logo" width="150" />
+  <img src="frontend\src\assets\CampusConnect logo.png" alt="CampusConnect Logo" width="150" />
 </p>
 
 **CampusConnect** is a full-stack web application designed to connect students with their hostel room providers and mess service providers. It offers role-based dashboards for students, mess providers, and room providers, enabling profile management, service updates, and communication.
