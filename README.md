@@ -1,6 +1,6 @@
 # 📚 CampusConnect
 <p align="center">
-    <img width="1023" height="421" alt="logo" src="https://github.com/user-attachments/assets/95648b44-4029-49f2-9fff-7f9328264074" alt="CampusConnect Logo" width="150" />
+    <img width="150"  alt="logo" src="https://github.com/user-attachments/assets/95648b44-4029-49f2-9fff-7f9328264074"/>
 
 </p>
 
@@ -120,7 +120,14 @@ npm run dev
 <p align="center"> <img width="1919" height="878" alt="Screenshot 2025-08-12 123934" src="https://github.com/user-attachments/assets/f29d6568-e1fd-4c3d-a386-553946666445" />
 <p align="center"> <img width="1919" height="879" alt="Screenshot 2025-08-12 123920" src="https://github.com/user-attachments/assets/1283fe04-19cd-4f3a-ae1e-5df713f68317" />
 
+## Mess Provider Dashboard 
+<p align="center"> <img width="1919" height="878" alt="Screenshot 2025-08-12 124014" src="https://github.com/user-attachments/assets/07ca5b1f-4417-4a9a-8d27-e1305589cd83" />
+<p align="center"> <img width="1919" height="876" alt="Screenshot 2025-08-12 123959" src="https://github.com/user-attachments/assets/52c3398e-0182-49b8-af7f-8e236b4556ff" />
 
+## Room Provider Dashboard 
+<p align="center"> <img width="1919" height="877" alt="Screenshot 2025-08-12 124108" src="https://github.com/user-attachments/assets/4c881efc-02be-42f3-877f-7c92411370a4" />
+<p align="center"> <img width="1919" height="873" alt="Screenshot 2025-08-12 124059" src="https://github.com/user-attachments/assets/90dd72ef-cc13-439f-8e73-e998505379ea" />
+    
 ---
 
 ## 📜 License
