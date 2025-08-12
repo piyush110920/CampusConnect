@@ -102,13 +102,23 @@ cd ../frontend
 npm install
 npm run dev
 ```
-
-## 📸 Screenshots
-### 🏠 Landing Page
+---
+# 📸 Screenshots
+## 🏠 Landing Page
 <p align="center"> <img src="https://github.com/user-attachments/assets/046a0d6a-ea13-4c11-a821-6993804c86b5" alt="Landing Page Full View" width="100%" /> </p>
 
-### 📱 Mobile View Landing Page
+## 📱 Mobile View Landing Page
 <p align="center"> <img src="https://github.com/user-attachments/assets/6c44005d-b00b-40b7-b523-7008448da49d" alt="Landing Page Mobile View" width="350" /> </p>
+
+## Sign Up page 
+<p align="center"> <img width="1919" height="877" alt="Screenshot 2025-08-12 124145" src="https://github.com/user-attachments/assets/c7105375-4037-4011-bb01-f6c6717357c7" />
+
+## Sign In page 
+<p align="center"> <img width="1919" height="873" alt="Screenshot 2025-08-12 124157" src="https://github.com/user-attachments/assets/7b5b2ebe-b21a-4380-be4f-082854eda1b5" />
+
+## Student Dashboard 
+<p align="center"> <img width="1919" height="878" alt="Screenshot 2025-08-12 123934" src="https://github.com/user-attachments/assets/f29d6568-e1fd-4c3d-a386-553946666445" />
+<p align="center"> <img width="1919" height="879" alt="Screenshot 2025-08-12 123920" src="https://github.com/user-attachments/assets/1283fe04-19cd-4f3a-ae1e-5df713f68317" />
 
 
 ---
