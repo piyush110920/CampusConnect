@@ -105,8 +105,9 @@ npm run dev
 
 ## 📸 Screenshots
 *Landing Page* 
-<img width="346" height="771" alt="Screenshot 2025-08-12 124336" src="https://github.com/user-attachments/assets/6c44005d-b00b-40b7-b523-7008448da49d" />
+
 <img width="1919" height="877" alt="Screenshot 2025-08-12 124127" src="https://github.com/user-attachments/assets/046a0d6a-ea13-4c11-a821-6993804c86b5" />
+<img align="center" width="346" height="771" alt="Screenshot 2025-08-12 124336" src="https://github.com/user-attachments/assets/6c44005d-b00b-40b7-b523-7008448da49d" />
 
 
 ---
