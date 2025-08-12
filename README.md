@@ -90,7 +90,7 @@ CampusConnect/
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/your-username/CampusConnect.git
+git clone https://github.com/piyush110920/CampusConnect.git
 cd CampusConnect
 ```
 
@@ -101,9 +101,19 @@ npm install
 ```
 Create a `.env` file inside `backend/`:
 ```
-MONGO_URI=your_mongodb_atlas_url
-JWT_SECRET=your_secret_key
+# Server configuration
 PORT=5000
+
+# MongoDB Atlas connection URI
+MONGO_URI= Your_mongoDB_URI
+# JWT secret key for authentication
+JWT_SECRET= Anything_you_want
+JWT_EXPIRES_IN=100d
+
+# Email credentials
+EMAIL_USER=your_email_id
+EMAIL_PASS=your_EMAIL_secret_key
+
 ```
 Run the backend:
 ```bash
@@ -123,4 +133,4 @@ npm run dev
 ---
 
 ## 📜 License
-This project is licensed under the  **[MIT License](https://github.com/piyush110920/CampusConnect/blob/main/LICENSE)**.
+This project is licensed under the  **[MIT License](https://opensource.org/licenses/MIT)**.
