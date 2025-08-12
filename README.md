@@ -40,10 +40,6 @@
 - JWT Authentication
 - Nodemailer (OTP sending)
 
-**Hosting**
-- Backend → Render
-- Frontend → Vercel or Netlify
-
 ---
 
 ## 📂 Folder Structure
@@ -121,29 +117,10 @@ npm install
 npm run dev
 ```
 
----
-
-## 🌍 Deployment
-
-### Deploy Backend on Render
-1. Push code to GitHub
-2. Go to [Render](https://render.com/)
-3. Create a **New Web Service** → connect your GitHub repo
-4. Set Environment Variables from `.env`
-5. Click **Deploy**
-
-### Deploy Frontend on Vercel
-1. Go to [Vercel](https://vercel.com/)
-2. Import the `frontend/` folder from GitHub
-3. Set `VITE_API_URL` (or your app's env) to your Render backend URL
-4. Click **Deploy**
-
----
-
 ## 📸 Screenshots
 *(Add screenshots of your app here)*
 
 ---
 
 ## 📜 License
-This project is licensed under the **MIT License**.
+This project is licensed under the  **[MIT License](https://opensource.org/licenses/MIT)**.
