@@ -1,10 +1,10 @@
 # 📚 CampusConnect
-
-
-**CampusConnect** is a full-stack web application designed to connect students with their hostel room providers and mess service providers. It offers role-based dashboards for students, mess providers, and room providers, enabling profile management, service updates, and communication.<p align="right">
+<p align="right">
     <img width="400"  alt="logo" src="https://github.com/user-attachments/assets/95648b44-4029-49f2-9fff-7f9328264074"/>
 
 </p>
+
+**CampusConnect** is a full-stack web application designed to connect students with their hostel room providers and mess service providers. It offers role-based dashboards for students, mess providers, and room providers, enabling profile management, service updates, and communication.
 
 <p align="center">
   <img <img width="1000" height="1024" alt="interface" src="https://github.com/user-attachments/assets/67b7b008-7f45-4e97-a907-61160bb55c8b"  alt="CampusConnect Interface" width="600" />
